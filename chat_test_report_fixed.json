@@ -1,0 +1,106 @@
+{
+  "test_run": {
+    "timestamp": "2025-10-14T20:57:44.735704",
+    "total_tests": 16,
+    "passed": 9,
+    "failed": 7
+  },
+  "results": [
+    {
+      "test": "At-Risk Identifier Agent",
+      "passed": true,
+      "details": "Got meaningful response without agent call",
+      "timestamp": "2025-10-14T20:57:08.671030"
+    },
+    {
+      "test": "Behavior Manager Agent",
+      "passed": true,
+      "details": "Got meaningful response without agent call",
+      "timestamp": "2025-10-14T20:57:13.382705"
+    },
+    {
+      "test": "Learning Path Agent",
+      "passed": true,
+      "details": "Got meaningful response without agent call",
+      "timestamp": "2025-10-14T20:57:17.804665"
+    },
+    {
+      "test": "Student Information Search",
+      "passed": true,
+      "details": "Search performed: True (expected: True)",
+      "timestamp": "2025-10-14T20:57:20.787580"
+    },
+    {
+      "test": "Assessment Data Search",
+      "passed": true,
+      "details": "Search performed: True (expected: True)",
+      "timestamp": "2025-10-14T20:57:23.653209"
+    },
+    {
+      "test": "Behavior Logs Search",
+      "passed": false,
+      "details": "Expected search=True, got: False",
+      "timestamp": "2025-10-14T20:57:27.668515"
+    },
+    {
+      "test": "General Query (No Search)",
+      "passed": false,
+      "details": "Expected search=False, got: True",
+      "timestamp": "2025-10-14T20:57:30.441396"
+    },
+    {
+      "test": "Risk Assessment Query",
+      "passed": true,
+      "details": "Got meaningful response (tools: [])",
+      "timestamp": "2025-10-14T20:57:33.761076"
+    },
+    {
+      "test": "Behavior Management Query",
+      "passed": true,
+      "details": "Got meaningful response (tools: [])",
+      "timestamp": "2025-10-14T20:57:39.633210"
+    },
+    {
+      "test": "Learning Support Query",
+      "passed": false,
+      "details": "HTTP error: 500",
+      "timestamp": "2025-10-14T20:57:40.922120"
+    },
+    {
+      "test": "Information Retrieval Query",
+      "passed": true,
+      "details": "Got meaningful response (tools: [])",
+      "timestamp": "2025-10-14T20:57:43.358757"
+    },
+    {
+      "test": "Context Awareness",
+      "passed": false,
+      "details": "First message failed",
+      "timestamp": "2025-10-14T20:57:43.679390"
+    },
+    {
+      "test": "Quick Actions",
+      "passed": true,
+      "details": "Found 6 quick actions",
+      "timestamp": "2025-10-14T20:57:43.683915"
+    },
+    {
+      "test": "Quick Action Execution",
+      "passed": false,
+      "details": "Execution failed: 500",
+      "timestamp": "2025-10-14T20:57:44.085334"
+    },
+    {
+      "test": "Empty Message Handling",
+      "passed": false,
+      "details": "Unexpected status: 500",
+      "timestamp": "2025-10-14T20:57:44.415029"
+    },
+    {
+      "test": "Long Message Handling",
+      "passed": false,
+      "details": "Unexpected status: 500",
+      "timestamp": "2025-10-14T20:57:44.735524"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "name": "at-risk-identifier",
+  "version": "1.0.0",
+  "description": "Identify students at risk of academic or behavioral challenges through data pattern analysis",
+  "author": "PTCC Teacher Tools",
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "text": {
+        "type": "string",
+        "description": "Analysis request or student information"
+      },
+      "task_type": {
+        "type": "string",
+        "description": "Type of analysis: analyze_student, analyze_class, system_summary",
+        "enum": ["analyze_student", "analyze_class", "system_summary"]
+      },
+      "student_id": {
+        "type": "integer",
+        "description": "Student ID for individual analysis"
+      },
+      "class_code": {
+        "type": "string",
+        "description": "Class code for class-wide analysis"
+      }
+    },
+    "required": ["text"]
+  },
+  "outputs": {
+    "type": "object",
+    "properties": {
+      "result": {
+        "type": "string",
+        "description": "Analysis results and recommendations"
+      },
+      "explanation": {
+        "type": "string",
+        "description": "Explanation of the analysis methodology"
+      },
+      "confidence": {
+        "type": "number",
+        "description": "Confidence score for the analysis (0-1)"
+      },
+      "risk_assessment": {
+        "type": "object",
+        "description": "Detailed risk assessment data",
+        "properties": {
+          "overall_risk_score": {"type": "number"},
+          "risk_level": {"type": "string"},
+          "risk_factors": {"type": "array"},
+          "recommended_actions": {"type": "array"}
+        }
+      }
+    }
+  },
+  "entry_point": "agent.py",
+  "dependencies": ["database", "analytics"],
+  "tags": ["PTCC", "teacher-tools", "risk-assessment", "student-support", "education"],
+  "ui": {
+    "standalone": true,
+    "embed": true,
+    "category": "Student Support"
+  },
+  "supported_languages": ["en"],
+  "teacher_focused": true,
+  "integration_points": ["student_database", "briefing_system", "assessment_tracking"]
+}

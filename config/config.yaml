@@ -1,0 +1,138 @@
+# Personal Teaching Command Center Configuration
+
+# School Information
+school:
+  name: "BIS HCMC"  # British International School Ho Chi Minh City
+  campuses:
+    - name: "Main Campus"
+      code: "JC"
+  year_groups:
+    - "7"
+    - "8"
+    - "9"
+    - "10"
+    - "11"
+  houses:
+    - "Red"
+    - "Blue"
+    - "Green"
+    - "Yellow"
+
+# Timetable Configuration
+timetable:
+  periods_per_day: 6
+  start_time: "08:30"
+  period_length: 45  # minutes
+  break_times:
+    - name: "Morning Break"
+      start: "10:30"
+      duration: 15
+    - name: "Lunch"
+      start: "12:15"
+      duration: 45
+  days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+
+# Data Directories
+data:
+  raw: "data/raw"
+  processed: "data/processed"
+  chroma: "data/chroma"
+  database: "data/school.db"
+  backups: "data/backups"
+
+# File Paths (customize these to match your actual file locations)
+file_paths:
+  class_lists: "Example docs/"  # BIS HCMC sample data location
+  assessments: "Example docs/"
+  meetings: "Example docs/"
+  emails: "Example docs/"
+  timetables: "Example docs/"
+  rotas: "Example docs/"
+  student_photos: "Example docs/photos/"
+
+# LLM Configuration
+llm:
+  local:
+    provider: "ollama"
+    model: "phi3:mini"
+    base_url: "http://localhost:11434"
+  cloud:
+    provider: "claude"  # Optional: for complex analysis
+    api_key: ""  # Set in .env file
+  gemini:
+    provider: "gemini"
+    api_key: "${GEMINI_API_KEY}"  # Now reads from .env file
+    model: "gemini-2.5-flash-exp"  # Latest Gemini 2.5 model for AI-powered features
+
+# System Settings
+system:
+  debug: false
+  log_level: "INFO"
+  auto_backup: true
+  backup_time: "23:59"
+  max_search_results: 10  # Increased for better search results
+
+# Security
+security:
+  password_required: false  # Set to true for web interface
+  database_encryption: false  # Enable for production
+
+# Mobile PWA
+mobile:
+  enable_offline: true
+  sync_interval: 30  # seconds
+  max_offline_logs: 1000
+
+# Briefing Settings
+briefing:
+  show_student_count: true
+  highlight_high_support: true
+  show_recent_incidents: true
+  days_to_check: 14
+  max_incidents_per_student: 5
+  include_ai_insights: true  # Enable AI agent insights in briefing
+
+# Search Settings
+search:
+  default_top_k: 10  # Increased for better results
+  rerank_results: false
+  include_pdf_content: true
+  include_email_content: true
+  include_meeting_notes: true
+  include_student_data: true  # Include student records in search
+
+# Pattern Detection
+patterns:
+  enabled: true
+  check_frequency: "daily"
+  behavior_threshold: 3  # incidents in time window
+  performance_drop_threshold: -15  # percentage
+  low_interaction_days: 14
+
+# Alerts
+alerts:
+  pre_lesson_reminder: true
+  reminder_minutes: 10
+  sound_enabled: false
+  desktop_notifications: true
+
+# Name Learning
+flashcards:
+  enabled: true
+  daily_target: 10
+  show_context_hints: true
+  spaced_repetition: true
+
+# Import Settings
+import:
+  auto_detect_types: true
+  create_backups: true
+  validate_data: true
+  max_file_size: "100MB"
+  bis_hcmc_mode: true  # Enable BIS HCMC specific import features
+
+# Export Settings
+export:
+  include_student_photos: false
+  anonymize_data: false
+  format: "json"  # json, csv, pdf

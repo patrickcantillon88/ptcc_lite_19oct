@@ -1,0 +1,28 @@
+{
+  "name": "PTCC Mobile - Personal Teaching Command Center",
+  "short_name": "PTCC Mobile",
+  "description": "Mobile app for quick lesson logging and student management",
+  "theme_color": "#007acc",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "permissions": [
+    "camera",
+    "microphone",
+    "notifications"
+  ],
+  "icons": [
+    {
+      "src": "pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

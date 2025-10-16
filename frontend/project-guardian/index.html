@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Guardian - Digital Citizenship Triage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'guardian-blue': {
+                '50': '#f0f8ff',
+                '100': '#e0f0fe',
+                '200': '#c2e3fd',
+                '300': '#94d1fc',
+                '400': '#61b9fa',
+                '500': '#3b9bf7',
+                '600': '#2580f2',
+                '700': '#1c68e8',
+                '800': '#1a54bb',
+                '900': '#1c4994',
+                '950': '#162e5a',
+              },
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body class="bg-guardian-blue-50">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

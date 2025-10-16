@@ -1,0 +1,20 @@
+================================================================================
+PTCC DATA CLEARING REPORT
+================================================================================
+Operation completed at: 2025-10-14 19:17:18
+Duration: 0.01 seconds
+Backup location: data/backups/school_backup_20251014_191718.db
+
+RECORDS CLEARED:
+----------------------------------------
+quick_logs           :     55 records
+schedule             :     30 records
+students             :     16 records
+----------------------------------------
+TOTAL                :    101 records
+
+REMAINING RECORDS:
+----------------------------------------
+All core tables successfully cleared!
+
+================================================================================

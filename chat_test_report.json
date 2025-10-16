@@ -1,0 +1,106 @@
+{
+  "test_run": {
+    "timestamp": "2025-10-14T20:51:49.849691",
+    "total_tests": 16,
+    "passed": 2,
+    "failed": 14
+  },
+  "results": [
+    {
+      "test": "At-Risk Identifier Agent",
+      "passed": false,
+      "details": "Expected agent at_risk_identifier, got: []",
+      "timestamp": "2025-10-14T20:51:24.338720"
+    },
+    {
+      "test": "Behavior Manager Agent",
+      "passed": false,
+      "details": "Expected agent behavior_manager, got: []",
+      "timestamp": "2025-10-14T20:51:27.788452"
+    },
+    {
+      "test": "Learning Path Agent",
+      "passed": false,
+      "details": "Expected agent learning_path, got: []",
+      "timestamp": "2025-10-14T20:51:32.474494"
+    },
+    {
+      "test": "Student Information Search",
+      "passed": false,
+      "details": "Expected search=True, got: False",
+      "timestamp": "2025-10-14T20:51:36.344560"
+    },
+    {
+      "test": "Assessment Data Search",
+      "passed": true,
+      "details": "Search performed: True (expected: True)",
+      "timestamp": "2025-10-14T20:51:39.448531"
+    },
+    {
+      "test": "Behavior Logs Search",
+      "passed": false,
+      "details": "Expected search=True, got: False",
+      "timestamp": "2025-10-14T20:51:43.563135"
+    },
+    {
+      "test": "General Query (No Search)",
+      "passed": false,
+      "details": "HTTP error: 500",
+      "timestamp": "2025-10-14T20:51:44.031530"
+    },
+    {
+      "test": "Risk Assessment Query",
+      "passed": false,
+      "details": "HTTP error: 500",
+      "timestamp": "2025-10-14T20:51:44.506732"
+    },
+    {
+      "test": "Behavior Management Query",
+      "passed": false,
+      "details": "HTTP error: 500",
+      "timestamp": "2025-10-14T20:51:45.016032"
+    },
+    {
+      "test": "Learning Support Query",
+      "passed": false,
+      "details": "HTTP error: 500",
+      "timestamp": "2025-10-14T20:51:45.466879"
+    },
+    {
+      "test": "Information Retrieval Query",
+      "passed": false,
+      "details": "HTTP error: 500",
+      "timestamp": "2025-10-14T20:51:45.984025"
+    },
+    {
+      "test": "Context Awareness",
+      "passed": false,
+      "details": "First message failed",
+      "timestamp": "2025-10-14T20:51:46.472907"
+    },
+    {
+      "test": "Quick Actions",
+      "passed": true,
+      "details": "Found 6 quick actions",
+      "timestamp": "2025-10-14T20:51:46.480075"
+    },
+    {
+      "test": "Quick Action Execution",
+      "passed": false,
+      "details": "Execution failed: 500",
+      "timestamp": "2025-10-14T20:51:46.930881"
+    },
+    {
+      "test": "Invalid API Key Handling",
+      "passed": false,
+      "details": "HTTP error: 500",
+      "timestamp": "2025-10-14T20:51:48.387158"
+    },
+    {
+      "test": "No API Key Handling",
+      "passed": false,
+      "details": "HTTP error: 500",
+      "timestamp": "2025-10-14T20:51:49.849555"
+    }
+  ]
+}

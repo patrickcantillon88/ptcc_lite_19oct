@@ -1,0 +1,63 @@
+{
+  "name": "behavior-manager",
+  "version": "1.0.0",
+  "description": "Analyze classroom behavior patterns and provide seating arrangement and intervention recommendations",
+  "author": "PTCC Teacher Tools",
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "text": {
+        "type": "string",
+        "description": "Analysis request or behavior management query"
+      },
+      "task_type": {
+        "type": "string",
+        "description": "Type of analysis: analyze_class, behavior_insights",
+        "enum": ["analyze_class", "behavior_insights"]
+      },
+      "class_code": {
+        "type": "string",
+        "description": "Class code for behavior analysis"
+      }
+    },
+    "required": ["text"]
+  },
+  "outputs": {
+    "type": "object",
+    "properties": {
+      "result": {
+        "type": "string",
+        "description": "Behavior analysis results and recommendations"
+      },
+      "explanation": {
+        "type": "string",
+        "description": "Explanation of the behavior analysis methodology"
+      },
+      "confidence": {
+        "type": "number",
+        "description": "Confidence score for the analysis (0-1)"
+      },
+      "behavior_analysis": {
+        "type": "object",
+        "description": "Detailed behavior analysis data",
+        "properties": {
+          "average_behavior_score": {"type": "number"},
+          "behavior_distribution": {"type": "object"},
+          "recommended_interventions": {"type": "array"},
+          "seating_recommendations": {"type": "array"}
+        }
+      }
+    }
+  },
+  "entry_point": "agent.py",
+  "dependencies": ["database", "analytics"],
+  "tags": ["PTCC", "teacher-tools", "behavior-management", "classroom-dynamics", "education"],
+  "ui": {
+    "standalone": true,
+    "embed": true,
+    "category": "Classroom Management"
+  },
+  "supported_languages": ["en"],
+  "teacher_focused": true,
+  "integration_points": ["student_database", "behavior_tracking", "classroom_organization"]
+}

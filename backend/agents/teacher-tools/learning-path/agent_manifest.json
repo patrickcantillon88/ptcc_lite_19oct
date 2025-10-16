@@ -1,0 +1,67 @@
+{
+  "name": "learning-path-creator",
+  "version": "1.0.0",
+  "description": "Create personalized learning paths based on student assessment data and learning patterns",
+  "author": "PTCC Teacher Tools",
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "text": {
+        "type": "string",
+        "description": "Learning path creation request or analysis query"
+      },
+      "task_type": {
+        "type": "string",
+        "description": "Type of analysis: create_path, analyze_class",
+        "enum": ["create_path", "analyze_class"]
+      },
+      "student_id": {
+        "type": "integer",
+        "description": "Student ID for individual learning path creation"
+      },
+      "class_code": {
+        "type": "string",
+        "description": "Class code for class-wide learning path analysis"
+      }
+    },
+    "required": ["text"]
+  },
+  "outputs": {
+    "type": "object",
+    "properties": {
+      "result": {
+        "type": "string",
+        "description": "Learning path analysis results and recommendations"
+      },
+      "explanation": {
+        "type": "string",
+        "description": "Explanation of the learning path creation methodology"
+      },
+      "confidence": {
+        "type": "number",
+        "description": "Confidence score for the analysis (0-1)"
+      },
+      "learning_path": {
+        "type": "object",
+        "description": "Detailed learning path data",
+        "properties": {
+          "learning_gaps": {"type": "array"},
+          "learning_strengths": {"type": "array"},
+          "learning_objectives": {"type": "array"},
+          "overall_recommendations": {"type": "array"}
+        }
+      }
+    }
+  },
+  "entry_point": "agent.py",
+  "dependencies": ["database", "assessment_analytics"],
+  "tags": ["PTCC", "teacher-tools", "learning-paths", "personalized-learning", "education"],
+  "ui": {
+    "standalone": true,
+    "embed": true,
+    "category": "Academic Support"
+  },
+  "supported_languages": ["en"],
+  "teacher_focused": true,
+  "integration_points": ["student_database", "assessment_tracking", "progress_monitoring"]
+}

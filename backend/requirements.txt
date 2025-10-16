@@ -1,0 +1,24 @@
+# Core dependencies for MVP
+sqlalchemy>=1.4.0
+pyyaml>=5.1
+colorama>=0.4.0
+
+# Required for web interface
+fastapi>=0.68.0
+uvicorn>=0.15.0
+pydantic>=1.8.0
+
+# Required for advanced features
+pandas>=1.3.0
+openpyxl>=3.0.0
+pdfplumber>=0.7.0
+python-docx>=0.8.0
+sentence-transformers>=2.0.0
+chromadb>=0.3.0
+
+# Basic utilities
+requests>=2.25.0
+python-dateutil>=2.8.0
+
+# Gemini AI Integration
+google-generativeai>=0.3.0
