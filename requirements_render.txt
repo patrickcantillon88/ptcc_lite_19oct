@@ -1,0 +1,38 @@
+# Render Deployment Requirements - Clean Build
+# Updated: 2025-10-18 14:13
+
+# Core Framework
+streamlit>=1.28.0
+fastapi>=0.104.0
+uvicorn>=0.24.0
+
+# Database
+sqlalchemy>=2.0.0
+
+# Data Processing
+pandas>=2.0.0
+
+# Web
+python-multipart>=0.0.6
+
+# AI/ML
+google-generativeai>=0.3.0
+sentence-transformers>=2.0.0
+chromadb>=0.4.0
+
+# Document Processing  
+PyPDF2>=3.0.0
+pdfplumber>=0.7.0
+python-docx>=0.8.0
+openpyxl>=3.0.0
+
+# Utilities
+requests>=2.25.0
+python-dateutil>=2.8.0
+pyyaml>=6.0
+colorama>=0.4.0
+pydantic>=2.0.0
+
+# Auth
+python-jose>=3.3.0
+bcrypt>=4.0.0

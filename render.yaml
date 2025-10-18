@@ -4,10 +4,8 @@ services:
     name: ptcc-demo
     env: python
     buildCommand: |
-      pip install -r requirements_streamlit.txt &&
-      cd backend && pip install -r requirements.txt &&
-      cd ../frontend/desktop-web && pip install -r requirements.txt &&
-      cd ../mobile-pwa && npm install && npm run build
+      pip install --upgrade pip &&
+      pip install -r requirements_render.txt
     startCommand: python streamlit_cloud_auth.py
     envVars:
       - key: DEMO_USERNAME
