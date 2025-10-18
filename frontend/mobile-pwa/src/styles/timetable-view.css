@@ -1,0 +1,185 @@
+.timetable-view {
+  width: 100%;
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.timetable-view h3 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.timetable-view.loading,
+.timetable-view.error {
+  padding: 24px 12px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.timetable-view.error {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border-left: 4px solid #dc2626;
+}
+
+.day-selector {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.day-btn {
+  padding: 6px 12px;
+  background: #f3f4f6;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.day-btn:hover {
+  background: #e5e7eb;
+}
+
+.day-btn.active {
+  background: #3b82f6;
+  color: white;
+  border-color: #1d4ed8;
+}
+
+.periods-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.period-card {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: 6px;
+  border-left: 4px solid #3b82f6;
+  transition: background 0.2s ease;
+}
+
+.period-card:hover {
+  background: #f3f4f6;
+}
+
+.period-time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  text-align: center;
+  min-width: 60px;
+}
+
+.period-time .time {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.period-time .dash {
+  font-size: 10px;
+  color: #9ca3af;
+}
+
+.period-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.period-subject {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.period-subject .emoji {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.period-subject .name {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 14px;
+}
+
+.period-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.period-meta .type {
+  display: inline-block;
+  padding: 2px 6px;
+  background: #e0e7ff;
+  color: #4f46e5;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.period-meta .specialist,
+.period-meta .room {
+  color: #6b7280;
+}
+
+.period-notes {
+  font-size: 12px;
+  color: #6b7280;
+  font-style: italic;
+  padding-top: 6px;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 6px;
+}
+
+.no-periods {
+  padding: 24px 12px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+@media (max-width: 640px) {
+  .timetable-view {
+    padding: 8px;
+  }
+
+  .period-card {
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .period-subject .name {
+    font-size: 13px;
+  }
+
+  .period-meta {
+    font-size: 11px;
+  }
+
+  .period-time .time {
+    font-size: 11px;
+  }
+}

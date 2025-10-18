@@ -1,0 +1,499 @@
+/* Quiz Upload App Styles */
+:root {
+  --primary-color: #007acc;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --danger-color: #dc3545;
+  --light-gray: #f8f9fa;
+  --border-color: #dee2e6;
+  --text-color: #333;
+  --shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: #f5f7fa;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.app-header {
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.title-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.title-section p {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Upload Section */
+.upload-section {
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.upload-interface {
+  padding: 2rem;
+}
+
+/* Form Section */
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.form-section h2 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* File Drop Zone */
+.file-drop-zone {
+  border: 3px dashed var(--border-color);
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  margin: 2rem 0;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  background: #fafbfc;
+}
+
+.file-drop-zone:hover {
+  border-color: var(--primary-color);
+  background: #f0f8ff;
+}
+
+.file-drop-zone.drag-active {
+  border-color: var(--primary-color);
+  background: #e3f2fd;
+  transform: scale(1.02);
+}
+
+.file-drop-zone.file-selected {
+  border-color: var(--success-color);
+  background: #f0fff4;
+}
+
+.drop-zone-content {
+  pointer-events: none;
+}
+
+.drop-zone-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.drop-zone-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.drop-zone-content p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Selected File Display */
+.selected-file {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  border: 2px solid var(--success-color);
+}
+
+.file-icon {
+  font-size: 2rem;
+}
+
+.file-info {
+  flex: 1;
+}
+
+.file-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.file-size {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.remove-file-btn {
+  background: var(--danger-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.remove-file-btn:hover {
+  background: #c82333;
+  transform: scale(1.1);
+}
+
+/* Format Guide */
+.format-guide {
+  background: var(--light-gray);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.format-guide h3 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.format-examples {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.format-example h4 {
+  color: var(--text-color);
+  margin-bottom: 0.75rem;
+}
+
+.format-example ul {
+  list-style-position: inside;
+  color: #666;
+}
+
+.format-example li {
+  margin-bottom: 0.5rem;
+}
+
+.csv-preview {
+  background: white;
+  padding: 1rem;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+/* Upload Button */
+.upload-btn {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 1rem;
+}
+
+.upload-btn:hover:not(:disabled) {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+.upload-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Upload Status */
+.upload-status {
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.status-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.upload-status h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Loading Animation */
+.loading-bar {
+  width: 100%;
+  max-width: 300px;
+  height: 8px;
+  background: var(--border-color);
+  border-radius: 4px;
+  margin: 1rem auto;
+  overflow: hidden;
+}
+
+.loading-progress {
+  height: 100%;
+  background: var(--primary-color);
+  border-radius: 4px;
+  animation: loading 2s infinite;
+}
+
+@keyframes loading {
+  0% { width: 0%; }
+  50% { width: 70%; }
+  100% { width: 100%; }
+}
+
+/* Success Status */
+.upload-status.success .status-icon {
+  color: var(--success-color);
+}
+
+.upload-status.success h2 {
+  color: var(--success-color);
+}
+
+/* Error Status */
+.upload-status.error .status-icon {
+  color: var(--danger-color);
+}
+
+.upload-status.error h2 {
+  color: var(--danger-color);
+}
+
+.error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border-left: 4px solid var(--danger-color);
+}
+
+/* Results Grid */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.result-card {
+  background: var(--light-gray);
+  padding: 1.5rem 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.result-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.result-label {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Upload Details */
+.upload-details {
+  background: var(--light-gray);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.upload-details h3 {
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.detail-item {
+  margin-bottom: 0.5rem;
+  color: #666;
+}
+
+/* Warnings and Errors */
+.warnings-section, .errors-section {
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.warnings-section h3 {
+  color: var(--warning-color);
+  margin-bottom: 1rem;
+}
+
+.errors-section h3 {
+  color: var(--danger-color);
+  margin-bottom: 1rem;
+}
+
+.warnings-list, .errors-list {
+  background: var(--light-gray);
+  padding: 1rem;
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.warnings-list li {
+  color: #856404;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.errors-list li {
+  color: #721c24;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.upload-another-btn, .view-analytics-btn, .retry-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.upload-another-btn {
+  background: var(--primary-color);
+  color: white;
+}
+
+.upload-another-btn:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+.view-analytics-btn {
+  background: var(--success-color);
+  color: white;
+}
+
+.view-analytics-btn:hover {
+  background: #1e7e34;
+  transform: translateY(-2px);
+}
+
+.retry-btn {
+  background: var(--danger-color);
+  color: white;
+}
+
+.retry-btn:hover {
+  background: #c82333;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .format-examples {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .file-drop-zone {
+    padding: 2rem 1rem;
+  }
+  
+  .results-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

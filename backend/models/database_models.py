@@ -208,3 +208,85 @@ class ActionItem(Base):
     status = Column(String, default='pending')  # 'pending', 'in_progress', 'done'
     created_date = Column(Date, nullable=False)
     completed_date = Column(Date)
+
+
+class Staff(Base):
+    """Staff members table"""
+    __tablename__ = "staff"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False, index=True)
+    role = Column(String, nullable=False)  # 'Class Teacher', 'Learning Support Teacher', 'TA', 'Specialist'
+    class_code = Column(String)  # FK to class (optional for specialists)
+    specialties = Column(Text)  # JSON: ['ICT', 'PE', 'Music']
+    term = Column(String)  # 'Term 1', 'Term 2', etc.
+    active = Column(Boolean, default=True)
+    created_date = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index('idx_staff_class', 'class_code'),
+        Index('idx_staff_role', 'role'),
+    )
+
+
+class Timetable(Base):
+    """Timetable (enhanced Schedule table)"""
+    __tablename__ = "timetables"
+
+    id = Column(Integer, primary_key=True, index=True)
+    class_code = Column(String, nullable=False, index=True)
+    day_of_week = Column(String, nullable=False)  # 'Monday', 'Tuesday', etc.
+    period = Column(Integer, nullable=False)  # 1-6
+    start_time = Column(String, nullable=False)  # '08:30'
+    end_time = Column(String, nullable=False)  # '09:15'
+    subject = Column(String, nullable=False)
+    lesson_type = Column(String)  # 'Literacy', 'Numeracy', 'Foundation', 'Specialist', 'CCA'
+    specialist_name = Column(String)  # Name of specialist if applicable
+    room = Column(String)
+    notes = Column(Text)
+    created_date = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index('idx_timetable_class_day', 'class_code', 'day_of_week'),
+        Index('idx_timetable_period', 'period'),
+    )
+
+
+class SpecialistLessonSchedule(Base):
+    """Specialist lesson schedule"""
+    __tablename__ = "specialist_lesson_schedules"
+
+    id = Column(Integer, primary_key=True, index=True)
+    class_code = Column(String, nullable=False, index=True)
+    day_of_week = Column(String, nullable=False)
+    period = Column(Integer, nullable=False)
+    specialist_type = Column(String, nullable=False)  # 'ICT', 'PE', 'Music', 'Drama', 'Art', 'Robotics'
+    instructor_name = Column(String)
+    notes = Column(Text)
+    created_date = Column(DateTime, default=datetime.utcnow)
+
+    __table_args__ = (
+        Index('idx_specialist_class', 'class_code'),
+        Index('idx_specialist_type', 'specialist_type'),
+    )
+
+
+class StudentAccommodation(Base):
+    """Student accommodations table"""
+    __tablename__ = "student_accommodations"
+
+    id = Column(Integer, primary_key=True, index=True)
+    student_id = Column(Integer, ForeignKey("students.id"), nullable=False, index=True)
+    accommodation_type = Column(String, nullable=False)  # 'sensory', 'seating', 'schedule', 'equipment', 'behavioral'
+    description = Column(String, nullable=False)
+    implementation_details = Column(Text)
+    active = Column(Boolean, default=True)
+    effective_date = Column(Date, nullable=False)
+    notes = Column(Text)
+    created_date = Column(DateTime, default=datetime.utcnow)
+    updated_date = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        Index('idx_student_accommodations_student', 'student_id'),
+        Index('idx_student_accommodations_type', 'accommodation_type'),
+    )

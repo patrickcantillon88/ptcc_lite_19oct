@@ -16,6 +16,158 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
+from real_schedule_data import format_for_briefing
+
+
+def get_mock_response(query):
+    """Generate mock responses for AI assistant demo purposes"""
+    query_lower = query.lower()
+    
+    # Mock responses for common queries
+    if "assembly" in query_lower and "time" in query_lower:
+        return (
+            "📅 **Assembly Schedule for Today:**\n\n"
+            "**Morning Assembly:** 8:30 AM - 8:45 AM (Main Hall)\n"
+            "**Year Group Assemblies:**\n"
+            "• Year 7-8: Period 3 (10:55 AM - 11:40 AM) - Hall A\n"
+            "• Year 9-10: Period 4 (12:00 PM - 12:45 PM) - Hall B\n\n"
+            "**Note:** Guest speaker today - Dr. Sarah Chen on 'Digital Citizenship'",
+            ["School Calendar Oct 2025", "Weekly Assembly Schedule"],
+            "Today's Schedule"
+        )
+    
+    elif "next class" in query_lower or "when is my" in query_lower:
+        return (
+            "📚 **Your Next Classes Today:**\n\n"
+            "**Period 3:** 10:55 AM - 11:40 AM\n"
+            "• Class: 7B Computing (Room G12)\n"
+            "• Topic: Python Programming - Variables & Data Types\n\n"
+            "**Period 4:** 12:00 PM - 12:45 PM\n"
+            "• Class: 8A ICT (Lab 2)\n"
+            "• Topic: Spreadsheet Functions & Formulas\n\n"
+            "**Note:** 7B has 3 students with recent incidents - check briefing notes",
+            ["Teacher Timetable", "Class Planning Notes"],
+            "Today's Schedule"
+        )
+    
+    elif "high-support" in query_lower or "high support" in query_lower:
+        return (
+            "🎯 **High-Support Students Today (Support Level 2-3):**\n\n"
+            "**Marcus Thompson (3A)** - Support Level 3\n"
+            "• Accommodation: Extra time for assessments, quiet workspace\n"
+            "• Recent: Anxiety during math lessons - use calm corner strategy\n\n"
+            "**Sophie Chen (4B)** - Support Level 2\n"
+            "• Accommodation: Visual learning aids, step-by-step instructions\n"
+            "• Recent: Improved engagement with pair programming\n\n"
+            "**Alex Johnson (5C)** - Support Level 2\n"
+            "• Accommodation: Movement breaks, fidget tools available\n"
+            "• Recent: Strong progress in coding projects\n\n"
+            "💡 **Reminder:** All high-support students have updated strategies in their profiles",
+            ["Student Support Database", "Daily Briefing Notes", "IEP Plans"],
+            "Current Student Data"
+        )
+    
+    elif "briefing" in query_lower and ("3 days" in query_lower or "days ago" in query_lower):
+        return (
+            "📋 **Briefing from Monday, Oct 14th:**\n\n"
+            "**Key Points:**\n"
+            "• Year 9 trip to Science Museum - 15 students absent today\n"
+            "• New safeguarding policy uploaded - all staff must review\n"
+            "• IT maintenance scheduled for Thursday 3:30-4:30 PM\n\n"
+            "**Student Alerts:**\n"
+            "• Emma Wilson (8B) - family bereavement, requires sensitivity\n"
+            "• James Rodriguez (7A) - returning from extended absence\n"
+            "• Class 6A - whole class commendation for charity fundraising\n\n"
+            "**Action Items:**\n"
+            "✓ Submit Year 8 assessment data (completed)\n"
+            "⏳ Review new digital citizenship curriculum (due Friday)\n"
+            "⏳ Parent consultation bookings open tomorrow",
+            ["Staff Briefing Oct-14", "Safeguarding Updates", "Student Alerts Log"],
+            "3 days ago"
+        )
+    
+    elif "sophie" in query_lower or "tell me about sophie" in query_lower:
+        return (
+            "👥 **Student Profile: Sophie Chen (4B)**\n\n"
+            "**Academic Overview:**\n"
+            "• Year Group: 4 | Class: 4B | Campus: A\n"
+            "• Support Level: 2 (Moderate support needed)\n"
+            "• House: Blue | Guardian: Mrs. L. Chen\n\n"
+            "**Recent Performance:**\n"
+            "• Computing: 78% (Excellent progress in Scratch projects)\n"
+            "• Mathematics: 65% (Improving with visual aids)\n"
+            "• English: 72% (Strong creative writing skills)\n\n"
+            "**Support Strategies:**\n"
+            "• Prefers visual learning materials\n"
+            "• Benefits from step-by-step instructions\n"
+            "• Works well in pairs or small groups\n\n"
+            "**Recent Behavioral Notes:**\n"
+            "• Oct 15: Excellent contribution in coding lesson\n"
+            "• Oct 12: Helped classmate with debugging - showing leadership\n"
+            "• Oct 10: Participated actively in class discussion",
+            ["Student Database", "Assessment Records", "Behavioral Logs"],
+            "Current Student Data"
+        )
+    
+    elif "students with" in query_lower and "incident" in query_lower:
+        return (
+            "⚠️ **Students with Recent Incidents (Last 7 Days):**\n\n"
+            "**Marcus Thompson (3A)**\n"
+            "• Oct 16: Off-task behavior during math - redirected successfully\n"
+            "• Oct 14: Anxiety episode - used calm corner strategy\n\n"
+            "**David Kim (6A)**\n"
+            "• Oct 15: Disruption during assembly - spoke with Head of Year\n"
+            "• Follow-up: Improved behavior in afternoon lessons\n\n"
+            "**Lily Zhang (5C)**\n"
+            "• Oct 13: Incomplete homework - family circumstances noted\n"
+            "• Support: Extended deadline provided\n\n"
+            "**Pattern Analysis:**\n"
+            "• Monday mornings show higher incident rates\n"
+            "• Most issues resolved with early intervention\n"
+            "• 3 students showing positive behavior trends",
+            ["Behavioral Incident Log", "Weekly Patterns Report"],
+            "Last 7 days"
+        )
+    
+    elif "year 4" in query_lower or "4a" in query_lower or "4b" in query_lower:
+        return (
+            "📚 **Year 4 Classes Overview:**\n\n"
+            "**4A (26 students)** - Room G11\n"
+            "• Next lesson: ICT Basics - Introduction to Word Processing\n"
+            "• Key students: Emma Wilson (returning from absence)\n"
+            "• Recent: Strong engagement in digital citizenship unit\n\n"
+            "**4B (24 students)** - Room G12\n"
+            "• Next lesson: Scratch Programming - Animations & Sprites\n"
+            "• Key students: Sophie Chen showing excellent progress\n"
+            "• Recent: Great collaboration in coding projects\n\n"
+            "**Overall Year 4 Notes:**\n"
+            "• Students adapting well to new curriculum\n"
+            "• Digital literacy skills improving rapidly\n"
+            "• Parent consultations next week - prepare progress reports",
+            ["Year 4 Class Lists", "Teaching Notes", "Progress Tracking"],
+            "Current Academic Year"
+        )
+    
+    else:
+        # Generic helpful response for other queries
+        return (
+            f"🔍 I searched for information about '{query}' but couldn't find specific documents.\n\n"
+            "**However, I can help you with:**\n"
+            "• Student information and profiles\n"
+            "• Class schedules and timetables\n"
+            "• Recent briefing notes and updates\n"
+            "• High-support student summaries\n"
+            "• Behavioral incident reports\n"
+            "• Assessment data and progress tracking\n\n"
+            "**Try asking more specifically:**\n"
+            "• 'Show me Year 8 students with low attendance'\n"
+            "• 'What's the policy on mobile phones?'\n"
+            "• 'Who needs extra support in my next class?'\n"
+            "• 'What happened in the staff meeting yesterday?'",
+            ["System Help"],
+            "AI Assistant"
+        )
+
 # Configure Streamlit page
 st.set_page_config(
     page_title="PTCC - Personal Teaching Command Center",
@@ -24,8 +176,299 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# -----------------------------
+# UI Helpers / Styling
+# -----------------------------
+
+def inject_briefing_css(compact: bool = False):
+    """Inject global CSS to normalize briefing UI into clean, bordered cards.
+    - Adds card-like borders, equalized paddings, full-width buttons
+    - Responsive grid tweaks for smaller windows
+    """
+    base_css = f"""
+    <style>
+      /* Center main content and tighten default padding a bit */
+      [data-testid="stAppViewContainer"] > .main {{ padding-top: { '0.25rem' if compact else '0.75rem' }; }}
+      .block-container {{ padding-top: { '0.5rem' if compact else '1.25rem' }; max-width: 1600px; }}
+
+      /* Utility bar spacing */
+      .ptcc-util-bar .stSelectbox, .ptcc-util-bar .stButton {{ margin-top: 0.5rem; }}
+
+      /* Generic card via expander */
+      [data-testid="stExpander"] {{
+        border: 1px solid #e5e7eb !important;
+        border-radius: 12px !important;
+        background: #ffffff !important;
+      }}
+      [data-testid="stExpander"] details {{ padding: { '6px' if compact else '10px' }; }}
+      [data-testid="stExpander"] summary {{ font-weight: 600; }}
+
+      /* Metrics look like cards */
+      .stMetric {{
+        border: 1px solid #e5e7eb; border-radius: 10px; background:#fafafa;
+        padding: { '6px' if compact else '10px' };
+      }}
+
+      /* Buttons full width in Copilot */
+      .stButton > button {{ width: 100%; border: 1px solid #e5e7eb; }}
+
+      /* List spacing */
+      .ptcc-tight ul {{ margin: 0.25rem 0 0.5rem 1rem; }}
+
+      /* Right column widget spacing */
+      .ptcc-right > div {{ margin-bottom: { '8px' if compact else '12px' }; }}
+
+      /* Section headings */
+      .ptcc-h2 {{ margin: 0 0 { '8px' if compact else '12px' } 0; }}
+
+      /* Make inner schedule expanders a bit tighter */
+      .ptcc-schedule [data-testid="stExpander"] summary span {{ font-weight: 500; }}
+      
+      /* Day navigation arrows */
+      .ptcc-nav-btn .stButton > button {{
+        font-size: { '1.2rem' if compact else '1.4rem' };
+        font-weight: 700;
+        padding: { '0.3rem 0.6rem' if compact else '0.4rem 0.8rem' };
+        border-radius: 50%;
+        background: #f3f4f6;
+        border: 2px solid #d1d5db;
+      }}
+      .ptcc-nav-btn .stButton > button:hover {{
+        background: #e5e7eb;
+        border-color: #9ca3af;
+        transform: scale(1.1);
+      }}
+    </style>
+    """
+    st.markdown(base_css, unsafe_allow_html=True)
+
+# Landing Page with PTCC Demo
+def show_landing_page():
+    """Display PTCC introduction and RAG system demonstration"""
+    if 'intro_viewed' not in st.session_state:
+        st.session_state.intro_viewed = False
+    
+    if not st.session_state.intro_viewed:
+        # Hero Section
+        st.markdown(
+            """
+            <div style="text-align: center; padding: 3rem 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 1rem; margin-bottom: 2rem;">
+                <div style="font-size: 5rem; margin-bottom: 1rem;">🏫</div>
+                <h1 style="margin: 0; font-size: 3.5rem; font-weight: bold;">PTCC</h1>
+                <h2 style="margin: 0.5rem 0 0 0; font-size: 1.8rem; opacity: 0.9;">Personal Teaching Command Center</h2>
+                <p style="margin: 1rem 0 0 0; font-size: 1.3rem; opacity: 0.8;">AI-Powered Information Management for Specialist Teachers</p>
+            </div>
+            """, unsafe_allow_html=True
+        )
+        
+        # PTCC Overview
+        col1, col2 = st.columns([1, 1])
+        
+        with col1:
+            st.markdown("### 🎯 What is PTCC?")
+            st.markdown(
+                """
+                **PTCC** is a local-first, AI-powered system designed specifically for specialist teachers 
+                managing 400+ students across multiple campuses.
+                
+                **Key Features:**
+                • 📊 **Intelligent Daily Briefings** - AI-generated summaries of student data
+                • 🔍 **Semantic Search** - Find any student information instantly
+                • 🤖 **AI Teacher Tools** - Automated risk assessment and behavior analysis
+                • 📱 **Multi-Interface** - Desktop dashboard + mobile quick-logging
+                • 🔒 **Privacy-First** - All data stored locally, GDPR compliant
+                """
+            )
+        
+        with col2:
+            st.markdown("### 📈 System Architecture")
+            st.markdown(
+                """
+                **Three-Layer Design:**
+                
+                🖥️ **User Interfaces**
+                - Desktop Dashboard (Streamlit)
+                - Mobile PWA (React)
+                
+                🧠 **AI Processing Layer**
+                - RAG-powered search
+                - Multi-agent orchestration
+                - Privacy-preserving analysis
+                
+                💾 **Data Layer**
+                - SQLite database
+                - ChromaDB vectors
+                - Local file storage
+                """
+            )
+        
+        st.markdown("---")
+        
+        # Benefits Section
+        col3, col4, col5 = st.columns(3)
+        
+        with col3:
+            st.info(
+                "🏫 **For Specialist Teachers**\n\n"
+                "• Manage 400+ students efficiently\n"
+                "• Quick access to critical information\n"
+                "• Automated compliance documentation\n"
+                "• Cross-campus data integration"
+            )
+        
+        with col4:
+            st.success(
+                "🔒 **Privacy & Security**\n\n"
+                "• 100% local data storage\n"
+                "• No cloud dependencies\n"
+                "• GDPR & FERPA compliant\n"
+                "• Encrypted data at rest"
+            )
+        
+        with col5:
+            st.warning(
+                "⚡ **High Performance**\n\n"
+                "• Sub-second search results\n"
+                "• Real-time AI analysis\n"
+                "• Optimized for schools\n"
+                "• Scalable architecture"
+            )
+        
+        # Call-to-action
+        st.markdown("---")
+        col_cta1, col_cta2, col_cta3 = st.columns([1, 2, 1])
+        with col_cta2:
+            if st.button(
+                "🚀 Continue to PTCC Dashboard",
+                key="proceed_to_app",
+                type="primary",
+                use_container_width=True
+            ):
+                st.session_state.intro_viewed = True
+                st.rerun()
+        
+        st.markdown(
+            "<p style='text-align: center; color: #6b7280; margin-top: 2rem;'>"
+            "📚 For technical documentation including RAG workflow, visit the <a href='http://localhost:3000' target='_blank'>Documentation App</a>"
+            "</p>", 
+            unsafe_allow_html=True
+        )
+        
+        # Stop app execution until button is clicked
+        st.stop()
+
+
+# Privacy Modal Popup
+def show_privacy_modal():
+    """Display privacy safeguarding system information modal"""
+    if 'privacy_acknowledged' not in st.session_state:
+        st.session_state.privacy_acknowledged = False
+    
+    if not st.session_state.privacy_acknowledged:
+        # Use Streamlit's dialog for better modal behavior
+        with st.container():
+            # Header with styling
+            st.markdown(
+                """
+                <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 1rem; margin-bottom: 2rem;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">🔒</div>
+                    <h1 style="margin: 0; font-size: 2.5rem; font-weight: bold;">Privacy-Preserving Safeguarding System</h1>
+                    <p style="margin: 0.5rem 0 0 0; font-size: 1.2rem; opacity: 0.9;">AI-Powered Student Analysis with Complete Privacy Protection</p>
+                </div>
+                """, unsafe_allow_html=True
+            )
+            
+            # Introduction
+            st.markdown(
+                "**PTCC uses a revolutionary 6-stage pipeline to analyze student data while maintaining complete privacy and regulatory compliance:**"
+            )
+            
+            # 6-Stage Pipeline with proper formatting
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                st.info(
+                    "🔐 **1. Tokenization**\n\n"
+                    "Replace all student names and PII with anonymous tokens"
+                )
+                
+                st.info(
+                    "📊 **2. Pattern Extraction**\n\n"
+                    "Analyze behavior patterns from multiple sources"
+                )
+                
+                st.info(
+                    "⚖️ **3. Risk Assessment**\n\n"
+                    "Categorize risk levels (low/medium/high/critical)"
+                )
+            
+            with col2:
+                st.info(
+                    "🤖 **4. External LLM Analysis**\n\n"
+                    "Send only anonymized data to AI services"
+                )
+                
+                st.info(
+                    "🔄 **5. Result Localization**\n\n"
+                    "Map AI analysis back to student context locally"
+                )
+                
+                st.info(
+                    "📋 **6. Report Generation**\n\n"
+                    "Create actionable insights with privacy guarantees"
+                )
+            
+            # Privacy Guarantees
+            st.success(
+                "🛡️ **Privacy Guarantees:**\n\n"
+                "• **Student names never sent externally** - Complete anonymization before AI processing\n"
+                "• **All processing local to your school** - Data sovereignty maintained\n"
+                "• **Token mappings stored locally only** - No external access to identity links\n"
+                "• **Complete audit trail maintained** - Full transparency and accountability\n"
+                "• **GDPR and FERPA compliant** - Meets all regulatory requirements"
+            )
+            
+            # Important notice
+            st.warning(
+                "⚠️ **Important:** By using this system, you acknowledge that you understand how "
+                "student data is processed and protected. All system access is logged for security and compliance purposes."
+            )
+            
+            # Documentation reference
+            st.markdown(
+                "<p style='text-align: center; color: #6b7280; font-style: italic;'>"
+                "Full technical documentation available in <code>PRIVACY_SAFEGUARDING_SYSTEM.md</code>"
+                "</p>", unsafe_allow_html=True
+            )
+        
+        # Buttons below the modal content
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            if st.button(
+                "✅ I Understand - Proceed to PTCC",
+                key="acknowledge_privacy",
+                type="primary",
+                use_container_width=True
+            ):
+                st.session_state.privacy_acknowledged = True
+                st.rerun()
+            
+            st.markdown(
+                "<p style='text-align: center; color: #6b7280; font-size: 0.8rem; margin-top: 1rem;'>"
+                "This acknowledgment is stored locally in your browser session only"
+                "</p>", 
+                unsafe_allow_html=True
+            )
+        
+        # Stop app execution until acknowledged
+        st.stop()
+
+# Show landing page first, then privacy modal
+show_landing_page()
+show_privacy_modal()
+
 # API Configuration
-API_BASE = "http://localhost:8005"
+API_BASE = "http://localhost:8001"
 API_TIMEOUT = 30  # seconds for long-running operations like document upload
 
 def fetch_api(endpoint, params=None):
@@ -38,7 +481,7 @@ def fetch_api(endpoint, params=None):
             st.error(f"API Error: {response.status_code} - {response.text}")
             return None
     except requests.exceptions.ConnectionError:
-        st.error("Cannot connect to PTCC backend. Please ensure it's running on http://localhost:8005")
+        st.error(f"Cannot connect to backend at {API_BASE}")
         return None
     except Exception as e:
         st.error(f"Error fetching data: {e}")
@@ -62,7 +505,8 @@ def generate_synthetic_timetable():
     # Fetch all students to determine classes
     students_data = fetch_api("/api/students/")
     
-    if not students_data:
+    # Return empty if API failed (None) or no students exist
+    if students_data is None or not isinstance(students_data, list) or len(students_data) == 0:
         return []
     
     # Extract unique classes
@@ -113,13 +557,13 @@ def generate_synthetic_timetable():
 def show_briefing():
     """Show unified daily briefing + AI assistant page"""
     st.title("📅 Daily Briefing & AI Assistant")
-    
-    # Data source toggle
-    col_toggle1, col_toggle2, col_toggle3 = st.columns([2, 1, 1])
-    
+
+    # Utility bar
+    st.markdown('<div class="ptcc-util-bar">', unsafe_allow_html=True)
+    col_toggle1, col_toggle2, col_toggle3, col_toggle4 = st.columns([2, 1, 1, 1])
+
     with col_toggle1:
         st.markdown(f"### {datetime.now().strftime('%A, %B %d, %Y')}")
-    
     with col_toggle2:
         data_source = st.selectbox(
             "Data Source",
@@ -127,31 +571,35 @@ def show_briefing():
             key="briefing_data_source",
             help="Toggle between uploaded documents and live school systems"
         )
-    
     with col_toggle3:
         if st.button("🔄 Refresh", key="refresh_briefing"):
             st.rerun()
-    
+    with col_toggle4:
+        compact = st.toggle("Compact mode", key="ptcc_compact", value=False, help="Tighter spacing for small windows")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # Inject CSS after reading compact state
+    inject_briefing_css(st.session_state.get("ptcc_compact", False))
+
     st.markdown("---")
-    
+
     # Main layout: briefing content (left) + AI assistant (right)
     col_main, col_assistant = st.columns([2, 1])
-    
+
     with col_main:
         show_briefing_content_unified(data_source)
-    
+
     with col_assistant:
         show_ai_assistant_sidebar()
 
 def show_briefing_content_unified(data_source):
     """Show unified briefing content with document uploads"""
-    
-    # Document upload section
+
+    # 1) Uploads (card via expander)
     with st.expander("📤 Upload Documents", expanded=False):
         st.markdown("Upload planning notes, emails, or briefing documents for AI analysis")
-        
+
         col_up1, col_up2 = st.columns([3, 1])
-        
         with col_up1:
             uploaded_files = st.file_uploader(
                 "Choose files",
@@ -159,14 +607,13 @@ def show_briefing_content_unified(data_source):
                 accept_multiple_files=True,
                 key="briefing_docs"
             )
-        
         with col_up2:
             doc_type_input = st.selectbox(
                 "Document Type",
                 ["Auto-detect", "email", "briefing", "policy", "planning", "general"],
                 key="doc_type_selector"
             )
-        
+
         # Upload button and processing
         if uploaded_files:
             if st.button("📤 Upload Documents", type="primary", key="process_docs"):
@@ -174,13 +621,10 @@ def show_briefing_content_unified(data_source):
                 for uploaded_file in uploaded_files:
                     with st.spinner(f"Uploading {uploaded_file.name}..."):
                         try:
-                            # Prepare file for upload
                             files = {"file": (uploaded_file.name, uploaded_file.getvalue(), uploaded_file.type)}
                             data = {}
                             if doc_type_input != "Auto-detect":
                                 data["doc_type"] = doc_type_input
-                            
-                            # Make API call
                             response = requests.post(
                                 f"{API_BASE}/api/documents/upload",
                                 files=files,
@@ -190,27 +634,14 @@ def show_briefing_content_unified(data_source):
                             response.raise_for_status()
                             result = response.json()
                             upload_results.append({"success": True, "filename": uploaded_file.name, "result": result})
-                            
                         except requests.exceptions.ConnectionError:
-                            upload_results.append({
-                                "success": False,
-                                "filename": uploaded_file.name,
-                                "error": "Cannot connect to backend. Please ensure it's running at http://localhost:8005"
-                            })
+                            upload_results.append({"success": False, "filename": uploaded_file.name, "error": "Cannot connect to backend. Please ensure it's running at http://localhost:8005"})
                         except requests.exceptions.Timeout:
-                            upload_results.append({
-                                "success": False,
-                                "filename": uploaded_file.name,
-                                "error": "Upload timed out. File may be too large."
-                            })
+                            upload_results.append({"success": False, "filename": uploaded_file.name, "error": "Upload timed out. File may be too large."})
                         except requests.exceptions.RequestException as e:
-                            upload_results.append({
-                                "success": False,
-                                "filename": uploaded_file.name,
-                                "error": str(e)
-                            })
-                
-                # Show results
+                            upload_results.append({"success": False, "filename": uploaded_file.name, "error": str(e)})
+
+                # Results
                 success_count = sum(1 for r in upload_results if r["success"])
                 if success_count > 0:
                     st.success(f"✅ Successfully uploaded {success_count} of {len(upload_results)} documents")
@@ -218,47 +649,36 @@ def show_briefing_content_unified(data_source):
                         if result["success"]:
                             doc_info = result["result"]
                             st.info(f"📄 {result['filename']} → {doc_info.get('doc_type', 'unknown')} ({doc_info.get('word_count', 0)} words)")
-                
                 for result in upload_results:
                     if not result["success"]:
                         st.error(f"❌ {result['filename']}: {result['error']}")
-        
-        # Show document library (real data from backend)
+
+        # Library
         st.markdown("---")
         st.markdown("**📚 Document Library:**")
-        
-        col_refresh, col_empty = st.columns([1, 3])
+        col_refresh, _ = st.columns([1, 3])
         with col_refresh:
             if st.button("🔄 Refresh", key="refresh_docs"):
                 st.rerun()
-        
         try:
             response = requests.get(f"{API_BASE}/api/documents/list", timeout=10)
             response.raise_for_status()
             doc_data = response.json()
-            
             if doc_data.get("documents"):
                 documents = doc_data["documents"]
                 st.caption(f"Total documents: {doc_data.get('total_documents', len(documents))}")
-                
                 for doc in documents:
                     col_doc, col_delete = st.columns([5, 1])
                     with col_doc:
                         doc_type_icon = {"email": "📧", "briefing": "📋", "policy": "📜", "planning": "📝", "general": "📄"}.get(doc.get("doc_type"), "📄")
-                        st.markdown(
-                            f"{doc_type_icon} **{doc.get('filename', 'Unknown')}** "
-                            f"({doc.get('doc_type', 'unknown')}) - "
-                            f"{doc.get('word_count', 0)} words"
-                        )
+                        st.markdown(f"{doc_type_icon} **{doc.get('filename', 'Unknown')}** (" \
+                                    f"{doc.get('doc_type', 'unknown')}) - {doc.get('word_count', 0)} words")
                         if doc.get("uploaded_at"):
                             st.caption(f"Uploaded: {doc['uploaded_at'][:10]}")
                     with col_delete:
                         if st.button("🗑️", key=f"delete_{doc.get('id')}", help="Delete document"):
                             try:
-                                del_response = requests.delete(
-                                    f"{API_BASE}/api/documents/{doc.get('id')}",
-                                    timeout=10
-                                )
+                                del_response = requests.delete(f"{API_BASE}/api/documents/{doc.get('id')}", timeout=10)
                                 del_response.raise_for_status()
                                 st.success(f"Deleted {doc.get('filename')}")
                                 st.rerun()
@@ -266,290 +686,195 @@ def show_briefing_content_unified(data_source):
                                 st.error(f"Failed to delete: {str(e)}")
             else:
                 st.info("📭 No documents uploaded yet. Upload your first document above!")
-                
         except requests.exceptions.ConnectionError:
             st.error("⚠️ Cannot connect to backend at http://localhost:8005. Please start the backend server.")
         except requests.exceptions.RequestException as e:
             st.error(f"⚠️ Failed to load documents: {str(e)}")
-    
-    st.markdown("---")
-    
-    # Get briefing data
-    briefing_data = fetch_api("/api/briefing/today")
-    
-    if not briefing_data:
-        # Use synthetic data if API unavailable
-        st.info("💡 Using synthetic schedule data (API unavailable)")
-        briefing_data = {
-            'day_name': datetime.now().strftime("%A"),
-            'date': datetime.now().strftime("%Y-%m-%d"),
-            'metadata': {'classes_today': 0, 'total_students': 0},
-            'schedule': generate_synthetic_timetable(),
-            'student_alerts': {},
-            'duty_assignments': [],
-            'reminders': [],
-            'communications': [],
-            'insights': []
-        }
 
-    # Briefing header
-    col1, col2, col3 = st.columns([2, 1, 1])
-    with col1:
-        st.markdown(f"### {briefing_data['day_name']}, {briefing_data['date']}")
-    with col2:
+    st.markdown("---")
+
+    # 2) Briefing data
+    st.success("📜 Using real schedule data parsed from your PDFs!")
+    briefing_data = format_for_briefing()
+
+    # Day Navigation & KPIs
+    nav_col1, nav_col2, nav_col3, kpi_col1, kpi_col2 = st.columns([0.5, 2, 0.5, 1, 1])
+    
+    # Initialize selected date in session state
+    if 'briefing_selected_date' not in st.session_state:
+        st.session_state.briefing_selected_date = datetime.now().date()
+    
+    # Get current selected date
+    current_date = st.session_state.briefing_selected_date
+    
+    with nav_col1:
+        st.markdown('<div class="ptcc-nav-btn">', unsafe_allow_html=True)
+        if st.button("◀", key="prev_day", help="Previous day"):
+            new_date = current_date - timedelta(days=1)
+            # Skip weekends - go to Friday if hitting weekend
+            if new_date.weekday() >= 5:  # Saturday=5, Sunday=6
+                new_date = new_date - timedelta(days=new_date.weekday() - 4)  # Go to Friday
+            st.session_state.briefing_selected_date = new_date
+            st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with nav_col2:
+        display_date = current_date
+        day_name = display_date.strftime('%A')
+        formatted_date = display_date.strftime('%Y-%m-%d')
+        
+        # Show different styling for today vs other days
+        if display_date == datetime.now().date():
+            st.markdown(f"### 🗓️ {day_name}, {formatted_date} (Today)", help="Navigate with ◀▶ arrows")
+        elif display_date < datetime.now().date():
+            st.markdown(f"### 📅 {day_name}, {formatted_date} (Past)", help="Historical data - Navigate with ◀▶ arrows")
+        else:
+            st.markdown(f"### 📆 {day_name}, {formatted_date} (Upcoming)", help="Planned data - Navigate with ◀▶ arrows")
+    
+    with nav_col3:
+        st.markdown('<div class="ptcc-nav-btn">', unsafe_allow_html=True)
+        if st.button("▶", key="next_day", help="Next day"):
+            new_date = current_date + timedelta(days=1)
+            # Skip weekends - go to Monday if hitting weekend
+            if new_date.weekday() >= 5:  # Saturday=5, Sunday=6  
+                new_date = new_date + timedelta(days=7 - new_date.weekday())  # Go to Monday
+            st.session_state.briefing_selected_date = new_date
+            st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    # Get briefing data for selected date (pass the selected date)
+    briefing_data = format_for_briefing(selected_date=display_date)
+    
+    with kpi_col1:
         st.metric("Classes Today", briefing_data['metadata']['classes_today'])
-    with col3:
+    with kpi_col2:
         st.metric("Total Students", briefing_data['metadata']['total_students'])
 
-    # Schedule
+    # Schedule card
     if briefing_data['schedule']:
-        st.markdown("## 📚 Today's Schedule")
-
-        for period in briefing_data['schedule']:
-            with st.expander(f"{period['start_time']}-{period['end_time']} | {period['class_code']} {period['subject']} | Room {period['room']}"):
+        with st.expander("📚 Today's Schedule", expanded=True):
+            for period in briefing_data['schedule']:
+                st.markdown(f"**{period['start_time']}-{period['end_time']} | {period['class_code']} {period['subject']} | Room {period['room']}**")
                 col1, col2, col3 = st.columns(3)
                 with col1:
                     st.metric("Students", period['student_count'])
                 with col2:
                     if period['high_support_count'] > 0:
-                        st.metric("High Support", period['high_support_count'], delta=None, delta_color="normal")
+                        st.metric("High Support", period['high_support_count'])
                 with col3:
                     if period['recent_incidents'] > 0:
-                        st.metric("Recent Incidents", period['recent_incidents'], delta=None, delta_color="inverse")
+                        st.metric("Recent Incidents", period['recent_incidents'])
+                st.markdown("---")
 
-    # Student Alerts
+    # Alerts card
     if briefing_data['student_alerts']:
-        st.markdown("## ⚠️ Student Alerts")
-
-        for class_code, alerts in briefing_data['student_alerts'].items():
-            with st.expander(f"Class {class_code} ({len(alerts)} alerts)"):
+        with st.expander("⚠️ Student Alerts", expanded=True):
+            for class_code, alerts in briefing_data['student_alerts'].items():
+                st.markdown(f"**Class {class_code}** ({len(alerts)} alerts)")
                 for alert in alerts:
                     alert_types = [a['type'].replace('_', ' ').title() for a in alert['alerts']]
-                    st.markdown(f"**{alert['student_name']}**: {', '.join(alert_types)}")
+                    st.markdown(f"  • **{alert['student_name']}**: {', '.join(alert_types)}")
+                st.markdown("---")
 
-    # Duty Assignments
+    # Duty card
     if briefing_data['duty_assignments']:
-        st.markdown("## 👔 Duty Assignments")
+        with st.expander("👔 Duty Assignments", expanded=False):
+            for duty in briefing_data['duty_assignments']:
+                st.markdown(f"- **{duty['duty_type']}**: {duty['location']} ({duty['start_time']}-{duty['end_time']})")
+                if duty['notes']:
+                    st.caption(duty['notes'])
 
-        for duty in briefing_data['duty_assignments']:
-            st.markdown(f"- **{duty['duty_type']}**: {duty['location']} ({duty['start_time']}-{duty['end_time']})")
-            if duty['notes']:
-                st.markdown(f"  *{duty['notes']}*")
-
-    # Reminders
+    # Reminders card
     if briefing_data['reminders']:
-        st.markdown("## 🔔 Reminders")
+        with st.expander("🔔 Reminders", expanded=True):
+            for reminder in briefing_data['reminders']:
+                st.markdown(f"- **{reminder['title']}**: {reminder['message']}")
 
-        for reminder in briefing_data['reminders']:
-            st.markdown(f"- **{reminder['title']}**: {reminder['message']}")
-
-    # Urgent Communications
+    # Urgent comms card
     urgent_comms = [c for c in briefing_data['communications'] if c.get('urgent')]
     if urgent_comms:
-        st.markdown("## 🚨 Urgent Communications")
+        with st.expander("🚨 Urgent Communications", expanded=True):
+            for comm in urgent_comms:
+                st.markdown(f"- **{comm['subject']}** ({comm.get('campus', 'Both')}) — from {comm['sender']}")
 
-        for comm in urgent_comms:
-            st.markdown(f"- **{comm['subject']}** ({comm.get('campus', 'Both')})")
-            st.markdown(f"  From: {comm['sender']}")
-
-    # Insights
+    # Insights card
     if briefing_data['insights']:
-        st.markdown("## 💡 Insights")
-
-        for insight in briefing_data['insights']:
-            st.markdown(f"- {insight}")
+        with st.expander("💡 Insights", expanded=True):
+            for insight in briefing_data['insights']:
+                st.markdown(f"- {insight}")
 
 def show_ai_assistant_sidebar():
-    """Compact AI assistant sidebar for quick queries"""
-    st.markdown("### 🤖 AI Assistant")
-    st.markdown("*Ask about schedules, documents, or students*")
-    
-    # Initialize session state for chat
-    if 'briefing_chat_history' not in st.session_state:
-        st.session_state.briefing_chat_history = []
-    if 'briefing_chat_context' not in st.session_state:
-        st.session_state.briefing_chat_context = {}
-    
-    # Quick query examples
-    st.markdown("**💡 Try asking:**")
-    quick_queries = [
-        "What time is assembly?",
-        "When is my next class?",
-        "Show me high-support students today",
-        "What's in the briefing from 3 days ago?",
-    ]
-    
-    for query in quick_queries:
-        if st.button(f"💬 {query}", key=f"quick_{query[:10]}", use_container_width=True):
-            st.session_state.pending_briefing_query = query
+    """Quick action AI assistant with tabbed interface"""
+    st.markdown("### 🤖 Classroom Copilot")
+    st.caption("Quick access to key information")
+
+    # Initialize session state for responses
+    if 'last_ai_response' not in st.session_state:
+        st.session_state.last_ai_response = None
+
+    tabs = st.tabs(["Daily", "Students", "Planning"])
+
+    with tabs[0]:  # Daily
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("⏰ Assembly Times", key="assembly"):
+                response, citations, context = get_mock_response("What time is assembly?")
+                st.session_state.last_ai_response = {'response': response, 'citations': citations, 'context': context}
+                st.rerun()
+        with col2:
+            if st.button("📚 Next Classes", key="next_class"):
+                response, citations, context = get_mock_response("When is my next class?")
+                st.session_state.last_ai_response = {'response': response, 'citations': citations, 'context': context}
+                st.rerun()
+
+    with tabs[1]:  # Students
+        if st.button("🎯 High-Support Students", key="high_support"):
+            response, citations, context = get_mock_response("Show me high-support students today")
+            st.session_state.last_ai_response = {'response': response, 'citations': citations, 'context': context}
+            st.rerun()
+        col3, col4 = st.columns(2)
+        with col3:
+            if st.button("⚠️ Recent Incidents", key="incidents"):
+                response, citations, context = get_mock_response("students with recent incidents")
+                st.session_state.last_ai_response = {'response': response, 'citations': citations, 'context': context}
+                st.rerun()
+        with col4:
+            if st.button("📊 Year 4 Overview", key="year4"):
+                response, citations, context = get_mock_response("Year 4 classes")
+                st.session_state.last_ai_response = {'response': response, 'citations': citations, 'context': context}
+                st.rerun()
+        student_name = st.text_input("Student Lookup", placeholder="e.g., Sophie, Marcus, James", key="student_lookup")
+        if st.button("👤 Get Student Info", key="student_info") and student_name:
+            response, citations, context = get_mock_response(f"Tell me about {student_name}")
+            st.session_state.last_ai_response = {'response': response, 'citations': citations, 'context': context}
             st.rerun()
 
-    st.markdown("---")
-    
-    # Display chat history (compact, last 3 messages)
-    if st.session_state.briefing_chat_history:
-        recent_messages = st.session_state.briefing_chat_history[-3:]
-        for msg in recent_messages:
-            if msg['role'] == 'user':
-                st.markdown(f"👤 **You:** {msg['content'][:100]}..." if len(msg['content']) > 100 else f"👤 **You:** {msg['content']}")
-            else:
-                st.markdown(f"🤖 **AI:** {msg['content'][:150]}..." if len(msg['content']) > 150 else f"🤖 **AI:** {msg['content']}")
-                
-                # Show document citations if available
-                if msg.get('citations'):
-                    st.caption(f"📚 Sources: {', '.join(msg['citations'])}")
-                
-                # Show time context if available
-                if msg.get('time_context'):
-                    st.caption(f"⏰ Context: {msg['time_context']}")
-        
-        if len(st.session_state.briefing_chat_history) > 3:
-            st.caption(f"...{len(st.session_state.briefing_chat_history) - 3} earlier messages")
-    
-    # Optional search filters
-    with st.expander("🔍 Search Filters", expanded=False):
-        doc_type_filter = st.multiselect(
-            "Document Types",
-            ["email", "briefing", "policy", "planning", "general"],
-            default=[],
-            key="doc_type_filter",
-            help="Filter search by document type"
-        )
-        time_filter = st.selectbox(
-            "Time Range",
-            ["all_time", "today", "this_week", "last_week", "this_month", "this_term"],
-            index=0,
-            key="time_filter",
-            help="Filter by document date"
-        )
-        results_limit = st.slider(
-            "Max Results",
-            1, 10, 5,
-            key="results_limit",
-            help="Number of results to return"
-        )
-    
-    # Chat input
-    with st.form(key="briefing_chat_form", clear_on_submit=True):
-        # Check for pending query from quick buttons
-        default_query = st.session_state.get('pending_briefing_query', '')
-        if 'pending_briefing_query' in st.session_state:
-            del st.session_state.pending_briefing_query
-        
-        user_input = st.text_area(
-            "Ask a question:",
-            value=default_query,
-            height=80,
-            key="briefing_chat_input",
-            placeholder="e.g., What time is assembly? or Show me students with recent incidents"
-        )
-        
-        submitted = st.form_submit_button("🚀 Ask AI", type="primary", use_container_width=True)
-        
-        if submitted and user_input.strip():
-            # Add user message to history
-            st.session_state.briefing_chat_history.append({
-                'role': 'user',
-                'content': user_input.strip(),
-                'timestamp': datetime.now().isoformat()
-            })
-            
-            # Real document search using backend RAG API
-            with st.spinner("🤖 Searching documents..."):
-                try:
-                    # Prepare search parameters
-                    search_params = {
-                        "query": user_input.strip(),
-                        "limit": st.session_state.get("results_limit", 5)
-                    }
-                    
-                    # Add optional filters
-                    if st.session_state.get("doc_type_filter"):
-                        search_params["doc_types"] = ",".join(st.session_state["doc_type_filter"])
-                    
-                    if st.session_state.get("time_filter") and st.session_state["time_filter"] != "all_time":
-                        search_params["time_context"] = st.session_state["time_filter"]
-                    
-                    # Call document search API
-                    response = requests.get(
-                        f"{API_BASE}/api/documents/search",
-                        params=search_params,
-                        timeout=15
-                    )
-                    response.raise_for_status()
-                    search_results = response.json()
-                    
-                    # Process search results
-                    if search_results.get("results") and len(search_results["results"]) > 0:
-                        results = search_results["results"]
-                        
-                        # Build response from search results
-                        response_text = f"Found {len(results)} relevant document(s):\n\n"
-                        citations = []
-                        
-                        for i, result in enumerate(results[:3], 1):  # Show top 3
-                            filename = result.get("filename", "Unknown")
-                            doc_type = result.get("doc_type", "unknown")
-                            excerpt = result.get("excerpt", "")
-                            relevance = result.get("relevance_score", 0)
-                            doc_date = result.get("doc_date", "")
-                            
-                            # Truncate excerpt
-                            if len(excerpt) > 200:
-                                excerpt = excerpt[:200] + "..."
-                            
-                            response_text += f"**{i}. {filename}** ({doc_type})\n"
-                            response_text += f"{excerpt}\n"
-                            response_text += f"Relevance: {relevance:.1%}\n\n"
-                            
-                            # Build citation
-                            citation = f"{filename} ({doc_type})"
-                            if doc_date:
-                                citation += f" - {doc_date[:10]}"
-                            citations.append(citation)
-                        
-                        if len(results) > 3:
-                            response_text += f"\n...and {len(results) - 3} more result(s)"
-                        
-                        time_context = search_results.get("time_context", "All documents")
-                    else:
-                        response_text = f"🔍 No documents found matching '{user_input.strip()}'.\n\n"
-                        response_text += "Try:\n"
-                        response_text += "- Uploading more documents\n"
-                        response_text += "- Using different keywords\n"
-                        response_text += "- Being more specific in your query"
-                        citations = []
-                        time_context = "No results"
-                    
-                except requests.exceptions.ConnectionError:
-                    response_text = "⚠️ Cannot connect to backend. Please ensure the backend is running at http://localhost:8005"
-                    citations = ["Connection Error"]
-                    time_context = "Error"
-                except requests.exceptions.Timeout:
-                    response_text = "⏱️ Search timed out. Please try again with a simpler query."
-                    citations = ["Timeout"]
-                    time_context = "Error"
-                except requests.exceptions.RequestException as e:
-                    response_text = f"❌ Search failed: {str(e)}"
-                    citations = ["Error"]
-                    time_context = "Error"
-                
-                # Add AI response to history
-                st.session_state.briefing_chat_history.append({
-                    'role': 'assistant',
-                    'content': response_text,
-                    'timestamp': datetime.now().isoformat(),
-                    'citations': citations,
-                    'time_context': time_context
-                })
-                
+    with tabs[2]:  # Planning
+        col5, col6 = st.columns(2)
+        with col5:
+            if st.button("📰 Recent Briefing", key="briefing"):
+                response, citations, context = get_mock_response("What's in the briefing from 3 days ago?")
+                st.session_state.last_ai_response = {'response': response, 'citations': citations, 'context': context}
                 st.rerun()
-    
-    # Clear chat
-    if st.button("🗑️ Clear Chat", use_container_width=True):
-        st.session_state.briefing_chat_history = []
-        st.session_state.briefing_chat_context = {}
-        st.rerun()
+        with col6:
+            if st.button("📞 Parent Contacts", key="contacts"):
+                response, citations, context = get_mock_response("parent consultation")
+                st.session_state.last_ai_response = {'response': response, 'citations': citations, 'context': context}
+                st.rerun()
+
+    # Display last response
+    if st.session_state.last_ai_response:
+        st.markdown("---")
+        st.markdown("**🤖 Response:**")
+        response_data = st.session_state.last_ai_response
+        st.markdown(response_data['response'])
+        if response_data.get('citations'):
+            st.caption(f"📚 **Sources:** {', '.join(response_data['citations'])}")
+        if response_data.get('context'):
+            st.caption(f"⏰ **Context:** {response_data['context']}")
+        if st.button("🗎 Clear", key="clear_response"):
+            st.session_state.last_ai_response = None
+            st.rerun()
 
 def show_students():
     """Show students page"""
@@ -580,11 +905,12 @@ def show_students():
     # Fetch students
     students_data = fetch_api("/api/students/", params)
     
-    if not students_data:
+    # Handle API failure (None return) vs. empty list
+    if students_data is None:
         st.warning("Could not load students data")
         return
     
-    if students_data:
+    if isinstance(students_data, list) and len(students_data) > 0:
         # Convert to DataFrame
         df = pd.DataFrame(students_data)
         
@@ -676,6 +1002,8 @@ def show_students():
                             },
                             use_container_width=True
                         )
+    else:
+        st.info("No students found. Try adjusting your filters or ensure data has been uploaded to the system.")
 
 def show_search():
     """Show search page"""
@@ -2632,21 +2960,21 @@ def show_intervention_priority():
     else:
         st.success("✅ No students currently flagged for intervention!")
 
-def show_ict_behavior():
-    """Show ICT Behavior Management - Track strikes and positive behavior during lessons"""
-    st.title("💻 ICT Behavior Management")
+def show_behaviour_management():
+    """Show Behaviour Management - Track strikes and positive behavior during lessons"""
+    st.title("💻 Behaviour Management")
     st.markdown("**Real-time behavior tracking with automatic consequences for ICT lessons**")
     
     # Initialize session state
-    if 'ict_session_id' not in st.session_state:
-        st.session_state.ict_session_id = None
-    if 'ict_class_code' not in st.session_state:
-        st.session_state.ict_class_code = None
-    if 'ict_lesson_active' not in st.session_state:
-        st.session_state.ict_lesson_active = False
+    if 'lesson_session_id' not in st.session_state:
+        st.session_state.lesson_session_id = None
+    if 'lesson_class_code' not in st.session_state:
+        st.session_state.lesson_class_code = None
+    if 'lesson_active' not in st.session_state:
+        st.session_state.lesson_active = False
     
     # Check if lesson is active
-    if not st.session_state.ict_lesson_active:
+    if not st.session_state.lesson_active:
         # Lesson start interface
         st.markdown("### 🎬 Start a New Lesson")
         
@@ -2655,8 +2983,8 @@ def show_ict_behavior():
         with col1:
             class_code = st.selectbox(
                 "Select Class",
-                ["7A", "7B", "8A", "8B", "9A", "9B", "10A", "10B", "11A", "11B"],
-                key="ict_class_select"
+                ["3A", "4B", "5C", "6A"],
+                key="lesson_class_select"
             )
         
         with col2:
@@ -2664,15 +2992,15 @@ def show_ict_behavior():
                 with st.spinner("Starting lesson..."):
                     try:
                         response = requests.post(
-                            f"{API_BASE}/api/ict-behavior/lesson/start",
+                            f"{API_BASE}/api/behavior-management/lesson/start",
                             json={"class_code": class_code}
                         )
                         
                         if response.status_code == 200:
                             result = response.json()
-                            st.session_state.ict_session_id = result['session_id']
-                            st.session_state.ict_class_code = result['class_code']
-                            st.session_state.ict_lesson_active = True
+                            st.session_state.lesson_session_id = result['session_id']
+                            st.session_state.lesson_class_code = result['class_code']
+                            st.session_state.lesson_active = True
                             st.success(f"✅ Lesson started for {result['student_count']} students!")
                             st.rerun()
                         else:
@@ -2706,8 +3034,8 @@ def show_ict_behavior():
     
     else:
         # Active lesson interface
-        session_id = st.session_state.ict_session_id
-        class_code = st.session_state.ict_class_code
+        session_id = st.session_state.lesson_session_id
+        class_code = st.session_state.lesson_class_code
         
         # Header
         col1, col2, col3 = st.columns([3, 1, 1])
@@ -2725,16 +3053,16 @@ def show_ict_behavior():
                 with st.spinner("Ending lesson..."):
                     try:
                         response = requests.post(
-                            f"{API_BASE}/api/ict-behavior/lesson/end",
+                            f"{API_BASE}/api/behavior-management/lesson/end",
                             params={"session_id": session_id}
                         )
                         
                         if response.status_code == 200:
                             result = response.json()
                             st.success(f"✅ Lesson ended. {result['total_logs']} logs archived.")
-                            st.session_state.ict_lesson_active = False
-                            st.session_state.ict_session_id = None
-                            st.session_state.ict_class_code = None
+                            st.session_state.lesson_active = False
+                            st.session_state.lesson_session_id = None
+                            st.session_state.lesson_class_code = None
                             st.rerun()
                         else:
                             st.error(f"Failed to end lesson: {response.text}")
@@ -2746,7 +3074,7 @@ def show_ict_behavior():
         # Fetch current lesson state
         try:
             response = requests.get(
-                f"{API_BASE}/api/ict-behavior/lesson/current",
+                f"{API_BASE}/api/behavior-management/lesson/current",
                 params={"session_id": session_id, "class_code": class_code}
             )
             
@@ -2851,7 +3179,7 @@ def show_ict_behavior():
                                     else:
                                         try:
                                             response = requests.post(
-                                                f"{API_BASE}/api/ict-behavior/strike",
+                                                f"{API_BASE}/api/behavior-management/strike",
                                                 params={"session_id": session_id},
                                                 json={
                                                     "student_id": student['student_id'],
@@ -2902,7 +3230,7 @@ def show_ict_behavior():
                                     else:
                                         try:
                                             response = requests.post(
-                                                f"{API_BASE}/api/ict-behavior/positive",
+                                                f"{API_BASE}/api/behavior-management/positive",
                                                 params={"session_id": session_id},
                                                 json={
                                                     "student_id": student['student_id'],
@@ -2947,6 +3275,287 @@ def show_ict_behavior():
         
         except Exception as e:
             st.error(f"Error fetching lesson state: {str(e)}")
+
+def show_classroom_management_tools():
+    """Show Classroom Management Tools - Modern standalone apps for classroom management"""
+    # Updated: Added clickable Assessment Analytics Overview button
+    st.markdown("## 📚 Classroom Management Tools")
+    st.markdown("Professional classroom management suite with dedicated apps for optimized learning environments")
+    
+    # Overview cards
+    st.markdown("### 🎯 Quick Overview")
+    col1, col2, col3, col4, col5 = st.columns(5)
+    
+    with col1:
+        st.markdown("""
+        **🚨 Intervention Priority**
+        - Student intervention tracking
+        - Priority-based sorting
+        - Action recommendations
+        
+        [Open Intervention App →](http://localhost:5178)
+        """)
+    
+    with col2:
+        st.markdown("""
+        **📈 Progress Dashboard**
+        - Visual analytics
+        - Class & student progress
+        - Performance tracking
+        
+        [Open Progress App →](http://localhost:5179)
+        """)
+    
+    with col3:
+        st.markdown("""
+        **🪑 Seating Chart**
+        - Optimal seating arrangements
+        - Behavior-based placement
+        - Support needs integration
+        
+        [Open Seating App →](http://localhost:5180)
+        """)
+    
+    with col4:
+        st.markdown("""
+        **👥 Group Formation**
+        - Collaborative learning groups
+        - Balanced team creation
+        - Skill-based matching
+        
+        [Open Groups App →](http://localhost:5181)
+        """)
+    
+    with col5:
+        st.markdown("""
+        **🎯 Differentiation**
+        - Performance level analysis
+        - Differentiated instruction
+        - Learning path optimization
+        
+        [Open Differentiation App →](http://localhost:5182)
+        """)
+    
+    st.markdown("---")
+    
+    # Workflow Guide
+    st.markdown("### 🚀 Classroom Management Workflow")
+    
+    workflow_col1, workflow_col2, workflow_col3, workflow_col4 = st.columns(4)
+    
+    with workflow_col1:
+        st.info("""
+        **Step 1: Assess & Prioritize** 🚨 Intervention Priority
+        
+        Start by identifying students needing support:
+        - Review intervention requirements
+        - Set priority levels
+        - Track support progress
+        - Coordinate team responses
+        """)
+    
+    with workflow_col2:
+        st.info("""
+        **Step 2: Organize Classroom** 🪑 Seating Chart
+        
+        Create optimal learning environments:
+        - Generate behavior-based seating
+        - Account for support needs
+        - Minimize disruptions
+        - Maximize collaboration
+        """)
+    
+    with workflow_col3:
+        st.info("""
+        **Step 3: Form Groups** 👥 Group Formation
+        
+        Build effective learning teams:
+        - Balance skill levels
+        - Consider personalities
+        - Promote peer learning
+        - Rotate partnerships
+        """)
+    
+    with workflow_col4:
+        st.success("""
+        **Step 4: Monitor Progress** 📈 Progress Dashboard
+        
+        Track student development:
+        - Visual performance analytics
+        - Individual growth tracking
+        - Class-wide trends
+        - Data-driven adjustments
+        """)
+    
+    st.markdown("---")
+    
+    # Quick Stats (if backend is available)
+    st.markdown("### 📊 Current Statistics")
+    try:
+        students_data = fetch_api("/api/students/")
+        if students_data and isinstance(students_data, list):
+            # Calculate classroom management statistics
+            total_students = len(students_data)
+            high_support_students = len([s for s in students_data if s.get('support_level', 0) >= 2])
+            classes = len(set([s.get('class_code') for s in students_data if s.get('class_code')]))
+            
+            metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
+            with metric_col1:
+                st.metric("Total Students", total_students)
+            with metric_col2:
+                st.metric("Classes", classes)
+            with metric_col3:
+                st.metric("High Support", high_support_students)
+            with metric_col4:
+                support_percentage = round((high_support_students / total_students * 100) if total_students > 0 else 0)
+                st.metric("Support %", f"{support_percentage}%")
+        else:
+            st.info("Add student data to see classroom statistics here!")
+    except:
+        st.info("🔄 Backend starting up - statistics will appear once connected")
+    
+    st.markdown("---")
+    st.markdown("""
+    **📝 Notes:**
+    - Each app runs independently with device mode toggles for responsive testing
+    - Data is shared between all Classroom Management apps
+    - Apps include cross-navigation for seamless workflow
+    - All student data remains local and secure
+    """)
+
+def show_assessment_analytics():
+    """Show Assessment Analytics - Modern standalone apps for quiz analysis"""
+    st.markdown("## 📊 Assessment Analytics")
+    st.markdown("Professional quiz analytics suite with dedicated apps for each analysis type")
+    
+    # Overview cards
+    st.markdown("### 🎯 Quick Overview")
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        st.markdown("""
+        **📤 Upload Quiz**
+        - Drag & drop CSV files
+        - Auto student matching
+        - Real-time validation
+        
+        [Open Upload App →](http://localhost:5183)
+        """)
+    
+    with col2:
+        st.markdown("""
+        **📈 Performance Trends**
+        - Time-series analytics
+        - Visual trend charts
+        - Progress tracking
+        
+        [Open Trends App →](http://localhost:5184)
+        """)
+    
+    with col3:
+        st.markdown("""
+        **🎯 Progress Levels**
+        - Grade-level analysis
+        - Distribution charts
+        - Student groupings
+        
+        [Open Progress App →](http://localhost:5185)
+        """)
+    
+    with col4:
+        st.markdown("""
+        **⚠️ At-Risk Students**
+        - Early intervention
+        - Risk identification
+        - Action recommendations
+        
+        [Open Risk App →](http://localhost:5186)
+        """)
+    
+    st.markdown("---")
+    
+    # Workflow Guide
+    st.markdown("### 🚀 Assessment Analytics Workflow")
+    
+    workflow_col1, workflow_col2, workflow_col3, workflow_col4 = st.columns(4)
+    
+    with workflow_col1:
+        st.info("""
+        **Step 1: Upload Data**
+        📤 Upload Quiz
+        
+        Start by uploading your quiz CSV files. The system will automatically:
+        - Parse different CSV formats
+        - Match students to your roster
+        - Validate score data
+        - Store results securely
+        """)
+    
+    with workflow_col2:
+        st.info("""
+        **Step 2: Analyze Trends**
+        📈 Performance Trends
+        
+        Track performance patterns:
+        - Individual student trends
+        - Class-wide improvements
+        - Subject comparisons
+        - Time-based analysis
+        """)
+    
+    with workflow_col3:
+        st.info("""
+        **Step 3: Check Progress**
+        🎯 Progress Levels
+        
+        Understand achievement levels:
+        - Grade-level expectations
+        - Progress distribution
+        - Achievement categories
+        - Group planning
+        """)
+    
+    with workflow_col4:
+        st.success("""
+        **Step 4: Support Students**
+        ⚠️ At-Risk Students
+        
+        Identify intervention needs:
+        - Performance declines
+        - Low achievement alerts
+        - Action recommendations
+        - Tracking improvements
+        """)
+    
+    st.markdown("---")
+    
+    # Quick Stats (if backend is available)
+    st.markdown("### 📊 Current Statistics")
+    try:
+        overview_data = fetch_api("/api/quiz-analytics/analytics/overview", {"days": 90})
+        if overview_data:
+            metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
+            with metric_col1:
+                st.metric("Total Quizzes", overview_data.get('total_quizzes', 0))
+            with metric_col2:
+                st.metric("Quiz Attempts", overview_data.get('total_attempts', 0))
+            with metric_col3:
+                st.metric("Average Score", f"{overview_data.get('average_score', 0)}%")
+            with metric_col4:
+                st.metric("Highest Score", f"{overview_data.get('highest_score', 0)}%")
+        else:
+            st.info("Upload some quiz data to see statistics here!")
+    except:
+        st.info("🔄 Backend starting up - statistics will appear once connected")
+    
+    st.markdown("---")
+    st.markdown("""
+    **📝 Notes:**
+    - Each app runs independently with device mode toggles for responsive testing
+    - Data is shared between all Assessment Analytics apps
+    - Apps include cross-navigation for seamless workflow
+    - All student data remains local and secure
+    """)
 
 def show_quiz_analytics():
     """Show Quiz Analytics - Upload CSVs and view performance trends"""
@@ -3242,9 +3851,9 @@ def show_quiz_analytics():
         else:
             st.info("No data available")
 
-def show_project_guardian():
-    """Show Project Guardian - Digital Citizenship Breach Triage"""
-    st.markdown("## 🛡️ Project Guardian")
+def show_digital_citizenship():
+    """Show Digital Citizenship - Digital Citizenship Breach Triage"""
+    st.markdown("## 🛡️ Digital Citizenship")
     st.markdown("### Digital Citizenship Breach Triage Tool")
     st.markdown("Confidential AI-powered consultation for staff to assess digital citizenship incidents")
     
@@ -3259,28 +3868,28 @@ def show_project_guardian():
     )
     
     # Input form
-    with st.form("guardian_form"):
+    with st.form("digital_citizenship_form"):
         col1, col2 = st.columns(2)
         
         with col1:
             year_group = st.selectbox(
                 "Year Group",
                 ["Year 3", "Year 4", "Year 5", "Year 6"],
-                key="guardian_year_group"
+                key="dc_year_group"
             )
         
         with col2:
             incident_history = st.radio(
                 "Incident History",
                 ["First incident", "Repeated offense"],
-                key="guardian_history"
+                key="dc_history"
             )
         
         description = st.text_area(
             "Describe the Incident",
             placeholder="e.g., 'A student has been receiving unkind messages...' or 'I found a student accessing inappropriate content...'",
             height=150,
-            key="guardian_description"
+            key="dc_description"
         )
         
         submit = st.form_submit_button("Get AI Assessment", type="primary")
@@ -3293,15 +3902,26 @@ def show_project_guardian():
         
         with st.spinner("Analyzing incident..."):
             # Call backend API
-            result = fetch_api(
-                "/api/guardian/assess",
-                method="POST",
-                data={
-                    "description": description,
-                    "year_group": year_group,
-                    "incident_history": incident_history
-                }
-            )
+            try:
+                response = requests.post(
+                    f"{API_BASE}/api/digital-citizenship/assess",
+                    json={
+                        "description": description,
+                        "year_group": year_group,
+                        "incident_history": incident_history
+                    }
+                )
+                if response.status_code == 200:
+                    result = response.json()
+                else:
+                    st.error(f"API Error: {response.status_code} - {response.text}")
+                    result = None
+            except requests.exceptions.ConnectionError:
+                st.error(f"Cannot connect to backend at {API_BASE}")
+                result = None
+            except Exception as e:
+                st.error(f"Error analyzing incident: {e}")
+                result = None
         
         if result:
             st.markdown("---")
@@ -3340,7 +3960,7 @@ def show_project_guardian():
             
             # Option to start new consultation
             st.markdown("---")
-            if st.button("Start New Consultation", key="guardian_reset"):
+            if st.button("Start New Consultation", key="dc_reset"):
                 st.rerun()
         else:
             st.error("Failed to get assessment. Please check your connection and try again.")
@@ -3349,7 +3969,7 @@ def show_project_guardian():
     st.markdown("---")
     st.markdown("### 🌐 Standalone Application")
     st.markdown(
-        "For a dedicated fullscreen experience, access the [Project Guardian React App](http://localhost:5174) "
+        "For a dedicated fullscreen experience, access the [Digital Citizenship React App](http://localhost:5174) "
         "(requires React dev server running)"
     )
 
@@ -3362,7 +3982,7 @@ def main():
     
     page = st.sidebar.selectbox(
         "Navigation",
-        ["Daily Briefing", "Students", "Classroom Tools", "CCA Comments", "ICT Behavior", "Quiz Analytics", "Project Guardian", "Search", "Import", "AI Agents", "Settings"],
+        ["Daily Briefing", "Students", "Classroom Tools", "CCA Comments", "Behaviour Management", "Classroom Management Tools", "Assessment Analytics", "Digital Citizenship", "Search", "Import", "AI Agents", "Settings"],
         index=0
     )
     
@@ -3375,12 +3995,14 @@ def main():
         show_classroom_tools()
     elif page == "CCA Comments":
         show_cca_comments()
-    elif page == "ICT Behavior":
-        show_ict_behavior()
-    elif page == "Quiz Analytics":
-        show_quiz_analytics()
-    elif page == "Project Guardian":
-        show_project_guardian()
+    elif page == "Behaviour Management":
+        show_behaviour_management()
+    elif page == "Classroom Management Tools":
+        show_classroom_management_tools()
+    elif page == "Assessment Analytics":
+        show_assessment_analytics()
+    elif page == "Digital Citizenship":
+        show_digital_citizenship()
     elif page == "Search":
         show_search()
     elif page == "Import":
@@ -3389,6 +4011,106 @@ def main():
         show_agents()
     elif page == "Settings":
         show_settings()
+    
+    # App Section with External Links
+    st.sidebar.markdown("---")
+    st.sidebar.markdown("### 📱 Apps")
+    
+    # Main Mobile PWA
+    st.sidebar.link_button(
+        label="📱 Lesson Console",
+        url="http://localhost:5173",
+        help="Open PTCC Lesson Console for quick student logging"
+    )
+    
+    # Existing Standalone React Apps
+    st.sidebar.link_button(
+        label="🛡️ Digital Citizenship",
+        url="http://localhost:5174",
+        help="Open Digital Citizenship Breach Assessment Tool"
+    )
+    
+    st.sidebar.link_button(
+        label="🛠️ Classroom Tools",
+        url="http://localhost:5175",
+        help="Open Classroom Tools - Seating charts, timers, and utilities"
+    )
+    
+    st.sidebar.link_button(
+        label="📝 CCA Comments",
+        url="http://localhost:5176",
+        help="Open CCA Comments Generator for co-curricular activities"
+    )
+    
+    st.sidebar.link_button(
+        label="📊 Behaviour Management",
+        url="http://localhost:5177",
+        help="Open Behaviour Management - Live lesson tracking and strikes"
+    )
+    
+    # NEW Classroom Management Tools - Standalone React Apps
+    st.sidebar.markdown("**📚 Classroom Management Tools**")
+    
+    st.sidebar.link_button(
+        label="🚨 Intervention Priority",
+        url="http://localhost:5178",
+        help="Prioritized list of students needing intervention support"
+    )
+    
+    st.sidebar.link_button(
+        label="📈 Progress Dashboard",
+        url="http://localhost:5179",
+        help="Visual analytics showing class and student progress over time"
+    )
+    
+    st.sidebar.link_button(
+        label="🪑 Seating Chart",
+        url="http://localhost:5180",
+        help="Generate optimal seating arrangements based on behavior and support needs"
+    )
+    
+    st.sidebar.link_button(
+        label="👥 Group Formation",
+        url="http://localhost:5181",
+        help="Create optimal student groups for collaborative learning"
+    )
+    
+    st.sidebar.link_button(
+        label="🎯 Differentiation",
+        url="http://localhost:5182",
+        help="Analyze student performance levels for differentiated instruction"
+    )
+    
+    # Assessment Analytics Tools - NEW
+    st.sidebar.link_button(
+        label="📊 Assessment Analytics Overview",
+        url="http://localhost:5187",
+        help="View Assessment Analytics dashboard with workflow guide and app links"
+    )
+    
+    st.sidebar.link_button(
+        label="📤 Upload Quiz",
+        url="http://localhost:5183",
+        help="Upload CSV files with quiz results for automatic processing"
+    )
+    
+    st.sidebar.link_button(
+        label="📈 Performance Trends",
+        url="http://localhost:5184",
+        help="Track student quiz performance over time with trend analysis"
+    )
+    
+    st.sidebar.link_button(
+        label="🎯 Progress Levels",
+        url="http://localhost:5185",
+        help="Analyze student progress distribution across grade-level expectations"
+    )
+    
+    st.sidebar.link_button(
+        label="⚠️ At-Risk Students",
+        url="http://localhost:5186",
+        help="Identify students with declining or low performance who need intervention"
+    )
     
     # Footer
     st.sidebar.markdown("---")

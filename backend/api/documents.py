@@ -11,7 +11,10 @@ from fastapi import Depends
 from typing import List, Dict, Any, Optional
 from datetime import datetime, timedelta
 from enum import Enum
-import PyPDF2
+try:
+    import PyPDF2
+except ImportError:
+    PyPDF2 = None
 import io
 from pathlib import Path
 
@@ -81,6 +84,9 @@ def classify_document(filename: str, content: str) -> DocumentType:
 
 def extract_text_from_pdf(file_content: bytes) -> str:
     """Extract text content from PDF file"""
+    if not PyPDF2:
+        logger.warning("PyPDF2 not available, cannot extract PDF text")
+        return ""
     try:
         pdf_reader = PyPDF2.PdfReader(io.BytesIO(file_content))
         text = ""

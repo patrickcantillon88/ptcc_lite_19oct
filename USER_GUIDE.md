@@ -86,7 +86,7 @@ PTCC includes three specialized AI agents to enhance your teaching:
 ### Viewing Student Information
 1. Navigate to "Students" in the sidebar
 2. Use filters to find specific students:
-   - Class code (7A, 7B, 8A, etc.)
+   - Class code (3A, 4B, 5C, 6A)
    - Year group (7-11)
    - Campus (JC)
    - Support level (0-3)

@@ -11,7 +11,11 @@ from dataclasses import dataclass
 # Try to import Gemini - gracefully handle if not available
 try:
     import google.generativeai as genai
-    from google.generativeai.types import RequestOptions
+    # RequestOptions may not be available in all versions
+    try:
+        from google.generativeai.types import RequestOptions
+    except (ImportError, AttributeError):
+        RequestOptions = None
     GEMINI_AVAILABLE = True
 except ImportError:
     genai = None
@@ -25,7 +29,7 @@ logger = logging.getLogger(__name__)
 class GeminiConfig:
     """Configuration for Gemini API client."""
     api_key: str
-    model: str = "gemini-2.5-flash-exp"
+    model: str = "gemini-2.5-flash-lite"
     temperature: float = 0.7
     max_tokens: int = 2048
     timeout: int = 30
@@ -86,13 +90,16 @@ class GeminiClient:
                 max_output_tokens=kwargs.get('max_tokens', self.config.max_tokens),
             )
 
-            request_options = RequestOptions(timeout=kwargs.get('timeout', self.config.timeout))
+            # Build generate_content call with optional request_options
+            call_kwargs = {
+                'generation_config': generation_config
+            }
+            
+            if RequestOptions is not None:
+                request_options = RequestOptions(timeout=kwargs.get('timeout', self.config.timeout))
+                call_kwargs['request_options'] = request_options
 
-            response = self._client.generate_content(
-                prompt,
-                generation_config=generation_config,
-                request_options=request_options
-            )
+            response = self._client.generate_content(prompt, **call_kwargs)
 
             if response and response.text:
                 return response.text.strip()

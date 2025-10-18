@@ -1,0 +1,102 @@
+name: Test Suite CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install dependencies
+      working-directory: ./backend
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-cov pytest-asyncio
+        # Install project dependencies from requirements if exists
+        if [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+        fi
+    
+    - name: Run unit tests - Privacy Components
+      working-directory: ./backend
+      run: |
+        python -m pytest tests/test_privacy_components.py -v --tb=short --cov=core --cov-report=xml --cov-report=term-missing
+    
+    - name: Run integration tests - E2E Pipeline
+      working-directory: ./backend
+      run: |
+        python -m pytest tests/test_safeguarding_e2e.py -v --tb=short --cov=core --cov-append --cov-report=xml --cov-report=term-missing
+    
+    - name: Run API tests
+      working-directory: ./backend
+      run: |
+        python -m pytest backend/tests/test_safeguarding_api.py -v --tb=short --cov=core --cov-append --cov-report=xml --cov-report=term-missing
+      continue-on-error: true
+    
+    - name: Upload coverage reports
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./backend/coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+    
+    - name: Generate coverage badge
+      working-directory: ./backend
+      run: |
+        coverage-badge -o coverage.svg -f
+      continue-on-error: true
+    
+    - name: Publish test results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        files: ./backend/test-results.xml
+        check_name: Test Results
+      continue-on-error: true
+
+  lint:
+    runs-on: macos-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    
+    - name: Install linting tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 black isort
+    
+    - name: Check code formatting with Black
+      working-directory: ./backend
+      run: black --check --diff . || true
+    
+    - name: Check imports with isort
+      working-directory: ./backend
+      run: isort --check-only . || true
+    
+    - name: Lint with flake8
+      working-directory: ./backend
+      run: |
+        # Stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # Exit-code 0 even if there are style issues
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics

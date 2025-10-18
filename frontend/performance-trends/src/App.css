@@ -1,0 +1,489 @@
+/* Performance Trends App Styles */
+:root {
+  --primary-color: #007acc;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --danger-color: #dc3545;
+  --light-gray: #f8f9fa;
+  --border-color: #dee2e6;
+  --text-color: #333;
+  --shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: #f5f7fa;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Header */
+.app-header {
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.title-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.title-section p {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Overview Section */
+.overview-section {
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.overview-card {
+  text-align: center;
+  padding: 1.5rem;
+  background: var(--light-gray);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.overview-card:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-4px);
+}
+
+.overview-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.overview-label {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Filters */
+.filters-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  align-items: end;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+.filter-group input {
+  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.filter-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.analyze-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.analyze-btn:hover:not(:disabled) {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.analyze-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Error message */
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border-left: 4px solid var(--danger-color);
+}
+
+/* Results */
+.results-section {
+  margin-top: 2rem;
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.results-header h2 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+/* Trend Statistics */
+.trend-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.trend-stat-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: transform 0.2s;
+}
+
+.trend-stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.trend-stat-card.improving {
+  border-left: 6px solid var(--success-color);
+}
+
+.trend-stat-card.stable {
+  border-left: 6px solid var(--warning-color);
+}
+
+.trend-stat-card.declining {
+  border-left: 6px solid var(--danger-color);
+}
+
+.stat-icon {
+  font-size: 2rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Students Grid */
+.students-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.student-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  border-left: 6px solid var(--primary-color);
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.student-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.student-card.trend-improving {
+  border-left-color: var(--success-color);
+}
+
+.student-card.trend-stable {
+  border-left-color: var(--warning-color);
+}
+
+.student-card.trend-declining {
+  border-left-color: var(--danger-color);
+}
+
+.student-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.student-info h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.class-code {
+  background: var(--light-gray);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.progress-badge {
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.trend-indicator {
+  text-align: center;
+}
+
+.trend-icon {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.trend-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.student-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--light-gray);
+  border-radius: 8px;
+}
+
+.metric {
+  text-align: center;
+}
+
+.metric label {
+  display: block;
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.metric-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+/* Recent Scores Chart */
+.recent-scores {
+  margin-bottom: 1.5rem;
+}
+
+.recent-scores h4 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.scores-chart {
+  display: flex;
+  align-items: end;
+  gap: 4px;
+  height: 100px;
+  background: var(--light-gray);
+  border-radius: 6px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.score-bar {
+  flex: 1;
+  min-height: 5px;
+  border-radius: 2px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.score-bar:hover {
+  opacity: 0.8;
+  transform: scaleY(1.1);
+}
+
+.scores-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  min-width: 120px;
+}
+
+.action-btn.primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.action-btn.secondary {
+  background-color: var(--light-gray);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+}
+
+.action-btn.primary:hover {
+  background-color: #0056b3;
+}
+
+.action-btn.secondary:hover {
+  background-color: #e9ecef;
+}
+
+/* No results */
+.no-results {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.no-results h3 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.no-results p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app {
+    padding: 1rem;
+  }
+  
+  .title-section h1 {
+    font-size: 2rem;
+  }
+  
+  .filters-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .students-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .trend-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .student-metrics {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .action-btn {
+    min-width: auto;
+  }
+}

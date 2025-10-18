@@ -1,6 +1,6 @@
 import { Assessment } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8001';
 
 export const getAssessment = async (
   description: string,
@@ -8,7 +8,7 @@ export const getAssessment = async (
   incidentHistory: string
 ): Promise<Assessment> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/guardian/assess`, {
+    const response = await fetch(`${API_BASE_URL}/api/digital-citizenship/assess`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -26,7 +26,13 @@ export const getAssessment = async (
     }
 
     const data = await response.json();
-    return data;
+    
+    // Transform API response to match frontend interface
+    return {
+      classification: data.classification,
+      reason: data.reason,
+      nextSteps: data.next_steps // Transform next_steps to nextSteps
+    };
   } catch (error) {
     console.error('Error calling assessment API:', error);
     if (error instanceof Error) {

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-ICT Behavior Management API for PTCC
+Behavior Management API for PTCC
 
-Tracks strikes, consequences, and behavior during ICT lessons
+Tracks strikes, consequences, and behavior during lessons
 """
 
 from fastapi import APIRouter, HTTPException, Depends
@@ -17,7 +17,7 @@ from ..core.database import get_db
 from ..core.logging_config import get_logger
 from ..models.database_models import Student, QuickLog
 
-logger = get_logger("api.ict_behavior")
+logger = get_logger("api.behavior_management")
 router = APIRouter()
 
 # Strike consequences
@@ -79,7 +79,7 @@ async def start_lesson(
     db: Session = Depends(get_db)
 ):
     """
-    Start a new ICT lesson session
+    Start a new lesson session
     
     Creates a unique session ID and returns student count
     """
@@ -174,7 +174,7 @@ async def add_strike(
             class_code=request.class_code,
             timestamp=datetime.now(),
             log_type="negative",
-            category="ict_strike",
+            category="behavior_strike",
             points=0,  # No house point deduction
             note=request.description,
             lesson_session_id=session_id,
@@ -231,7 +231,7 @@ async def add_positive_behavior(
             class_code=request.class_code,
             timestamp=datetime.now(),
             log_type="positive",
-            category="ict_positive",
+            category="behavior_positive",
             points=request.house_points,
             note=request.description,
             lesson_session_id=session_id
@@ -362,10 +362,10 @@ async def get_student_behavior_history(
         if not student:
             raise HTTPException(status_code=404, detail="Student not found")
         
-        # Get all ICT behavior logs (strikes and positives)
+        # Get all behavior logs (strikes and positives)
         logs = db.query(QuickLog).filter(
             QuickLog.student_id == student_id,
-            QuickLog.category.in_(["ict_strike", "ict_positive"])
+            QuickLog.category.in_(["behavior_strike", "behavior_positive"])
         ).order_by(desc(QuickLog.timestamp)).limit(limit).all()
         
         # Format history

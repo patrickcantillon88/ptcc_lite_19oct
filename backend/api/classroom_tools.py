@@ -267,7 +267,9 @@ async def get_progress_dashboard(
         behavior_by_date = defaultdict(lambda: {"positive": 0, "negative": 0, "neutral": 0})
         for log in logs:
             date_key = log.timestamp.date().isoformat()
-            behavior_by_date[date_key][log.log_type] += 1
+            # Handle log_type - only increment if it's a valid type
+            if log.log_type in behavior_by_date[date_key]:
+                behavior_by_date[date_key][log.log_type] += 1
         
         behavior_trend = [
             {

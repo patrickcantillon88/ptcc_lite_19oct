@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
+import AgentAnalysis from './components/AgentAnalysis';
 
 // Types
 interface Student {
@@ -47,6 +48,8 @@ function App() {
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [showLogs, setShowLogs] = useState(false);
+  const [viewMode, setViewMode] = useState<'logger' | 'agents'>('logger'); // New: view mode switcher
+  const [deviceMode, setDeviceMode] = useState<'mobile' | 'tablet' | 'desktop'>('mobile'); // Device layout mode
 
   // Load students on component mount
   useEffect(() => {
@@ -56,6 +59,12 @@ function App() {
     const savedLogs = localStorage.getItem('quick-logs');
     if (savedLogs) {
       setLogs(JSON.parse(savedLogs));
+    }
+    
+    // Load saved device mode preference
+    const savedDeviceMode = localStorage.getItem('device-mode');
+    if (savedDeviceMode && ['mobile', 'tablet', 'desktop'].includes(savedDeviceMode)) {
+      setDeviceMode(savedDeviceMode as 'mobile' | 'tablet' | 'desktop');
     }
 
     // Listen for online/offline
@@ -80,7 +89,7 @@ function App() {
 
   const fetchStudents = async () => {
     try {
-      const response = await fetch('http://172.16.28.76:8005/api/students/');
+      const response = await fetch('http://localhost:8001/api/students/');
       if (response.ok) {
         const data = await response.json();
         setStudents(data);
@@ -113,7 +122,7 @@ function App() {
     // Try to sync immediately if online
     if (isOnline) {
       try {
-        const response = await fetch(`http://172.16.28.76:8005/api/students/${selectedStudent.id}/logs`, {
+        const response = await fetch(`http://localhost:8001/api/students/${selectedStudent.id}/logs`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -165,7 +174,7 @@ function App() {
     
     for (const log of unsyncedLogs) {
       try {
-        const response = await fetch(`http://172.16.28.76:8005/api/students/${log.student_id}/logs`, {
+        const response = await fetch(`http://localhost:8001/api/students/${log.student_id}/logs`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -219,25 +228,125 @@ function App() {
     </div>
   );
 
+  // Save device mode preference when changed
+  const handleDeviceModeChange = (mode: 'mobile' | 'tablet' | 'desktop') => {
+    setDeviceMode(mode);
+    localStorage.setItem('device-mode', mode);
+  };
+
   return (
-    <div className="quick-logger">
+    <div className={`quick-logger ${deviceMode}`}>
       {/* Header */}
       <header className="logger-header">
-        <h1>🏫 PTCC Quick Logger</h1>
-        <div className="status-bar">
-          <span className={`connection-status ${isOnline ? 'online' : 'offline'}`}>
-            {isOnline ? '🟢 Online' : '🔴 Offline'}
-          </span>
-          <button 
-            className="logs-btn"
-            onClick={() => setShowLogs(!showLogs)}
+        <h1>🏫 PTCC</h1>
+        
+        {/* Device Mode Toggle - Full Width */}
+        <div className="device-switcher">
+          <button
+            className={`device-btn ${deviceMode === 'mobile' ? 'active' : ''}`}
+            onClick={() => handleDeviceModeChange('mobile')}
+            title="Mobile view (375px)"
           >
-            📋 Logs ({logs.length})
+            📱 Mobile
           </button>
+          <button
+            className={`device-btn ${deviceMode === 'tablet' ? 'active' : ''}`}
+            onClick={() => handleDeviceModeChange('tablet')}
+            title="Tablet view (1024px)"
+          >
+            📱 Tablet
+          </button>
+          <button
+            className={`device-btn ${deviceMode === 'desktop' ? 'active' : ''}`}
+            onClick={() => handleDeviceModeChange('desktop')}
+            title="Desktop view (responsive)"
+          >
+            🖥️ Desktop
+          </button>
+        </div>
+        
+        {/* Width Indicator */}
+        <div className="width-indicator">
+          {deviceMode === 'mobile' && 'Mobile view (375px)'}
+          {deviceMode === 'tablet' && 'Tablet view (1024px)'}
+          {deviceMode === 'desktop' && 'Desktop view (responsive)'}
+        </div>
+        
+        <div className="status-bar">
+          {/* View Mode Switcher */}
+          <div className="view-switcher">
+            <button
+              className={`view-btn ${viewMode === 'logger' ? 'active' : ''}`}
+              onClick={() => setViewMode('logger')}
+              title="Quick logging mode"
+            >
+              📝 Logger
+            </button>
+            <button
+              className={`view-btn ${viewMode === 'agents' ? 'active' : ''}`}
+              onClick={() => setViewMode('agents')}
+              title="AI agents analysis"
+            >
+              🤖 Agents
+            </button>
+          </div>
+          <span className={`connection-status ${isOnline ? 'online' : 'offline'}`}>
+            {isOnline ? '🟢' : '🔴'}
+          </span>
+          {viewMode === 'logger' && (
+            <button 
+              className="logs-btn"
+              onClick={() => setShowLogs(!showLogs)}
+            >
+              📋 ({logs.length})
+            </button>
+          )}
         </div>
       </header>
 
-      {showLogs ? (
+      {viewMode === 'agents' ? (
+        // Agents Analysis View
+        <main className="logger-content">
+          {!selectedStudent ? (
+            // Class/Student selection for Agents
+            <div className="student-selection">
+              <h2>📊 Select Student for Analysis</h2>
+              <div className="search-box">
+                <input
+                  type="text"
+                  placeholder="🔍 Search by name or class..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  autoFocus
+                />
+              </div>
+              <div className="students-grid">
+                {filteredStudents.slice(0, 20).map(student => (
+                  <button
+                    key={student.id}
+                    className="student-btn agents-student-btn"
+                    onClick={() => setSelectedStudent(student)}
+                  >
+                    <div className="student-name">{student.name}</div>
+                    <div className="student-class">{student.class_code}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            // Agent Analysis Display
+            <div>
+              <button 
+                className="change-student"
+                onClick={() => setSelectedStudent(null)}
+              >
+                ← Back to Student Selection
+              </button>
+              <AgentAnalysis studentId={selectedStudent.id} classCode={selectedStudent.class_code} />
+            </div>
+          )}
+        </main>
+      ) : showLogs ? (
         // Logs view
         <div className="logs-view">
           <div className="logs-header">

@@ -133,12 +133,12 @@ class RAGEngine:
             documents.append(text)
             
             metadatas.append({
-                "student_id": student.id,
-                "name": student.name,
-                "class_code": student.class_code,
-                "year_group": student.year_group,
-                "campus": student.campus,
-                "support_level": student.support_level,
+                "student_id": str(student.id),
+                "name": student.name or "",
+                "class_code": student.class_code or "",
+                "year_group": student.year_group or "",
+                "campus": student.campus or "",
+                "support_level": str(student.support_level or 0),
                 "type": "student"
             })
             
@@ -193,13 +193,13 @@ class RAGEngine:
             documents.append(text)
             
             metadatas.append({
-                "log_id": log.id,
-                "student_id": log.student_id,
-                "student_name": log.student.name,
-                "class_code": log.class_code,
-                "log_type": log.log_type,
-                "category": log.category,
-                "points": log.points,
+                "log_id": str(log.id),
+                "student_id": str(log.student_id),
+                "student_name": log.student.name or "",
+                "class_code": log.class_code or "",
+                "log_type": log.log_type or "",
+                "category": log.category or "",
+                "points": str(log.points or 0),
                 "timestamp": log.timestamp.isoformat(),
                 "type": "log"
             })
@@ -253,15 +253,15 @@ class RAGEngine:
             documents.append(text)
             
             metadatas.append({
-                "assessment_id": assessment.id,
-                "student_id": assessment.student_id,
-                "student_name": assessment.student.name,
-                "assessment_type": assessment.assessment_type,
-                "subject": assessment.subject,
+                "assessment_id": str(assessment.id),
+                "student_id": str(assessment.student_id),
+                "student_name": assessment.student.name or "",
+                "assessment_type": assessment.assessment_type or "",
+                "subject": assessment.subject or "",
                 "topic": assessment.topic or "",
-                "score": assessment.score,
-                "max_score": assessment.max_score,
-                "percentage": assessment.percentage,
+                "score": str(assessment.score or 0),
+                "max_score": str(assessment.max_score or 0),
+                "percentage": str(assessment.percentage or 0),
                 "date": assessment.date.isoformat(),
                 "type": "assessment"
             })
@@ -315,15 +315,15 @@ class RAGEngine:
             documents.append(text)
             
             metadatas.append({
-                "comm_id": comm.id,
-                "sender": comm.sender,
-                "subject": comm.subject,
-                "category": comm.category,
+                "comm_id": str(comm.id),
+                "sender": comm.sender or "",
+                "subject": comm.subject or "",
+                "category": comm.category or "",
                 "campus": comm.campus or "",
-                "source": comm.source,
+                "source": comm.source or "",
                 "received_date": comm.received_date.isoformat(),
-                "action_required": comm.action_required,
-                "read": comm.read,
+                "action_required": str(comm.action_required or False),
+                "read": str(comm.read or False),
                 "type": "communication"
             })
             

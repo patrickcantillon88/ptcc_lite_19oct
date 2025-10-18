@@ -1,0 +1,70 @@
+[run]
+# Coverage.py configuration for the safeguarding system
+
+# Source code to measure coverage for
+source = core, api
+
+# Omit certain files/paths from coverage
+omit =
+    */tests/*
+    */test_*.py
+    */__pycache__/*
+    */site-packages/*
+    */venv/*
+    setup.py
+    conftest.py
+
+# Branch coverage
+branch = True
+
+# Parallel mode for multiple processes
+parallel = True
+
+[report]
+# Report configuration
+
+# Exclude lines from coverage reporting
+exclude_lines =
+    # Have to re-enable the standard pragma
+    pragma: no cover
+
+    # Don't complain about missing debug-only code:
+    def __repr__
+    if self\.debug
+
+    # Don't complain if tests don't hit defensive assertion code:
+    raise AssertionError
+    raise NotImplementedError
+
+    # Don't complain if non-runnable code isn't run:
+    if 0:
+    if __name__ == .__main__.:
+    if TYPE_CHECKING:
+
+    # Don't complain about abstract methods
+    @(abc\.)?abstractmethod
+
+# Precision for coverage percentages
+precision = 2
+
+# Skip covered files in report
+skip_covered = False
+
+# Sort report by coverage percentage
+sort = Cover
+
+[html]
+# HTML report output
+directory = htmlcov
+
+[xml]
+# XML report output
+output = coverage.xml
+
+[paths]
+# Path mappings for combining coverage data
+source =
+    core
+    api
+    */core
+    */api

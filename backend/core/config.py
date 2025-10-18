@@ -46,6 +46,11 @@ DEFAULT_CONFIG = {
         "student_photos": "~/SchoolData/2025-26/students/photos/"
     },
     "llm": {
+        "models": {
+            "gemini_default": "gemini-2.5-flash",
+            "gemini_pro": "gemini-2.5-pro",
+            "gemini_vision": "gemini-pro-vision"
+        },
         "local": {
             "provider": "ollama",
             "model": "phi3:mini",
@@ -54,6 +59,9 @@ DEFAULT_CONFIG = {
         "cloud": {
             "provider": "claude",
             "api_key": ""
+        },
+        "gemini": {
+            "provider": "gemini"
         }
     },
     "system": {
@@ -228,3 +236,30 @@ def get_chroma_path_path() -> Path:
 def get_student_photos_dir_path() -> Path:
     """Get the student photos directory path"""
     return Path(get_settings()["file_paths"]["student_photos"]).expanduser()
+
+
+def get_gemini_model(model_type: str = "default") -> str:
+    """
+    Get Gemini model ID from centralized config.
+    
+    Args:
+        model_type: "default" (flash), "pro", or "vision"
+    
+    Returns:
+        Model ID string
+    """
+    model_map = {
+        "default": "gemini_default",
+        "flash": "gemini_default",
+        "pro": "gemini_pro",
+        "vision": "gemini_vision"
+    }
+    
+    key = model_map.get(model_type, "gemini_default")
+    settings = get_settings()
+    
+    # Return from config if available, otherwise fallback defaults
+    if "llm" in settings and "models" in settings["llm"]:
+        return settings["llm"]["models"].get(key, DEFAULT_CONFIG["llm"]["models"][key])
+    
+    return DEFAULT_CONFIG["llm"]["models"][key]

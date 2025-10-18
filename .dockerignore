@@ -1,0 +1,70 @@
+# Don't copy these to Docker context
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.pytest_cache/
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Development files
+.git/
+.gitignore
+README.md
+*.md
+docs/
+
+# Logs
+*.log
+logs/
+.ptcc_logs/
+
+# Database files (will be created fresh)
+*.db
+*.sqlite
+*.sqlite3
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# Temporary files
+tmp/
+temp/

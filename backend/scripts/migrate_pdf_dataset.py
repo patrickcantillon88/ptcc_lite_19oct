@@ -738,8 +738,8 @@ class SchoolDataExtractor:
         """Generate student data based on expected format when parsing fails"""
         logger.info("Generating student data based on expected BIS HCMC format...")
 
-        # Expected format: 40 students across 4 classes
-        classes = ['7A', '7B', '8A', '8B']
+        # Expected format: students across 4 classes
+        classes = ['3A', '4B', '5C', '6A']
         students_per_class = 10
 
         students = []
@@ -825,12 +825,12 @@ class DataMapper:
                 year_group = student_data.get('year_group')
                 if not year_group:
                     class_code = student_data.get('class_code', '7A')
-                    year_group = class_code[0] if class_code and class_code[0].isdigit() else '7'
+                year_group = class_code[0] if class_code and class_code[0].isdigit() else '3'
 
                 student = Student(
                     name=student_data['name'],
                     year_group=year_group,
-                    class_code=student_data.get('class_code', '7A'),
+                    class_code=student_data.get('class_code', '3A'),
                     campus=student_data.get('campus', 'JC'),
                     support_level=student_data.get('support_level', 0),
                     support_notes=student_data.get('support_notes'),

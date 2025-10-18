@@ -1,0 +1,200 @@
+╔════════════════════════════════════════════════════════════════════╗
+║                                                                    ║
+║         🚀 PTCC PHASE 3 SYSTEM - STARTUP INSTRUCTIONS 🚀         ║
+║                                                                    ║
+╚════════════════════════════════════════════════════════════════════╝
+
+PRE-FLIGHT CHECKS
+─────────────────
+
+✓ Verify Python 3.9+:
+  python3 --version
+
+✓ Verify Node 16+:
+  node --version
+
+✓ Verify database exists:
+  ls -la data/school.db
+
+✓ Verify .env exists:
+  ls -la .env
+
+
+STARTUP SEQUENCE (3 TERMINALS)
+──────────────────────────────
+
+┌─ TERMINAL 1: Backend API ────────────────────────────────────────┐
+│                                                                  │
+│ $ cd /Users/cantillonpatrick/Desktop/ptcc_standalone/backend    │
+│ $ python -m backend.main                                        │
+│                                                                  │
+│ Expected output:                                                │
+│   INFO:     Uvicorn running on http://0.0.0.0:8001              │
+│   INFO:     PTCC backend started successfully                    │
+│                                                                  │
+│ Status: ✅ READY (wait 5 seconds before next step)              │
+└──────────────────────────────────────────────────────────────────┘
+
+┌─ TERMINAL 2: Verification (after 5 seconds) ─────────────────────┐
+│                                                                  │
+│ $ curl http://localhost:8001/api/agents/health                  │
+│                                                                  │
+│ Expected response:                                              │
+│   {"status": "healthy", "agents": [...], "agent_count": 3}     │
+│                                                                  │
+│ If you see this: ✅ Backend is running correctly               │
+│ If you get error: ❌ Wait longer or check Terminal 1 output    │
+└──────────────────────────────────────────────────────────────────┘
+
+┌─ TERMINAL 3: Frontend PWA ───────────────────────────────────────┐
+│                                                                  │
+│ $ cd /Users/cantillonpatrick/Desktop/ptcc_standalone/frontend/mobile-pwa │
+│ $ npm install                    # if needed                    │
+│ $ npm run dev                                                   │
+│                                                                  │
+│ Expected output:                                                │
+│   ➜  Local:   http://localhost:5173                             │
+│   ➜  press h to show help                                       │
+│                                                                  │
+│ Status: ✅ READY (frontend is running)                         │
+└──────────────────────────────────────────────────────────────────┘
+
+
+BROWSER ACCESS
+──────────────
+
+Open browser and navigate to:
+  http://localhost:5174
+
+Or if that doesn't work:
+  http://localhost:5173
+
+You should see:
+  - Student list on left sidebar
+  - Main PTCC interface in center
+  - Agents analysis section (if student selected)
+
+
+QUICK TEST
+──────────
+
+1. Open http://localhost:5174 in browser
+2. Select any student from sidebar
+3. You should see:
+   ✓ PeriodBriefingAgent analysis
+   ✓ CCAEngagementAgent analysis
+   ✓ AccommodationComplianceAgent analysis
+
+4. Click "Show Details" on any agent card to expand
+
+
+TROUBLESHOOTING
+───────────────
+
+❌ Backend won't start:
+  • Check Python version: python3 --version
+  • Check .env exists and has GEMINI_API_KEY
+  • Check port 8001 is free: lsof -i :8001
+
+❌ Frontend won't connect to backend:
+  • Check Terminal 1 shows "PTCC backend started successfully"
+  • Check backend health: curl http://localhost:8001/api/agents/health
+  • Check CORS errors in browser console (F12)
+  • Verify Vite proxy config in vite.config.ts
+
+❌ Port already in use:
+  • Backend (8001): sudo lsof -i :8001
+  • Frontend (5173/5174): sudo lsof -i :5173
+
+❌ npm install fails:
+  • Delete node_modules: rm -rf node_modules
+  • Clear cache: npm cache clean --force
+  • Reinstall: npm install
+
+
+MONITORING
+──────────
+
+Check backend logs:
+  tail -f .ptcc_logs/backend.log
+
+Check system status:
+  curl http://localhost:8001/api/status
+
+Check agent health:
+  curl http://localhost:8001/api/agents/health
+
+List available agents:
+  curl http://localhost:8001/api/agents/list
+
+
+SHUTDOWN
+────────
+
+Press Ctrl+C in each terminal:
+
+Terminal 1 (Backend):    Ctrl+C
+Terminal 2 (Health):     Close or just Ctrl+C  
+Terminal 3 (Frontend):   Ctrl+C
+
+
+SUCCESS INDICATORS
+──────────────────
+
+✅ Backend running on port 8001
+✅ Frontend running on port 5173/5174
+✅ curl to /api/agents/health returns {"status": "healthy", ...}
+✅ Browser loads http://localhost:5174 without errors
+✅ Student selection shows agent analysis
+✅ No CORS errors in browser console
+
+
+NEXT STEPS AFTER STARTUP
+────────────────────────
+
+1. Open browser to http://localhost:5174
+2. Select a student from left sidebar
+3. Review:
+   - Period Briefing Agent (pre-lesson intelligence)
+   - CCA Engagement Agent (enrichment recommendations)
+   - Accommodation Compliance Agent (compliance tracking)
+4. Click "Show Details" on analysis cards for more info
+5. Test student filtering/search on sidebar
+
+
+SYSTEM INFORMATION
+──────────────────
+
+Backend:   http://localhost:8001 (FastAPI)
+Frontend:  http://localhost:5174 (React/Vite PWA)
+Database:  data/school.db (SQLite)
+Config:    config/config.yaml
+Env:       .env
+
+
+DATABASE STATUS
+───────────────
+
+Check if database has students:
+  sqlite3 data/school.db "SELECT COUNT(*) as student_count FROM students;"
+
+View recent logs:
+  sqlite3 data/school.db "SELECT id, name, class_code FROM students LIMIT 5;"
+
+
+API DOCUMENTATION
+──────────────────
+
+Once running, view Swagger docs:
+  http://localhost:8001/docs
+
+Or ReDoc:
+  http://localhost:8001/redoc
+
+
+╔════════════════════════════════════════════════════════════════════╗
+║                                                                    ║
+║              🎯 Ready to start? Follow the sequence above! 🎯     ║
+║                                                                    ║
+╚════════════════════════════════════════════════════════════════════╝
+

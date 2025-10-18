@@ -337,40 +337,227 @@ body {
   color: #6c757d;
 }
 
-/* Responsive Design */
+/* Device Mode Switcher */
+.device-switcher {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.3rem;
+  border-radius: 20px;
+  margin-bottom: 0.5rem;
+  justify-content: center;
+}
+
+.device-btn {
+  flex: 1;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.device-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.device-btn.active {
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* View Mode Switcher */
+.view-switcher {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.3rem;
+  border-radius: 20px;
+  flex: 1;
+}
+
+.view-btn {
+  flex: 1;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.view-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.view-btn.active {
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  font-weight: 600;
+}
+
+/* Device Mode Layouts */
+
+/* Width Indicator */
+.width-indicator {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  color: white;
+  font-weight: 500;
+}
+
+/* FORCE DEVICE MODE LAYOUTS - Override everything */
+
+/* Mobile Mode - Original mobile-first design */
+.quick-logger.mobile {
+  width: 375px !important;
+  max-width: 375px !important;
+  min-width: 375px !important;
+  margin: 0 auto !important;
+  min-height: 100vh !important;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1) !important;
+  border: 5px solid #ff0000 !important; /* RED for mobile */
+  border-radius: 12px !important;
+  background: #fff !important;
+}
+
+/* Tablet Mode - iPad landscape (1024x768) */
+.quick-logger.tablet {
+  width: 1024px !important;
+  max-width: 1024px !important;
+  min-width: 1024px !important;
+  margin: 0 auto !important;
+  min-height: 100vh !important;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1) !important;
+  border: 5px solid #00ff00 !important; /* GREEN for tablet */
+  border-radius: 12px !important;
+  background: #fff !important;
+}
+
+.quick-logger.tablet .students-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.quick-logger.tablet .behavior-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.quick-logger.tablet .behaviors-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.quick-logger.tablet .behavior-section {
+  margin-bottom: 0;
+}
+
+/* Desktop Mode - Full responsive */
+.quick-logger.desktop {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  min-width: auto !important;
+  margin: 0 !important;
+  min-height: 100vh !important;
+  border: 5px solid #0000ff !important; /* BLUE for desktop */
+  border-radius: 0px !important; /* Remove radius for full width */
+  background: #fff !important;
+  position: relative !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+/* Override ALL potential conflicts */
+.quick-logger.mobile *,
+.quick-logger.tablet *,
+.quick-logger.desktop * {
+  box-sizing: border-box !important;
+}
+
+/* Force container behavior */
+.quick-logger {
+  display: block !important;
+  position: relative !important;
+}
+
+.quick-logger.desktop .logger-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.quick-logger.desktop .students-grid {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.quick-logger.desktop .behavior-grid {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.quick-logger.desktop .behaviors-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+}
+
+.quick-logger.desktop .selected-student {
+  margin-bottom: 2rem;
+}
+
+/* Responsive Design - Only applies to mobile mode now */
+.quick-logger.mobile .logger-header {
+  padding: 0.75rem;
+}
+
+.quick-logger.mobile .logger-header h1 {
+  font-size: 1.3rem;
+}
+
+.quick-logger.mobile .status-bar {
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 @media (max-width: 480px) {
-  .logger-header {
-    padding: 0.75rem;
-  }
-  
-  .logger-header h1 {
-    font-size: 1.3rem;
-  }
-  
-  .status-bar {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .students-grid {
+  .quick-logger.mobile .students-grid {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
   
-  .behavior-grid {
+  .quick-logger.mobile .behavior-grid {
     grid-template-columns: 1fr 1fr;
   }
   
-  .selected-student {
+  .quick-logger.mobile .selected-student {
     padding: 1rem;
   }
 }
 
 @media (max-width: 360px) {
-  .behavior-grid {
+  .quick-logger.mobile .behavior-grid {
     grid-template-columns: 1fr;
   }
   
-  .students-grid {
+  .quick-logger.mobile .students-grid {
     grid-template-columns: 1fr 1fr;
   }
 }

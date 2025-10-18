@@ -24,6 +24,33 @@ router = APIRouter()
 settings = get_settings()
 gemini_client = create_gemini_client_from_config(settings)
 
+def generate_fallback_response(message: str, context_data: Dict[str, Any]) -> str:
+    """
+    Generate a helpful response when Gemini is unavailable.
+    This response makes it clear that the AI is in a limited, fallback mode.
+    """
+    # This is the primary message to inform the user about the state.
+    main_message = (
+        "**The AI Assistant is currently in fallback mode.**\n\n"
+        "To unlock intelligent, conversational responses, please enable the AI features by providing a valid "
+        "Gemini API key in the activation section on the Teacher Assistant page."
+    )
+
+    # Add some contextual hints based on the query.
+    msg_lower = message.lower()
+    contextual_hint = ""
+
+    if any(word in msg_lower for word in ["performance", "grades", "assessment", "progress"]):
+        contextual_hint = "\n\n*Hint: Once enabled, you can ask me to 'analyze the performance of class 8A'.*"
+    elif any(word in msg_lower for word in ["alert", "risk", "concern", "problem"]):
+        contextual_hint = "\n\n*Hint: Once enabled, you can ask me to 'identify at-risk students in my classes'.*"
+    elif "student" in msg_lower:
+        contextual_hint = "\n\n*Hint: Once enabled, you can ask me for a 'summary of a student\'s recent progress'.*"
+    elif "capital of vietnam" in msg_lower: # Example from user's screenshot
+         contextual_hint = "\n\n*Note: My primary function is to assist with teaching-related tasks and student data, not general knowledge questions.*"
+
+    return main_message + contextual_hint
+
 # Pydantic models
 class ChatMessage(BaseModel):
     """Individual chat message"""
@@ -105,7 +132,7 @@ def get_student_context(db: Session, student_name: Optional[str] = None) -> Dict
         # Return general student stats
         total_students = query.count()
         class_distribution = {}
-        for cls in ["7A", "7B", "8A", "8B", "9A", "9B", "10A", "10B", "11A", "11B"]:
+        for cls in ["3A", "4B", "5C", "6A"]:
             count = query.filter(Student.class_code == cls).count()
             if count > 0:
                 class_distribution[cls] = count
@@ -373,15 +400,17 @@ Current User Query: {request.message}
 
 Please provide a helpful, context-aware response. Reference specific data when relevant and suggest actionable next steps."""
 
-        # Get AI response
+        # Get AI response (with fallback if Gemini unavailable)
         ai_response = gemini_client.generate_text(
             full_prompt,
             temperature=0.7,
             max_tokens=1024
         )
 
+        # Use fallback response if AI unavailable
         if not ai_response:
-            raise HTTPException(status_code=500, detail="Failed to generate AI response")
+            logger.info("AI service unavailable, using fallback response generator")
+            ai_response = generate_fallback_response(request.message, context_data)
 
         # Generate suggestions based on context
         suggestions = []
@@ -400,18 +429,19 @@ Please provide a helpful, context-aware response. Reference specific data when r
             suggestions=suggestions
         )
 
+    except HTTPException:
+        raise
     except Exception as e:
         import traceback
         logger.error(f"Chat API error: {e}\n{traceback.format_exc()}")
-        # Always return structure with 'response' key
-        return {
-            "response": f"[ERROR] Chat processing failed: {str(e)}",
-            "agents_used": [],
-            "search_performed": False,
-            "context_references": [],
-            "suggestions": [],
-            "error": str(e)
-        }, 500
+        # Return proper ChatResponse model for error cases
+        return ChatResponse(
+            response=f"I encountered an error processing your request. Please try again or contact support. Error: {str(e)[:100]}",
+            agents_used=[],
+            search_performed=False,
+            context_references=[],
+            suggestions=["Try rephrasing your question", "Check your internet connection", "Contact system administrator if issue persists"]
+        )
 
 @router.get("/quick-actions")
 async def get_quick_actions() -> List[QuickAction]:

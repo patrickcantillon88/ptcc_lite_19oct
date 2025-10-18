@@ -1,8 +1,8 @@
 """
 Populate Class Roster Assignments for BIS HCMC Students
 
-This script creates class roster entries linking the 16 BIS HCMC students
-to their appropriate classes (7A, 7B, 8A, 8B).
+This script creates class roster entries linking BIS HCMC students
+to their appropriate classes (3A, 4B, 5C, 6A).
 """
 
 import sys
@@ -27,7 +27,7 @@ def populate_class_rosters():
         students = db.query(Student).all()
         logger.info(f"Found {len(students)} students in database")
 
-        # Filter for BIS HCMC students (classes 3A, 4B, 5C, 6D - these are the actual classes in the data)
+        # Filter for BIS HCMC students (classes 3A, 4B, 5C, 6D - from PDF dataset)
         bis_students = [s for s in students if s.class_code in ['3A', '4B', '5C', '6D']]
         logger.info(f"Found {len(bis_students)} BIS HCMC students")
 

@@ -31,10 +31,14 @@ class LLMProvider(Enum):
 
 
 class LLMModel(Enum):
-    """Supported LLM models."""
-    # Gemini models
-    GEMINI_PRO = "gemini-2.5-pro-exp"
-    GEMINI_FLASH = "gemini-2.5-flash-exp"
+    """Supported LLM models.
+    
+    Model IDs are now managed in config/config.yaml.
+    These defaults are used if config is unavailable.
+    """
+    # Gemini models (see config.yaml for centralized definitions)
+    GEMINI_PRO = "gemini-2.5-pro"
+    GEMINI_FLASH = "gemini-2.5-flash"
     GEMINI_PRO_VISION = "gemini-pro-vision"
     
     # OpenAI models
@@ -99,12 +103,20 @@ class GeminiClient:
     def generate(
         self,
         prompt: str,
-        model: str = "gemini-2.5-flash-exp",
+        model: Optional[str] = None,
         temperature: float = 0.7,
         max_tokens: int = 2048,
         **kwargs
     ) -> LLMResponse:
-        """Generate completion using Gemini."""
+        """Generate completion using Gemini.
+        
+        If model not specified, uses default from config.
+        """
+        # Use config model if not specified
+        if model is None:
+            from .config import get_gemini_model
+            model = get_gemini_model()
+        
         try:
             model_instance = self.genai.GenerativeModel(model)
             

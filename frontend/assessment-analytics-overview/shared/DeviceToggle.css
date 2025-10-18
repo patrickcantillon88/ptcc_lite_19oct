@@ -1,0 +1,159 @@
+/* ==============================================
+   SHARED DEVICE MODE TOGGLE STYLES
+   ============================================== */
+
+/* Device Mode Responsive Containers */
+.app.mobile {
+  max-width: 375px !important;
+  margin: 0 auto;
+  padding: 10px !important;
+  border: 3px solid #ff0000 !important;
+  box-sizing: border-box;
+}
+
+.app.tablet {
+  max-width: 1024px !important;
+  margin: 0 auto;
+  padding: 15px !important;
+  border: 3px solid #00ff00 !important;
+  box-sizing: border-box;
+}
+
+.app.desktop {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  min-width: auto !important;
+  margin: 0 !important;
+  padding: 20px !important;
+  border: 3px solid #0000ff !important;
+  box-sizing: border-box;
+  position: relative !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+/* Device Mode Toggle Buttons */
+.device-mode-toggles {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.mode-btn {
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  background: white;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mode-btn:hover {
+  border-color: #007acc;
+  background-color: #f0f8ff;
+}
+
+.mode-btn.active {
+  border-color: #007acc;
+  background-color: #007acc;
+  color: white;
+  transform: scale(1.1);
+}
+
+.mode-btn:active {
+  transform: scale(0.95);
+}
+
+/* Header Layout for Device Toggles */
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.title-section {
+  flex: 1;
+  text-align: center;
+}
+
+/* Device Mode Responsive Overrides */
+.app.mobile .header-content {
+  flex-direction: column !important;
+  gap: 1rem !important;
+}
+
+.app.mobile .title-section h1 {
+  font-size: 1.8rem !important;
+}
+
+.app.tablet .header-content {
+  flex-direction: column !important;
+  gap: 1.5rem !important;
+}
+
+.app.tablet .title-section h1 {
+  font-size: 2.2rem !important;
+}
+
+/* Desktop content wrapper for better layout */
+.app.desktop .app-header,
+.app.desktop .config-section,
+.app.desktop .filters-section,
+.app.desktop .results-section,
+.app.desktop .analysis-section {
+  max-width: 1400px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Common responsive grid adjustments */
+.app.mobile .filters-grid,
+.app.mobile .config-grid {
+  grid-template-columns: 1fr !important;
+  gap: 0.75rem !important;
+}
+
+.app.mobile .students-grid,
+.app.mobile .groups-grid,
+.app.mobile .chart-grid {
+  grid-template-columns: 1fr !important;
+  gap: 1rem !important;
+}
+
+.app.tablet .students-grid,
+.app.tablet .groups-grid {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+}
+
+.app.desktop .students-grid,
+.app.desktop .groups-grid {
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)) !important;
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+}
+
+/* Card padding adjustments */
+.app.mobile .student-card,
+.app.mobile .group-card,
+.app.mobile .analysis-card {
+  padding: 1rem !important;
+}
+
+/* Action buttons responsive */
+.app.mobile .action-buttons {
+  flex-direction: column !important;
+}
+
+/* Metrics grid adjustments */
+.app.mobile .student-metrics,
+.app.mobile .summary-grid {
+  grid-template-columns: repeat(2, 1fr) !important;
+}

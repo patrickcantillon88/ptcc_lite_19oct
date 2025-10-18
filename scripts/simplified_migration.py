@@ -134,7 +134,7 @@ class SimplifiedMigration:
         """Generate sample student data"""
         logger.info("Generating sample student data")
 
-        classes = ['7A', '7B', '8A', '8B']
+        classes = ['3A', '4B', '5C', '6A']
         students = []
 
         names = [

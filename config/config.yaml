@@ -52,6 +52,12 @@ file_paths:
 
 # LLM Configuration
 llm:
+  # Centralized model IDs - update here to change all LLM calls across the system
+  models:
+    gemini_default: "gemini-2.5-flash"  # Fast, responsive model for UI
+    gemini_pro: "gemini-2.5-pro"        # Complex reasoning, slower
+    gemini_vision: "gemini-pro-vision"  # Vision capabilities
+  
   local:
     provider: "ollama"
     model: "phi3:mini"
@@ -62,7 +68,7 @@ llm:
   gemini:
     provider: "gemini"
     api_key: "${GEMINI_API_KEY}"  # Now reads from .env file
-    model: "gemini-2.5-flash-exp"  # Latest Gemini 2.5 model for AI-powered features
+    model: "${llm.models.gemini_default}"  # References centralized config above
 
 # System Settings
 system:

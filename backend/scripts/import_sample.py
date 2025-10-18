@@ -39,7 +39,7 @@ def create_sample_students(db: Session):
     ]
     
     # Generate students for different classes and year groups
-    classes = ["7A", "7B", "8A", "8B", "9A", "9B", "10A", "10B", "11A", "11B"]
+    classes = ["3A", "4B", "5C", "6A"]
     campuses = ["A", "B"]
     
     students = []

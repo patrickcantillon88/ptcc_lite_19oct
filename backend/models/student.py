@@ -12,7 +12,7 @@ class StudentBase(BaseModel):
     """Base student model"""
     name: str = Field(..., description="Student full name")
     year_group: str = Field(..., description="Year group (7, 8, 9, etc.)")
-    class_code: str = Field(..., description="Class code (e.g., 7B, 9A)")
+    class_code: str = Field(..., description="Class code (3A, 4B, 5C, 6A)")
     house: Optional[str] = Field(None, description="House name")
     campus: str = Field(..., description="Campus code (A or B)")
     photo_path: Optional[str] = Field(None, description="Path to student photo")

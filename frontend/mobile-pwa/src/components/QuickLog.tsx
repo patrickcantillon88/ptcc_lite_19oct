@@ -29,7 +29,6 @@ const QuickLog: React.FC<QuickLogProps> = ({ selectedStudent }) => {
   const [saved, setSaved] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
   const [capturedPhoto, setCapturedPhoto] = useState<string | null>(null);
-  const [photoBlob, setPhotoBlob] = useState<Blob | null>(null);
 
   const logTypeOptions = [
     { value: 'behavior', label: '📋 Behavior', icon: '📋' },
@@ -45,15 +44,13 @@ const QuickLog: React.FC<QuickLogProps> = ({ selectedStudent }) => {
     note: ['General', 'Parent Contact', 'Meeting', 'Assessment', 'Other'],
   };
 
-  const handlePhotoCapture = (photoData: string, photoBlob: Blob) => {
+  const handlePhotoCapture = (photoData: string) => {
     setCapturedPhoto(photoData);
-    setPhotoBlob(photoBlob);
     setShowCamera(false);
   };
 
   const removePhoto = () => {
     setCapturedPhoto(null);
-    setPhotoBlob(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

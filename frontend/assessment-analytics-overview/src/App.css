@@ -1,0 +1,372 @@
+/* Assessment Analytics Overview App Styles */
+.app {
+  padding: 0 20px 20px;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+.app.mobile {
+  width: 375px !important;
+  max-width: 375px !important;
+}
+
+.app.tablet {
+  width: 1024px !important;
+  max-width: 1024px !important;
+}
+
+.app.desktop {
+  width: 100vw !important;
+  max-width: 100vw !important;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding: 20px 0;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.title-section h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 8px 0;
+}
+
+.title-section p {
+  color: #64748b;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Overview Section */
+.overview-section {
+  margin-bottom: 50px;
+}
+
+.overview-section h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.overview-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #3b82f6;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.overview-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card-header h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 15px;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.feature-list li {
+  color: #64748b;
+  margin-bottom: 6px;
+  padding-left: 16px;
+  position: relative;
+}
+
+.feature-list li::before {
+  content: "•";
+  color: #3b82f6;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.card-link {
+  color: #3b82f6;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s;
+}
+
+.card-link:hover {
+  color: #2563eb;
+}
+
+/* Workflow Section */
+.workflow-section {
+  margin-bottom: 50px;
+}
+
+.workflow-section h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.workflow-step {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.workflow-step.step-1 {
+  border-left: 4px solid #3b82f6;
+}
+
+.workflow-step.step-2 {
+  border-left: 4px solid #10b981;
+}
+
+.workflow-step.step-3 {
+  border-left: 4px solid #f59e0b;
+}
+
+.workflow-step.step-4 {
+  border-left: 4px solid #ef4444;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.step-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+  flex: 1;
+}
+
+.step-icon {
+  font-size: 1.5rem;
+}
+
+.workflow-step p {
+  color: #64748b;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.workflow-step ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.workflow-step li {
+  color: #64748b;
+  margin-bottom: 6px;
+  padding-left: 16px;
+  position: relative;
+}
+
+.workflow-step li::before {
+  content: "•";
+  color: #3b82f6;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+/* Stats Section */
+.stats-section {
+  margin-bottom: 50px;
+}
+
+.stats-section h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  color: #64748b;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.loading, .no-data {
+  text-align: center;
+  padding: 40px;
+  color: #64748b;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 1.1rem;
+}
+
+/* Notes Section */
+.notes-section {
+  margin-bottom: 30px;
+}
+
+.notes-section h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notes-list {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  margin: 0;
+}
+
+.notes-list li {
+  color: #64748b;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.notes-list li::before {
+  content: "✓";
+  color: #10b981;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.notes-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app {
+    padding: 0 15px 15px;
+  }
+  
+  .title-section h1 {
+    font-size: 2rem;
+  }
+  
+  .overview-grid, .workflow-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}
+
+/* Device Mode Toggle Visual Debugging */
+.app.mobile {
+  border: 3px solid #ff0000 !important;
+}
+
+.app.tablet {
+  border: 3px solid #00ff00 !important;
+}
+
+.app.desktop {
+  border: 3px solid #0000ff !important;
+}
