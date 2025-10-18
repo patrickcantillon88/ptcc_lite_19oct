@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: ptcc-demo
+    env: python
+    buildCommand: |
+      pip install -r requirements.txt &&
+      cd backend && pip install -r requirements.txt &&
+      cd ../frontend/desktop-web && pip install -r requirements.txt &&
+      cd ../mobile-pwa && npm install && npm run build
+    startCommand: python streamlit_cloud_auth.py
+    envVars:
+      - key: DEMO_USERNAME
+        value: demo
+      - key: DEMO_PASSWORD
+        generateValue: true
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 8501
+    healthCheckPath: /health
