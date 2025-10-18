@@ -1,9 +1,10 @@
+# Updated: 2025-10-18 14:11 - Fixed sqlite3 requirements error
 services:
   - type: web
     name: ptcc-demo
     env: python
     buildCommand: |
-      pip install -r requirements.txt &&
+      pip install -r requirements_streamlit.txt &&
       cd backend && pip install -r requirements.txt &&
       cd ../frontend/desktop-web && pip install -r requirements.txt &&
       cd ../mobile-pwa && npm install && npm run build
