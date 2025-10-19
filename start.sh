@@ -31,6 +31,14 @@ echo ""
 
 cd "$(dirname "$0")"
 
+# Install dependencies if needed
+if ! python3 -c "import fastapi" 2>/dev/null; then
+    echo "  📦 Installing dependencies..."
+    pip3 install -q -r backend/requirements.txt
+    echo "     ✅ Dependencies installed"
+    echo ""
+fi
+
 # Check data
 if [ ! -f "data/school.db" ]; then
     echo "  📚 Importing your student data..."
