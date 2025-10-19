@@ -1,1 +1,27 @@
-#!/bin/bash\n\n# PTCC Lite Launcher\n# One-command startup for all services\n\necho \"🚀 Starting PTCC Lite V1...\"\necho \"\"\n\ncd \"$(dirname \"$0\")\"\n\n# Check if data is imported\nif [ ! -f \"data/school.db\" ]; then\n    echo \"📚 Importing data for first time...\"\n    python scripts/import_lite_data.py\n    echo \"\"\nfi\n\n# Start backend\necho \"🔧 Starting backend API on http://localhost:8001...\"\necho \"\"\npython -m backend.main &\nBACKEND_PID=$!\n\n# Wait for backend to start\nsleep 3\n\n# Check if backend is running\nif ! kill -0 $BACKEND_PID 2>/dev/null; then\n    echo \"❌ Backend failed to start\"\n    exit 1\nfi\n\necho \"✅ Backend started (PID: $BACKEND_PID)\"\necho \"\"\necho \"📂 Opening PTCC Lite web interface...\"\necho \"\"\n\n# Open web UI\nopen \"file://$(pwd)/frontend/ptcc-lite.html\"\n\necho \"✨ PTCC Lite is ready!\"\necho \"\"\necho \"📋 Your ICT Classes:\"\necho \"   - Class Roster: See all students with CAT4 scores, support flags, assessments\"\necho \"   - Incident Logger: Log incidents (<10 seconds per log)\"\necho \"   - Weekly Patterns: See incident trends\"\necho \"   - Pre-Lesson Briefing: At-risk students, high performers\"\necho \"\"\necho \"🔗 API: http://localhost:8001/api/lite/\"\necho \"📚 Docs: http://localhost:8001/docs\"\necho \"\"\necho \"To stop: Press Ctrl+C or kill $BACKEND_PID\"\necho \"\"\n\n# Keep backend running\nwait $BACKEND_PID\n"
+#!/bin/bash
+# PTCC Lite Launcher
+
+echo "🚀 Starting PTCC Lite V1..."
+cd "$(dirname "$0")"
+
+if [ ! -f "data/school.db" ]; then
+    echo "📚 Importing data..."
+    python3 scripts/import_lite_data.py
+fi
+
+echo "🔧 Starting backend..."
+python3 -m backend.main &
+BACKEND_PID=$!
+sleep 3
+
+echo "✅ Backend running (PID: $BACKEND_PID)"
+echo "📂 Opening web UI..."
+open "file://$(pwd)/frontend/ptcc-lite.html"
+
+echo ""
+echo "✨ PTCC Lite ready!"
+echo "🔗 API: http://localhost:8001/api/lite/"
+echo "Press Ctrl+C to stop"
+echo ""
+
+wait $BACKEND_PID

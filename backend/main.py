@@ -76,7 +76,7 @@ def validate_environment():
     return True
 
 
-def get_allowed_origins() -> List[str]:
+def get_allowed_origins():
     """
     Get CORS allowed origins from config or environment.
     Fallback to safe defaults.
