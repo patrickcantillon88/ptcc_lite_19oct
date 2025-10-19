@@ -31,17 +31,26 @@ echo ""
 
 cd "$(dirname "$0")"
 
-# Install dependencies if needed
-if ! python3 -c "import fastapi" 2>/dev/null; then
-    echo "  📦 Installing dependencies..."
-    pip3 install -q -r backend/requirements.txt
-    echo "     ✅ Dependencies installed"
+# Setup virtual environment
+if [ ! -d "venv" ]; then
+    echo "  📦 Creating virtual environment..."
+    python3 -m venv venv
+    echo "     ✅ Virtual environment created"
     echo ""
 fi
 
+# Activate venv
+source venv/bin/activate
+
+# Install dependencies
+echo "  📚 Installing dependencies..."
+pip install -q -r backend/requirements.txt
+echo "     ✅ Dependencies installed"
+echo ""
+
 # Check data
 if [ ! -f "data/school.db" ]; then
-    echo "  📚 Importing your student data..."
+    echo "  📥 Importing your student data..."
     python3 scripts/import_lite_data.py > /dev/null 2>&1
     echo "     ✅ 90 students loaded from your ICT classes"
     echo ""
