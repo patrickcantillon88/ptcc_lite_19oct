@@ -39,26 +39,27 @@ if [ ! -d "venv" ]; then
     echo ""
 fi
 
-# Activate venv
-source venv/bin/activate
+# Paths
+VENV_PYTHON="${PWD}/venv/bin/python3"
+VENV_PIP="${PWD}/venv/bin/pip"
 
 # Install dependencies
 echo "  📚 Installing dependencies..."
-pip install -q -r backend/requirements.txt
+"$VENV_PIP" install -q -r backend/requirements.txt
 echo "     ✅ Dependencies installed"
 echo ""
 
 # Check data
 if [ ! -f "data/school.db" ]; then
     echo "  📥 Importing your student data..."
-    python3 scripts/import_lite_data.py > /dev/null 2>&1
+    "$VENV_PYTHON" scripts/import_lite_data.py > /dev/null 2>&1
     echo "     ✅ 90 students loaded from your ICT classes"
     echo ""
 fi
 
 # Start backend
 echo "  🔧 Starting backend API..."
-python3 -m backend.main > /tmp/ptcc_backend.log 2>&1 &
+"$VENV_PYTHON" -m backend.main > /tmp/ptcc_backend.log 2>&1 &
 BACKEND_PID=$!
 sleep 4
 
