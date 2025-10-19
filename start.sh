@@ -31,6 +31,14 @@ echo ""
 
 cd "$(dirname "$0")"
 
+# Clean up old venv if corrupted
+if [ -d "venv" ] && [ ! -f "venv/bin/python3" ]; then
+    echo "  🧹 Cleaning corrupted venv..."
+    rm -rf venv
+    echo "     ✅ Cleaned"
+    echo ""
+fi
+
 # Setup virtual environment
 if [ ! -d "venv" ]; then
     echo "  📦 Creating virtual environment..."
