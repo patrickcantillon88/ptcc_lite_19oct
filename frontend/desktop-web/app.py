@@ -242,230 +242,165 @@ def inject_briefing_css(compact: bool = False):
     """
     st.markdown(base_css, unsafe_allow_html=True)
 
-# Landing Page with PTCC Demo
-def show_landing_page():
-    """Display PTCC introduction and RAG system demonstration"""
-    if 'intro_viewed' not in st.session_state:
-        st.session_state.intro_viewed = False
-    
-    if not st.session_state.intro_viewed:
-        # Hero Section
-        st.markdown(
-            """
-            <div style="text-align: center; padding: 3rem 1rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 1rem; margin-bottom: 2rem;">
-                <div style="font-size: 5rem; margin-bottom: 1rem;">🏫</div>
-                <h1 style="margin: 0; font-size: 3.5rem; font-weight: bold;">PTCC</h1>
-                <h2 style="margin: 0.5rem 0 0 0; font-size: 1.8rem; opacity: 0.9;">Personal Teaching Command Center</h2>
-                <p style="margin: 1rem 0 0 0; font-size: 1.3rem; opacity: 0.8;">AI-Powered Information Management for Specialist Teachers</p>
-            </div>
-            """, unsafe_allow_html=True
-        )
-        
-        # PTCC Overview
-        col1, col2 = st.columns([1, 1])
-        
-        with col1:
-            st.markdown("### 🎯 What is PTCC?")
-            st.markdown(
-                """
-                **PTCC** is a local-first, AI-powered system designed specifically for specialist teachers 
-                managing 400+ students across multiple campuses.
-                
-                **Key Features:**
-                • 📊 **Intelligent Daily Briefings** - AI-generated summaries of student data
-                • 🔍 **Semantic Search** - Find any student information instantly
-                • 🤖 **AI Teacher Tools** - Automated risk assessment and behavior analysis
-                • 📱 **Multi-Interface** - Desktop dashboard + mobile quick-logging
-                • 🔒 **Privacy-First** - All data stored locally, GDPR compliant
-                """
-            )
-        
-        with col2:
-            st.markdown("### 📈 System Architecture")
-            st.markdown(
-                """
-                **Three-Layer Design:**
-                
-                🖥️ **User Interfaces**
-                - Desktop Dashboard (Streamlit)
-                - Mobile PWA (React)
-                
-                🧠 **AI Processing Layer**
-                - RAG-powered search
-                - Multi-agent orchestration
-                - Privacy-preserving analysis
-                
-                💾 **Data Layer**
-                - SQLite database
-                - ChromaDB vectors
-                - Local file storage
-                """
-            )
-        
-        st.markdown("---")
-        
-        # Benefits Section
-        col3, col4, col5 = st.columns(3)
-        
-        with col3:
-            st.info(
-                "🏫 **For Specialist Teachers**\n\n"
-                "• Manage 400+ students efficiently\n"
-                "• Quick access to critical information\n"
-                "• Automated compliance documentation\n"
-                "• Cross-campus data integration"
-            )
-        
-        with col4:
-            st.success(
-                "🔒 **Privacy & Security**\n\n"
-                "• 100% local data storage\n"
-                "• No cloud dependencies\n"
-                "• GDPR & FERPA compliant\n"
-                "• Encrypted data at rest"
-            )
-        
-        with col5:
-            st.warning(
-                "⚡ **High Performance**\n\n"
-                "• Sub-second search results\n"
-                "• Real-time AI analysis\n"
-                "• Optimized for schools\n"
-                "• Scalable architecture"
-            )
-        
-        # Call-to-action
-        st.markdown("---")
-        col_cta1, col_cta2, col_cta3 = st.columns([1, 2, 1])
-        with col_cta2:
-            if st.button(
-                "🚀 Continue to PTCC Dashboard",
-                key="proceed_to_app",
-                type="primary",
-                use_container_width=True
-            ):
-                st.session_state.intro_viewed = True
-                st.rerun()
-        
-        st.markdown(
-            "<p style='text-align: center; color: #6b7280; margin-top: 2rem;'>"
-            "📚 For technical documentation including RAG workflow, visit the <a href='http://localhost:3000' target='_blank'>Documentation App</a>"
-            "</p>", 
-            unsafe_allow_html=True
-        )
-        
-        # Stop app execution until button is clicked
-        st.stop()
-
-
-# Privacy Modal Popup
-def show_privacy_modal():
-    """Display privacy safeguarding system information modal"""
+# Progressive Disclosure Landing Page
+def show_progressive_landing():
+    """Single page with progressive disclosure for better UX"""
+    # Initialize session state
+    if 'onboarding_complete' not in st.session_state:
+        st.session_state.onboarding_complete = False
     if 'privacy_acknowledged' not in st.session_state:
         st.session_state.privacy_acknowledged = False
     
-    if not st.session_state.privacy_acknowledged:
-        # Use Streamlit's dialog for better modal behavior
-        with st.container():
-            # Header with styling
-            st.markdown(
-                """
-                <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 1rem; margin-bottom: 2rem;">
-                    <div style="font-size: 4rem; margin-bottom: 1rem;">🔒</div>
-                    <h1 style="margin: 0; font-size: 2.5rem; font-weight: bold;">Privacy-Preserving Safeguarding System</h1>
-                    <p style="margin: 0.5rem 0 0 0; font-size: 1.2rem; opacity: 0.9;">AI-Powered Student Analysis with Complete Privacy Protection</p>
-                </div>
-                """, unsafe_allow_html=True
-            )
-            
-            # Introduction
-            st.markdown(
-                "**PTCC uses a revolutionary 6-stage pipeline to analyze student data while maintaining complete privacy and regulatory compliance:**"
-            )
-            
-            # 6-Stage Pipeline with proper formatting
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                st.info(
-                    "🔐 **1. Tokenization**\n\n"
-                    "Replace all student names and PII with anonymous tokens"
-                )
-                
-                st.info(
-                    "📊 **2. Pattern Extraction**\n\n"
-                    "Analyze behavior patterns from multiple sources"
-                )
-                
-                st.info(
-                    "⚖️ **3. Risk Assessment**\n\n"
-                    "Categorize risk levels (low/medium/high/critical)"
-                )
-            
-            with col2:
-                st.info(
-                    "🤖 **4. External LLM Analysis**\n\n"
-                    "Send only anonymized data to AI services"
-                )
-                
-                st.info(
-                    "🔄 **5. Result Localization**\n\n"
-                    "Map AI analysis back to student context locally"
-                )
-                
-                st.info(
-                    "📋 **6. Report Generation**\n\n"
-                    "Create actionable insights with privacy guarantees"
-                )
-            
-            # Privacy Guarantees
-            st.success(
-                "🛡️ **Privacy Guarantees:**\n\n"
-                "• **Student names never sent externally** - Complete anonymization before AI processing\n"
-                "• **All processing local to your school** - Data sovereignty maintained\n"
-                "• **Token mappings stored locally only** - No external access to identity links\n"
-                "• **Complete audit trail maintained** - Full transparency and accountability\n"
-                "• **GDPR and FERPA compliant** - Meets all regulatory requirements"
-            )
-            
-            # Important notice
-            st.warning(
-                "⚠️ **Important:** By using this system, you acknowledge that you understand how "
-                "student data is processed and protected. All system access is logged for security and compliance purposes."
-            )
-            
-            # Documentation reference
-            st.markdown(
-                "<p style='text-align: center; color: #6b7280; font-style: italic;'>"
-                "Full technical documentation available in <code>PRIVACY_SAFEGUARDING_SYSTEM.md</code>"
-                "</p>", unsafe_allow_html=True
+    # Use URL parameter to bypass onboarding for returning users
+    try:
+        # Try newer Streamlit version first
+        query_params = st.query_params
+        skip_onboarding = query_params.get('skip_onboarding') == 'true'
+    except AttributeError:
+        # Fallback to older Streamlit version
+        query_params = st.experimental_get_query_params()
+        skip_onboarding = query_params.get('skip_onboarding', [None])[0] == 'true'
+    
+    if skip_onboarding:
+        st.session_state.onboarding_complete = True
+        st.session_state.privacy_acknowledged = True
+        return  # Skip onboarding, show main app
+    
+    if st.session_state.onboarding_complete:
+        return  # Skip onboarding, show main app
+    
+    if not st.session_state.onboarding_complete:
+        # Compact header - always visible
+        st.markdown("### 🏫 PTCC - Personal Teaching Command Center")
+        st.caption("AI-Powered Information Management for Specialist Teachers")
+        
+        st.markdown("---")
+        
+        # Key features in compact cards - always visible
+        st.markdown("**Key Features:**")
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.info(
+                "🏫 **For Teachers**\n\n"
+                "• Manage 400+ students\n"
+                "• Instant information access\n"
+                "• Automated compliance\n"
+                "• Cross-campus integration"
             )
         
-        # Buttons below the modal content
-        col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
+            st.success(
+                "🔒 **Privacy First**\n\n"
+                "• 100% local storage\n"
+                "• No cloud dependencies\n"
+                "• GDPR compliant\n"
+                "• Encrypted at rest"
+            )
+        
+        with col3:
+            st.warning(
+                "⚡ **High Performance**\n\n"
+                "• Sub-second search\n"
+                "• Real-time AI analysis\n"
+                "• School-optimized\n"
+                "• Scalable architecture"
+            )
+        
+        # Expandable detailed info
+        with st.expander("📈 System Architecture (Optional)", expanded=False):
+            col_arch1, col_arch2 = st.columns(2)
+            with col_arch1:
+                st.markdown(
+                    "🖥️ **User Interfaces:**\n"
+                    "- Desktop Dashboard (Streamlit)\n"
+                    "- Mobile PWA (React)\n\n"
+                    "🧠 **AI Processing:**\n"
+                    "- RAG-powered search\n"
+                    "- Multi-agent orchestration"
+                )
+            with col_arch2:
+                st.markdown(
+                    "💾 **Data Layer:**\n"
+                    "- SQLite database\n"
+                    "- ChromaDB vectors\n"
+                    "- Local file storage\n\n"
+                    "📚 [Technical Documentation](http://localhost:5189)"
+                )
+        
+        st.markdown("---")
+        
+        # Privacy acknowledgment - inline, not modal
+        st.markdown("**🔒 Privacy & Security:**")
+        st.info(
+            "🛡️ **Privacy Protection:** PTCC uses a 6-stage pipeline to analyze student data while maintaining complete privacy. "
+            "Student names are never sent externally, all processing stays local to your school, and the system is GDPR/FERPA compliant."
+        )
+        
+        # Expandable privacy details
+        with st.expander("🔍 Privacy Technical Details (Optional)", expanded=False):
+            col_priv1, col_priv2 = st.columns(2)
+            with col_priv1:
+                st.markdown(
+                    "**6-Stage Pipeline:**\n\n"
+                    "1. 🔐 **Tokenization** - Replace names with anonymous tokens\n"
+                    "2. 📊 **Pattern Extraction** - Analyze behavior patterns\n"
+                    "3. ⚖️ **Risk Assessment** - Categorize risk levels"
+                )
+            with col_priv2:
+                st.markdown(
+                    "**Privacy Guarantees:**\n\n"
+                    "4. 🤖 **External Analysis** - Only anonymized data to AI\n"
+                    "5. 🔄 **Result Mapping** - Map back to local context\n"
+                    "6. 📋 **Report Generation** - Actionable insights"
+                )
+            st.success(
+                "• **Complete anonymization** before AI processing\n"
+                "• **Data sovereignty** maintained at your school\n"
+                "• **Full audit trail** for transparency\n"
+                "• **Regulatory compliance** (GDPR & FERPA)"
+            )
+        
+        # Privacy checkbox and continue button - always visible
+        privacy_check = st.checkbox(
+            "I understand how student data is processed and protected",
+            key="privacy_checkbox"
+        )
+        
+        st.warning(
+            "⚠️ By using this system, all access is logged for security and compliance purposes."
+        )
+        
+        # Continue button - only enabled when privacy is acknowledged
+        col_btn1, col_btn2, col_btn3 = st.columns([1, 2, 1])
+        with col_btn2:
             if st.button(
-                "✅ I Understand - Proceed to PTCC",
-                key="acknowledge_privacy",
+                "✅ Continue to PTCC Dashboard",
+                key="continue_to_dashboard",
                 type="primary",
-                use_container_width=True
+                use_container_width=True,
+                disabled=not privacy_check
             ):
+                # Set persistent localStorage flag
+                st.markdown("""
+                <script>
+                localStorage.setItem('ptcc_onboarding_complete', 'true');
+                localStorage.setItem('ptcc_privacy_acknowledged', 'true');
+                </script>
+                """, unsafe_allow_html=True)
+                
+                st.session_state.onboarding_complete = True
                 st.session_state.privacy_acknowledged = True
                 st.rerun()
-            
-            st.markdown(
-                "<p style='text-align: center; color: #6b7280; font-size: 0.8rem; margin-top: 1rem;'>"
-                "This acknowledgment is stored locally in your browser session only"
-                "</p>", 
-                unsafe_allow_html=True
-            )
         
-        # Stop app execution until acknowledged
+        if not privacy_check:
+            st.caption("ℹ️ Please acknowledge the privacy information above to continue")
+        
+        # Stop execution until onboarding is complete
         st.stop()
 
-# Show landing page first, then privacy modal
-show_landing_page()
-show_privacy_modal()
+# Show progressive landing page
+show_progressive_landing()
 
 # API Configuration
 API_BASE = "http://localhost:8001"
@@ -4014,102 +3949,106 @@ def main():
     
     # App Section with External Links
     st.sidebar.markdown("---")
-    st.sidebar.markdown("### 📱 Apps")
+    st.sidebar.markdown("### 📱 PTCC Apps")
+    st.sidebar.caption("📝 *Click to open in new tab - Enhanced with back navigation*")
     
-    # Main Mobile PWA
+    # Core Apps
+    st.sidebar.markdown("**🎆 Core Applications**")
+    
     st.sidebar.link_button(
         label="📱 Lesson Console",
         url="http://localhost:5173",
-        help="Open PTCC Lesson Console for quick student logging"
+        help="Quick student logging during lessons"
     )
     
-    # Existing Standalone React Apps
     st.sidebar.link_button(
         label="🛡️ Digital Citizenship",
         url="http://localhost:5174",
-        help="Open Digital Citizenship Breach Assessment Tool"
+        help="Breach assessment tool"
     )
     
     st.sidebar.link_button(
         label="🛠️ Classroom Tools",
         url="http://localhost:5175",
-        help="Open Classroom Tools - Seating charts, timers, and utilities"
+        help="Seating charts, timers, utilities"
     )
     
     st.sidebar.link_button(
         label="📝 CCA Comments",
         url="http://localhost:5176",
-        help="Open CCA Comments Generator for co-curricular activities"
+        help="Co-curricular activity comments"
     )
     
     st.sidebar.link_button(
         label="📊 Behaviour Management",
         url="http://localhost:5177",
-        help="Open Behaviour Management - Live lesson tracking and strikes"
+        help="Live lesson tracking and strikes"
     )
     
-    # NEW Classroom Management Tools - Standalone React Apps
-    st.sidebar.markdown("**📚 Classroom Management Tools**")
+    # Classroom Management Tools
+    st.sidebar.markdown("**📚 Classroom Management**")
     
     st.sidebar.link_button(
         label="🚨 Intervention Priority",
         url="http://localhost:5178",
-        help="Prioritized list of students needing intervention support"
+        help="Students needing intervention support"
     )
     
     st.sidebar.link_button(
         label="📈 Progress Dashboard",
         url="http://localhost:5179",
-        help="Visual analytics showing class and student progress over time"
+        help="Class and student progress analytics"
     )
     
     st.sidebar.link_button(
         label="🪑 Seating Chart",
         url="http://localhost:5180",
-        help="Generate optimal seating arrangements based on behavior and support needs"
+        help="Optimal seating arrangements"
     )
     
     st.sidebar.link_button(
         label="👥 Group Formation",
         url="http://localhost:5181",
-        help="Create optimal student groups for collaborative learning"
+        help="Optimal student groups"
     )
     
     st.sidebar.link_button(
         label="🎯 Differentiation",
         url="http://localhost:5182",
-        help="Analyze student performance levels for differentiated instruction"
+        help="Performance levels for instruction"
     )
     
-    # Assessment Analytics Tools - NEW
+    # Assessment Analytics Tools
+    st.sidebar.markdown("**📈 Assessment Analytics**")
+    
     st.sidebar.link_button(
-        label="📊 Assessment Analytics Overview",
+        label="📊 Overview Dashboard",
         url="http://localhost:5187",
-        help="View Assessment Analytics dashboard with workflow guide and app links"
+        help="Assessment analytics overview"
     )
     
     st.sidebar.link_button(
-        label="📤 Upload Quiz",
+        label="📤 Quiz Upload",
         url="http://localhost:5183",
-        help="Upload CSV files with quiz results for automatic processing"
+        help="Upload CSV quiz results"
     )
     
     st.sidebar.link_button(
         label="📈 Performance Trends",
         url="http://localhost:5184",
-        help="Track student quiz performance over time with trend analysis"
+        help="Student performance over time"
     )
     
     st.sidebar.link_button(
         label="🎯 Progress Levels",
         url="http://localhost:5185",
-        help="Analyze student progress distribution across grade-level expectations"
+        help="Grade-level expectations analysis"
     )
     
     st.sidebar.link_button(
         label="⚠️ At-Risk Students",
         url="http://localhost:5186",
-        help="Identify students with declining or low performance who need intervention"
+        help="Students needing intervention"
     )
     
     # Footer

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useDeviceMode } from '../../shared/DeviceToggle.jsx'
+import AppNavigation from '../../shared/AppNavigation.tsx'
 import '../../shared/DeviceToggle.css'
+import '../../shared/AppNavigation.css'
 import './App.css'
 
 // Types
@@ -212,16 +214,17 @@ function App() {
   return (
     <div className={`app ${deviceMode}`}>
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <header className="app-header mb-8">
-          <div className="header-content">
-            <div className="title-section">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">🎵 CCA Comments</h1>
-              <p className="text-gray-600">Manage Co-Curricular Activities behavior comments for students</p>
-            </div>
-            <DeviceToggleComponent />
-          </div>
-        </header>
+        {/* Navigation Header */}
+        <AppNavigation 
+          appName="CCA Comments"
+          appIcon="🎵"
+          appDescription="Manage Co-Curricular Activities behavior comments for students"
+        />
+        
+        {/* Device Toggle */}
+        <div className="flex justify-end mb-4">
+          <DeviceToggleComponent />
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Left Column - Student Search */}

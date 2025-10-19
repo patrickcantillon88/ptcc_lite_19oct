@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import AppNavigation from '../../shared/AppNavigation.tsx'
+import '../../shared/AppNavigation.css'
 import './App.css'
 
 function App() {
@@ -81,37 +83,39 @@ function App() {
 
   return (
     <div className={`app ${deviceMode}`}>
-      <header className="app-header">
-        <div className="header-content">
-          <div className="title-section">
-            <h1>🚨 Students Needing Intervention</h1>
-            <p>Prioritized list based on behavior patterns, assessment trends, and support needs</p>
-          </div>
-          <div className="device-mode-toggles">
-            <button 
-              className={`mode-btn ${deviceMode === 'mobile' ? 'active' : ''}`}
-              onClick={() => toggleDeviceMode('mobile')}
-              title="Mobile View (375px)"
-            >
-              📱
-            </button>
-            <button 
-              className={`mode-btn ${deviceMode === 'tablet' ? 'active' : ''}`}
-              onClick={() => toggleDeviceMode('tablet')}
-              title="Tablet View (1024px)"
-            >
-              📊
-            </button>
-            <button 
-              className={`mode-btn ${deviceMode === 'desktop' ? 'active' : ''}`}
-              onClick={() => toggleDeviceMode('desktop')}
-              title="Desktop View (Full Width)"
-            >
-              💻
-            </button>
-          </div>
+      {/* Navigation Header */}
+      <AppNavigation 
+        appName="Intervention Priority"
+        appIcon="🚨"
+        appDescription="Prioritized list based on behavior patterns, assessment trends, and support needs"
+      />
+      
+      {/* Device Mode Toggles */}
+      <div className="device-controls">
+        <div className="device-mode-toggles">
+          <button 
+            className={`mode-btn ${deviceMode === 'mobile' ? 'active' : ''}`}
+            onClick={() => toggleDeviceMode('mobile')}
+            title="Mobile View (375px)"
+          >
+            📱
+          </button>
+          <button 
+            className={`mode-btn ${deviceMode === 'tablet' ? 'active' : ''}`}
+            onClick={() => toggleDeviceMode('tablet')}
+            title="Tablet View (1024px)"
+          >
+            📊
+          </button>
+          <button 
+            className={`mode-btn ${deviceMode === 'desktop' ? 'active' : ''}`}
+            onClick={() => toggleDeviceMode('desktop')}
+            title="Desktop View (Full Width)"
+          >
+            💻
+          </button>
         </div>
-      </header>
+      </div>
 
       <div className="filters-section">
         <div className="filters-grid">

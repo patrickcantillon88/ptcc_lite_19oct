@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTCC Lite - Your ICT Classes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .tab-btn {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s;
+            color: #666;
+        }
+        
+        .tab-btn:hover {
+            color: #2c3e50;
+        }
+        
+        .tab-btn.active {
+            color: #3498db;
+            border-bottom-color: #3498db;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .class-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .class-btn {
+            padding: 10px 16px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .class-btn:hover {
+            border-color: #3498db;
+            color: #3498db;
+        }
+        
+        .class-btn.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+        
+        .roster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .student-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .student-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .student-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .student-info {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        
+        .cat4-score {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            background: #f5f5f5;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-right: 4px;
+            margin-bottom: 4px;
+        }
+        
+        .badge.ls {
+            background: #ffe0e0;
+            color: #c0392b;
+        }
+        
+        .badge.eal {
+            background: #e0e5ff;
+            color: #2c3e50;
+        }
+        
+        .incident-count {
+            font-size: 12px;
+            padding: 8px;
+            background: #fff3cd;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .incident-count.high {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .log-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        select, input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #2980b9;
+        }
+        
+        .patterns-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .patterns-table th {
+            background: #f5f5f5;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .patterns-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .patterns-table tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .briefing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .briefing-card {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .briefing-card h3 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+        
+        .briefing-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+        
+        .briefing-item:last-child {
+            border-bottom: none;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .roster-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 PTCC Lite</h1>
+            <p class="subtitle">Your Personal Teaching Command Center - ICT Classes Only</p>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('roster')">👥 Class Roster</button>
+            <button class="tab-btn" onclick="switchTab('logger')">📝 Incident Logger</button>
+            <button class="tab-btn" onclick="switchTab('patterns')">📊 Weekly Patterns</button>
+            <button class="tab-btn" onclick="switchTab('briefing')">📋 Pre-Lesson Briefing</button>
+        </div>
+        
+        <!-- CLASS ROSTER TAB -->
+        <div id="roster" class="tab-content active">
+            <h2>Class Roster</h2>
+            <div class="class-selector" id="classSelector"></div>
+            <div id="rosterContent"></div>
+        </div>
+        
+        <!-- INCIDENT LOGGER TAB -->
+        <div id="logger" class="tab-content">
+            <h2>Log Incident</h2>
+            <div class="log-section">
+                <div id="logMessage"></div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="logClass">Class</label>
+                        <select id="logClass" onchange="updateStudentList()">
+                            <option value="">Select Class</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="logStudent">Student</label>
+                        <select id="logStudent">
+                            <option value="">Select Student</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="logType">Type</label>
+                        <select id="logType">
+                            <option value="">Select Type</option>
+                            <option value="positive">✅ Positive</option>
+                            <option value="negative">❌ Negative</option>
+                            <option value="neutral">➖ Neutral</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="logCategory">Category</label>
+                        <select id="logCategory">
+                            <option value="">Select Category</option>
+                            <option value="excellent_contribution">Excellent Contribution</option>
+                            <option value="off_task">Off Task</option>
+                            <option value="disruption">Disruption</option>
+                            <option value="collaboration">Good Collaboration</option>
+                            <option value="helping_peer">Helping Peer</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="logNote">Note</label>
+                    <textarea id="logNote" placeholder="Optional details about the incident..."></textarea>
+                </div>
+                
+                <button onclick="logIncident()">Log Incident</button>
+            </div>
+        </div>
+        
+        <!-- PATTERNS TAB -->
+        <div id="patterns" class="tab-content">
+            <h2>Weekly Incident Patterns</h2>
+            <div class="class-selector" id="patternsClassSelector"></div>
+            <div id="patternsContent"></div>
+        </div>
+        
+        <!-- BRIEFING TAB -->
+        <div id="briefing" class="tab-content">
+            <h2>Pre-Lesson Briefing</h2>
+            <div class="class-selector" id="briefingClassSelector"></div>
+            <div id="briefingContent"></div>
+        </div>
+    </div>
+    
+    <script>
+        const API_BASE = 'http://localhost:8001/api/lite';
+        let allClasses = [];
+        let allStudents = {};
+        
+        // Initialize
+        window.addEventListener('load', async () => {
+            await loadClasses();
+        });
+        
+        async function loadClasses() {
+            try {
+                const response = await fetch(`${API_BASE}/classes`);
+                const data = await response.json();
+                allClasses = data.classes;
+                
+                // Populate all class selectors
+                renderClassSelector('classSelector', 'loadRoster');
+                renderClassSelector('patternsClassSelector', 'loadPatterns');
+                renderClassSelector('briefingClassSelector', 'loadBriefing');
+                renderClassSelector('logClass', null);
+                
+                // Load first class roster by default
+                if (allClasses.length > 0) {
+                    loadRoster(allClasses[0]);
+                }
+            } catch (error) {
+                console.error('Error loading classes:', error);
+            }
+        }
+        
+        function renderClassSelector(elementId, onClickFunction) {
+            const container = document.getElementById(elementId);
+            container.innerHTML = allClasses.map(cls => `
+                <button class="class-btn" onclick="${onClickFunction}('${cls}')">${cls}</button>
+            `).join('');
+        }
+        
+        async function loadRoster(classCode) {
+            try {
+                const response = await fetch(`${API_BASE}/class/${classCode}`);
+                const data = await response.json();
+                
+                let html = `<h3>${classCode} (${data.student_count} students)</h3>`;
+                html += '<div class="roster-grid">';
+                
+                data.students.forEach(student => {
+                    const hasLS = student.flags.ls && student.flags.ls !== 'No';
+                    const hasEAL = student.flags.eal && student.flags.eal !== 'No';
+                    const incidentsClass = student.incidents_this_week > 3 ? 'high' : '';
+                    
+                    html += `
+                        <div class="student-card">
+                            <div class="student-name">${student.name}</div>
+                            <div class="student-info">
+                                Year: ${student.year_group} | House: ${student.house || 'N/A'}
+                            </div>
+                            ${student.latest_assessment ? `
+                                <div class="student-info">
+                                    Latest: ${student.latest_assessment.topic} - ${student.latest_assessment.percentage}%
+                                </div>
+                            ` : ''}
+                            ${hasLS ? '<span class="badge ls">Learning Support</span>' : ''}
+                            ${hasEAL ? `<span class="badge eal">EAL ${student.flags.eal_tier || ''}</span>` : ''}
+                            <div class="incident-count ${incidentsClass}">
+                                This week: ${student.incidents_this_week} incidents
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+                document.getElementById('rosterContent').innerHTML = html;
+                
+                // Store for logger
+                allStudents[classCode] = data.students;
+                
+                // Update active class button
+                document.querySelectorAll('.class-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.textContent === classCode);
+                });
+            } catch (error) {
+                console.error('Error loading roster:', error);
+                document.getElementById('rosterContent').innerHTML = `<div class="error">Error loading roster</div>`;
+            }
+        }
+        
+        function updateStudentList() {
+            const classCode = document.getElementById('logClass').value;
+            const studentSelect = document.getElementById('logStudent');
+            
+            if (!classCode || !allStudents[classCode]) {
+                studentSelect.innerHTML = '<option value="">Select Student</option>';
+                return;
+            }
+            
+            studentSelect.innerHTML = '<option value="">Select Student</option>' + 
+                allStudents[classCode].map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+        }
+        
+        async function logIncident() {
+            const studentId = document.getElementById('logStudent').value;
+            const classCode = document.getElementById('logClass').value;
+            const logType = document.getElementById('logType').value;
+            const category = document.getElementById('logCategory').value;
+            const note = document.getElementById('logNote').value;
+            
+            if (!studentId || !classCode || !logType || !category) {
+                showMessage('logMessage', 'Please fill in all required fields', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/incident?student_id=${studentId}&class_code=${classCode}&log_type=${logType}&category=${category}&note=${encodeURIComponent(note)}`, {
+                    method: 'POST'
+                });
+                
+                if (response.ok) {
+                    showMessage('logMessage', `✅ Incident logged for ${document.getElementById('logStudent').options[document.getElementById('logStudent').selectedIndex].text}`, 'success');
+                    document.getElementById('logStudent').value = '';
+                    document.getElementById('logType').value = '';
+                    document.getElementById('logCategory').value = '';
+                    document.getElementById('logNote').value = '';
+                } else {
+                    showMessage('logMessage', 'Error logging incident', 'error');
+                }
+            } catch (error) {
+                console.error('Error logging incident:', error);
+                showMessage('logMessage', 'Error logging incident', 'error');
+            }
+        }
+        
+        async function loadPatterns(classCode) {
+            try {
+                const response = await fetch(`${API_BASE}/patterns/weekly?class_code=${classCode}`);
+                const data = await response.json();
+                
+                let html = `<h3>${classCode} - Weekly Patterns (${data.total_incidents} total incidents)</h3>`;
+                html += '<table class="patterns-table"><thead><tr><th>Student</th><th>Total</th><th>Negative</th><th>Positive</th><th>Trend</th></tr></thead><tbody>';
+                
+                data.patterns.forEach(pattern => {
+                    const trendEmoji = pattern.trend === 'concerning' ? '🔴' : '🟢';
+                    html += `
+                        <tr>
+                            <td>${pattern.student_name}</td>
+                            <td>${pattern.total_incidents}</td>
+                            <td>${pattern.negative_incidents}</td>
+                            <td>${pattern.positive_incidents}</td>
+                            <td>${trendEmoji} ${pattern.trend}</td>
+                        </tr>
+                    `;
+                });
+                
+                html += '</tbody></table>';
+                document.getElementById('patternsContent').innerHTML = html;
+                
+                // Update active class button
+                document.querySelectorAll('#patternsClassSelector .class-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.textContent === classCode);
+                });
+            } catch (error) {
+                console.error('Error loading patterns:', error);
+                document.getElementById('patternsContent').innerHTML = `<div class="error">Error loading patterns</div>`;
+            }
+        }
+        
+        async function loadBriefing(classCode) {
+            try {
+                const response = await fetch(`${API_BASE}/briefing/${classCode}`);
+                const data = await response.json();
+                
+                let html = `<h3>${classCode} - Pre-Lesson Briefing (${data.student_count} students)</h3>`;
+                html += '<div class="briefing-cards">';
+                
+                // At-risk students
+                if (data.at_risk_students.length > 0) {
+                    html += '<div class="briefing-card"><h3>⚠️ At-Risk Students</h3>';
+                    data.at_risk_students.forEach(s => {
+                        html += `
+                            <div class="briefing-item">
+                                <strong>${s.student_name}</strong><br>
+                                Negative incidents this week: ${s.negative_incidents}<br>
+                                Support level: ${s.support_level}
+                            </div>
+                        `;
+                    });
+                    html += '</div>';
+                }
+                
+                // High performers
+                if (data.high_performers.length > 0) {
+                    html += '<div class="briefing-card"><h3>⭐ High Performers</h3>';
+                    data.high_performers.forEach(s => {
+                        html += `
+                            <div class="briefing-item">
+                                <strong>${s.student_name}</strong><br>
+                                ${s.topic}: ${s.percentage}%
+                            </div>
+                        `;
+                    });
+                    html += '</div>';
+                }
+                
+                // Last week incidents
+                if (data.last_week_incidents.length > 0) {
+                    html += '<div class="briefing-card"><h3>📅 Active This Week</h3>';
+                    data.last_week_incidents.forEach(s => {
+                        html += `
+                            <div class="briefing-item">
+                                <strong>${s.student_name}</strong><br>
+                                ${s.count} incidents
+                            </div>
+                        `;
+                    });
+                    html += '</div>';
+                }
+                
+                html += '</div>';
+                document.getElementById('briefingContent').innerHTML = html;
+                
+                // Update active class button
+                document.querySelectorAll('#briefingClassSelector .class-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.textContent === classCode);
+                });
+            } catch (error) {
+                console.error('Error loading briefing:', error);
+                document.getElementById('briefingContent').innerHTML = `<div class="error">Error loading briefing</div>`;
+            }
+        }
+        
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Deactivate all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Activate button
+            event.target.classList.add('active');
+        }
+        
+        function showMessage(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="${type}">${message}</div>`;
+            setTimeout(() => {
+                element.innerHTML = '';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

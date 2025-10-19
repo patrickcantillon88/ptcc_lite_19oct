@@ -1,0 +1,693 @@
+# All 6 Lessons: Sphero Programming Unit - Presentation Ready Format
+*Copy and paste each section into your presentation slides*
+
+---
+
+# LESSON 1: SEQUENTIAL PROGRAMMING & SHAPE CREATION
+
+## SLIDE 1: LESSON TITLE
+
+**Sequential Programming & Shape Creation**
+
+Core Objectives:
+- Connect to Sphero and understand basic controls
+- Create programs using sequential commands
+- Program Sphero to move in a complete square shape
+- Understand that commands happen in order
+
+## SLIDE 2: LESSON INPUT
+
+**What is Sequential Programming?**
+
+Commands that happen one after another in order
+- Like following a recipe: step 1, then step 2, then step 3
+- Each command waits for the previous one to finish
+
+**Your Challenge Today:**
+Make Sphero draw a perfect square using 8 movement blocks
+
+**Key Blocks:**
+- When start program
+- Roll (movement)
+- Turn/Heading (direction)
+- Stop
+
+## SLIDE 3: CORE ACTIVITY
+
+**Building Your Square Program**
+
+Step 1: Plan Your Square
+- 4 equal sides, 4 corners
+- Each corner = 90-degree turn
+
+Step 2: Your Program Structure
+WHEN start program
+→ Roll forward 2 seconds
+→ Turn 90 degrees
+→ Roll forward 2 seconds
+→ Turn 90 degrees
+→ Roll forward 2 seconds
+→ Turn 90 degrees
+→ Roll forward 2 seconds
+→ Turn 90 degrees
+
+Step 3: Test and Debug
+- Does Sphero return to start position?
+
+## SLIDE 4: MINI PLENARY
+
+**Check Your Understanding**
+
+1. How many blocks did you use? Count them!
+2. What happens if you change 90 degrees to 45 degrees?
+3. Why do we need "When start program"?
+4. What angle would you need for a triangle?
+
+**Success Check:**
+- Explain your program to your partner
+- Does your square look like a square?
+- Can you predict what happens before running?
+
+**Get teacher verification for core objective!**
+
+## SLIDE 5: CHALLENGE CARDS
+
+**Ready for More Challenges?**
+
+**MILD: Light Show Square**
+- Add LED color changes to each corner
+- Different color for each turn
+- Make your square visual!
+
+**MEDIUM: Triangle Master**
+- Create triangle with 120-degree angles
+- Return to starting position
+- Explain why triangles need different angles
+
+**HOT: Polygon Designer**
+- Create pentagon (5 sides) or hexagon (6 sides)
+- Calculate angles: 360 ÷ number of sides
+- Show your mathematical working
+
+**Rules:** Complete core first, get peer verification, help others
+
+## SLIDE 6: PLENARY
+
+**Prove Your Programming Skills**
+
+Assessment Questions:
+1. What is sequential programming?
+2. Why does command order matter?
+3. What if "stop" was at the beginning?
+4. How is programming like giving directions?
+
+**Prove It Task - Choose One:**
+- Run your program and explain each step
+- Modify to create a rectangle
+- Predict what partner's program will do
+- Teach someone to make a triangle
+
+**Exit Ticket:**
+- One thing that worked well
+- One thing you found challenging
+- One question you still have
+
+**Next Lesson:** We'll learn about "loops" - can you guess what that means?
+
+---
+
+# LESSON 2: LOOPS & ARTISTIC PROGRAMMING
+
+## SLIDE 1: LESSON TITLE
+
+**Loops & Artistic Programming**
+
+Core Objectives:
+- Understand how loops make programs more efficient
+- Rebuild square using fewer blocks with loops
+- Create artistic spirograph patterns using loops
+- Recognize that loops save time and space in programming
+
+## SLIDE 2: LESSON INPUT
+
+**What are Loops?**
+
+Loops make programs repeat actions automatically
+- Instead of writing the same commands over and over
+- Tell the computer "do this X number of times"
+- Makes programs shorter and easier to understand
+
+**The Big Comparison:**
+- Last lesson: 8 blocks to make a square
+- Today: 3 blocks to make the same square!
+
+**Your Challenge:**
+Create efficient square AND draw spiral art pattern
+
+## SLIDE 3: CORE ACTIVITY
+
+**Building Loop Programs**
+
+Step 1: Efficient Square
+WHEN start program
+→ LOOP 4 times
+  → Roll forward 2 seconds
+  → Turn 90 degrees
+
+Step 2: Artistic Spiral
+WHEN start program
+→ LOOP 10 times
+  → Roll forward 1 second
+  → Turn 36 degrees
+
+Step 3: Test with Markers
+- Attach markers to Sphero
+- Draw patterns on large paper
+- Compare your results
+
+## SLIDE 4: MINI PLENARY
+
+**Check Your Understanding**
+
+1. How many blocks did your loop square use vs your old square?
+2. Why do programmers love loops?
+3. What happens if you change "loop 4 times" to "loop 6 times"?
+4. Can you predict what "loop 8 times, turn 45 degrees" would create?
+
+**Success Check:**
+- Both programs work and create visible drawings
+- You can explain why loops are more efficient
+- You understand what "repeat" means in programming
+
+**Get teacher verification for core objective!**
+
+## SLIDE 5: CHALLENGE CARDS
+
+**Create Amazing Art with Loops!**
+
+**GREEN CARD: Star Artist**
+- Create star pattern: Loop 5 times [Roll → Turn 144 degrees]
+- Draw on paper with marker
+- Figure out why stars need 144-degree turns
+
+**YELLOW CARD: Animation Loop**
+- Add matrix LED animations to your patterns
+- Different animation for each loop
+- Synchronize lights with movement
+
+**RED CARD: Mathematical Designer**
+- Design custom spirograph with your own angles
+- Calculate angles that create interesting patterns
+- Explain the math behind your pattern choice
+
+**Rules:** Core first, peer verification, help others with loops
+
+## SLIDE 6: PLENARY
+
+**Prove Your Loop Mastery**
+
+Assessment Questions:
+1. What makes loops so powerful in programming?
+2. How do loops help programmers work faster?
+3. What real-life activities use "loops" or repetition?
+4. Why might a programmer choose loops over writing everything out?
+
+**Prove It Task - Choose One:**
+- Create a new shape using loops and explain your angle choice
+- Teach someone else how to make their square more efficient
+- Predict and test what different loop numbers create
+- Design a pattern and explain the math behind it
+
+**Exit Ticket:**
+- What was easier: 8 blocks or 3 blocks? Why?
+- One pattern you'd like to try next
+- How could loops help in other subjects?
+
+**Next Lesson:** Advanced events - making Sphero respond to the world around it
+
+---
+
+# LESSON 3: ADVANCED EVENTS & INTERACTIVE SYSTEMS
+
+## SLIDE 1: LESSON TITLE
+
+**Advanced Events & Interactive Systems**
+
+Core Objectives:
+- Understand different types of events beyond "start program"
+- Create programs that respond to collision, landing, and free fall
+- Build interactive systems that react to the physical world
+- Recognize how devices around us use event-driven programming
+
+## SLIDE 2: LESSON INPUT
+
+**What are Advanced Events?**
+
+Events are things that trigger programs to run
+- "When start program" - you've used this!
+- "When collision" - Sphero hits something
+- "When landing" - Sphero stops falling
+- "When free fall" - Sphero is dropped
+
+**Real World Examples:**
+- Phone responds when you touch the screen
+- Car alarm triggers when someone hits the car
+- Automatic doors open when you approach
+
+**Your Challenge:**
+Create responses for collision, landing, and free fall events
+
+## SLIDE 3: CORE ACTIVITY
+
+**Building Interactive Response System**
+
+Step 1: Collision Response
+WHEN collision detected
+→ Flash red LED
+→ Play alarm sound
+
+Step 2: Landing Response
+WHEN landing detected
+→ Green pulse LED
+→ Play gentle sound
+
+Step 3: Free Fall Response
+WHEN free fall detected
+→ Falling animation on matrix
+→ Play dropping sound
+
+Test Each Event:
+- Gently roll Sphero into wall (collision)
+- Drop Sphero from small height (free fall + landing)
+
+## SLIDE 4: MINI PLENARY
+
+**Check Your Understanding**
+
+1. What's the difference between "start program" and "collision" events?
+2. Which event happens first: free fall or landing? Why?
+3. How is this like a phone responding to touch?
+4. What other events might be useful for interactive programs?
+
+**Success Check:**
+- All three events trigger appropriate responses
+- You can safely test each event type
+- You understand programs can "wait" for events to happen
+
+**Get teacher verification for core objective!**
+
+## SLIDE 5: CHALLENGE CARDS
+
+**Build Amazing Interactive Systems!**
+
+**GREEN CARD: Motion Master**
+- Add gyro max detection (spinning events)
+- Different response for extreme spinning
+- Test by spinning Sphero rapidly
+
+**YELLOW CARD: Interactive Art Installation**
+- Create artistic responses to all physical events
+- Each event triggers unique visual/audio combination
+- Use matrix animations and synchronized sounds
+
+**RED CARD: Smart System Designer**
+- Include charging state events (when plugged in vs unplugged)
+- Program behaves differently when charging
+- Create real-world application concept
+
+**Rules:** Core events first, peer verification, explore safely
+
+## SLIDE 6: PLENARY
+
+**Prove Your Event Mastery**
+
+Assessment Questions:
+1. How do events make programs more interactive?
+2. What's the advantage of event-driven programming?
+3. Name three devices that use event responses in real life
+4. Why don't we need loops for event programs?
+
+**Prove It Task - Choose One:**
+- Demonstrate all your events and explain what triggers each
+- Design a new event response for a different situation
+- Test someone else's program and identify which events they used
+- Explain how event programming could solve a real problem
+
+**Exit Ticket:**
+- Which event was most interesting to program?
+- One real-world device that uses events like these
+- One new event type you'd like to try
+
+**Next Lesson:** Conditional logic - making Sphero make smart decisions
+
+---
+
+# LESSON 4: CONDITIONAL LOGIC & SENSORS
+
+## SLIDE 1: LESSON TITLE
+
+**Conditional Logic & Sensors**
+
+Core Objectives:
+- Understand how programs make decisions using if/else
+- Use accelerometer sensor data to detect movement
+- Create programs that respond differently based on conditions
+- Recognize how smart devices make decisions
+
+## SLIDE 2: LESSON INPUT
+
+**What is Conditional Logic?**
+
+Programs that make decisions based on information
+- IF this happens, THEN do that
+- ELSE do something different
+- Like a smart thermostat: IF too cold THEN turn on heat
+
+**Sensor Data:**
+Accelerometer measures movement and shaking
+- Gentle movement = low numbers
+- Vigorous shaking = high numbers
+- We can set "thresholds" to detect different levels
+
+**Your Challenge:**
+Create motion detector: shake = red light, still = green light
+
+## SLIDE 3: CORE ACTIVITY
+
+**Building Motion Detection Program**
+
+Step 1: Understanding Thresholds
+- Test different shake intensities
+- Find the right sensitivity level
+
+Step 2: Your Program Structure
+WHEN start program
+→ LOOP forever
+  → IF accelerometer > 2
+    → Red light + alarm sound
+  → ELSE
+    → Green light
+
+Step 3: Test and Adjust
+- Try gentle movement vs vigorous shaking
+- Adjust threshold number if needed (1.5, 2.5, 3.0)
+
+## SLIDE 4: MINI PLENARY
+
+**Check Your Understanding**
+
+1. What does the accelerometer sensor measure?
+2. Why do we need "loop forever" in this program?
+3. What happens if you change the threshold from 2 to 5?
+4. How is this like a car's airbag system?
+
+**Success Check:**
+- Program shows red when shaken hard, green when still
+- You can explain what the threshold number controls
+- You understand IF/ELSE decision making
+
+**Get teacher verification for core objective!**
+
+## SLIDE 5: CHALLENGE CARDS
+
+**Create Smart Decision Systems!**
+
+**GREEN CARD: Sound Detector**
+- Add different sounds for motion vs stillness
+- Alarm sound for motion, gentle sound for stillness
+- Test with different movement levels
+
+**YELLOW CARD: Traffic Light System**
+- Create 3-level detection: Green/Yellow/Red
+- Multiple IF statements with different thresholds
+- Green (still), Yellow (moderate), Red (fast movement)
+
+**RED CARD: Motion Game Creator**
+- Interactive game using accelerometer
+- Include timer elements and challenges
+- Players must respond within time limits
+
+**Rules:** Core conditional logic first, peer verification, test safely
+
+## SLIDE 6: PLENARY
+
+**Prove Your Conditional Logic Skills**
+
+Assessment Questions:
+1. How do IF/ELSE statements make programs smarter?
+2. Why are thresholds important in sensor programming?
+3. What other sensors might use conditional logic?
+4. How could this help solve real-world problems?
+
+**Prove It Task - Choose One:**
+- Modify your threshold and explain what changes
+- Create a new conditional program for a different purpose
+- Test different movement types and predict responses
+- Explain how conditional logic works to someone else
+
+**Exit Ticket:**
+- What was challenging about setting thresholds?
+- One smart device that probably uses conditional logic
+- One new condition you'd like to program
+
+**Next Lesson:** Variables - making programs remember information
+
+---
+
+# LESSON 5: VARIABLES & DATA STORAGE
+
+## SLIDE 1: LESSON TITLE
+
+**Variables & Data Storage**
+
+Core Objectives:
+- Understand variables as containers that store information
+- Create counting systems using variables
+- Display variable values on Sphero's matrix
+- Recognize how programs track and remember data
+
+## SLIDE 2: LESSON INPUT
+
+**What are Variables?**
+
+Variables are containers that hold information
+- Like a box with a label that can hold different things
+- Can store numbers, text, or other data
+- Values can change as the program runs
+
+**Why Use Variables?**
+- Remember scores in games
+- Count how many times something happens
+- Track progress or achievements
+- Store user preferences
+
+**Your Challenge:**
+Create scoring system that counts events and displays the score
+
+## SLIDE 3: CORE ACTIVITY
+
+**Building Variable Counter System**
+
+Step 1: Create Your Variable
+- Make variable called "score"
+- Set starting value to 0
+
+Step 2: Your Program Structure
+WHEN start program
+→ Set score to 0
+→ Display score on matrix
+
+WHEN touched
+→ Increase score by 1
+→ Display new score on matrix
+
+Step 3: Test Your Counter
+- Touch Sphero multiple times
+- Watch score increase on display
+- Verify numbers are correct
+
+## SLIDE 4: MINI PLENARY
+
+**Check Your Understanding**
+
+1. What information does your variable store?
+2. Why does the score start at 0?
+3. What happens each time you touch Sphero?
+4. How is this like keeping score in a real game?
+
+**Success Check:**
+- Variable changes value when events occur
+- Score displays correctly on matrix
+- You can explain what variables "remember"
+
+**Get teacher verification for core objective!**
+
+## SLIDE 5: CHALLENGE CARDS
+
+**Create Advanced Data Systems!**
+
+**GREEN CARD: Timer Challenge**
+- Create timer variable that counts automatically
+- Use loops to increase timer every second
+- Reset timer when specific events occur
+
+**YELLOW CARD: Multi-Variable Tracker**
+- Track two variables: attempts vs successes
+- Calculate success rate or percentage
+- Display both values using scrolling text
+
+**RED CARD: Smart Scoring System**
+- Variables change by different amounts based on event types
+- Collision = +5 points, Touch = +1 point
+- Include bonus conditions for streaks or speed
+
+**Rules:** Core variable understanding first, peer verification, test thoroughly
+
+## SLIDE 6: PLENARY
+
+**Prove Your Variable Mastery**
+
+Assessment Questions:
+1. How do variables help programs remember information?
+2. What's the difference between a variable and a regular number?
+3. Why might games need multiple variables?
+4. How could variables improve your previous programs?
+
+**Prove It Task - Choose One:**
+- Create a variable system for a different type of counting
+- Explain to someone how variables work using a real-world example
+- Modify your program to track different information
+- Design a scoring system for a game you'd like to create
+
+**Exit Ticket:**
+- What was most interesting about variables?
+- One real-world situation where counting/tracking is important
+- How variables might help in your final project
+
+**Next Lesson:** Integration - combining everything into amazing games!
+
+---
+
+# LESSON 6: INTEGRATION & GAME DEVELOPMENT
+
+## SLIDE 1: LESSON TITLE
+
+**Integration & Game Development**
+
+Core Objectives:
+- Combine all programming concepts into complete interactive games
+- Design user experiences that are fun and functional
+- Apply sequences, loops, conditionals, events, and variables together
+- Create games that others can play and enjoy
+
+## SLIDE 2: LESSON INPUT
+
+**Bringing It All Together**
+
+You now know the building blocks of programming:
+- Sequences: Commands in order
+- Loops: Efficient repetition
+- Events: Responding to triggers
+- Conditionals: Making smart decisions
+- Variables: Remembering information
+
+**Game Design Thinking:**
+- What makes games fun?
+- How do players know what to do?
+- What makes games challenging but fair?
+
+**Your Challenge:**
+Create complete interactive game using at least 4 concepts
+
+## SLIDE 3: CORE ACTIVITY
+
+**Building Your Complete Game**
+
+Step 1: Choose Your Game Concept
+- Reaction games (respond quickly to events)
+- Skill games (precise movements or timing)
+- Challenge games (achieve goals under pressure)
+
+Step 2: Plan Your Programming
+- Which events will trigger actions?
+- What conditions will you check?
+- How will scoring work?
+- What loops will you need?
+
+Step 3: Build and Test
+- Start with basic version
+- Add features one at a time
+- Test with classmates for feedback
+
+Example Game Structure:
+WHEN start → Set score to 0, Start timer
+WHEN collision → IF timer < 5 seconds THEN score +10 ELSE score +1
+LOOP forever → Display score and timer
+
+## SLIDE 4: MINI PLENARY
+
+**Check Your Game Progress**
+
+1. Which 4 programming concepts does your game use?
+2. How do players know what to do in your game?
+3. What makes your game challenging?
+4. What feedback does your game give to players?
+
+**Success Check:**
+- Game works reliably when tested
+- Uses events, conditionals, loops, and variables
+- Other students can understand and play it
+
+**Get teacher verification for core objective!**
+
+## SLIDE 5: CHALLENGE CARDS
+
+**Create Professional-Level Games!**
+
+**GREEN CARD: Multi-Level Game**
+- Add different difficulty settings using variables
+- Easy mode: longer time limits, higher scores
+- Hard mode: shorter time, precise requirements
+
+**YELLOW CARD: Competition Game**
+- Two-player system with separate scoring
+- Different challenges for each player
+- Clear win conditions and feedback
+
+**RED CARD: Adaptive Smart Game**
+- Game changes based on player performance
+- Gets harder if player succeeds too easily
+- Provides hints if player struggles
+
+**Rules:** Core integration first, peer verification, focus on user experience
+
+## SLIDE 6: PLENARY
+
+**Showcase Your Programming Journey**
+
+**Final Presentations:**
+- Demonstrate your game to the class
+- Explain which programming concepts you used
+- Share what was challenging and what worked well
+
+**Reflection Questions:**
+1. How did combining concepts make your programs more powerful?
+2. What programming concept was most useful for game development?
+3. What would you like to learn about programming next?
+4. How could programming help solve real-world problems?
+
+**Peer Feedback:**
+- Most creative use of programming concepts
+- Best user experience design
+- Most challenging but fair game
+
+**Celebration:**
+You are now programmers who understand:
+- Sequential thinking and problem-solving
+- Efficiency through loops and patterns
+- Interactive design through events
+- Smart decision-making through conditionals
+- Data management through variables
+- System integration through game development
+
+**Next Steps:** These concepts transfer to any programming language or environment!

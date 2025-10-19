@@ -1,0 +1,17 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "DOCKERFILE"
+  },
+  "deploy": {
+    "startCommand": "python streamlit_cloud_auth.py",
+    "healthcheckPath": "/health",
+    "healthcheckTimeout": 300
+  },
+  "variables": {
+    "JWT_SECRET": "your-production-jwt-secret-change-this",
+    "DEMO_USERNAME": "demo",
+    "DEMO_PASSWORD": "ptcc2024",
+    "PORT": "8501"
+  }
+}

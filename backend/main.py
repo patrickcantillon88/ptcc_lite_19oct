@@ -33,6 +33,7 @@ from .api.teacher_assistant import router as teacher_assistant_router
 from .api.staff_router import router as staff_router
 from .api.timetable_router import router as timetable_router
 from .api.accommodations_router import router as accommodations_router
+from .api.lite_endpoints import router as lite_router
 from .core.agent_orchestrator import AgentOrchestrator
 from .core.config import get_settings
 from .core.database import create_tables, get_db
@@ -199,6 +200,9 @@ app.include_router(teacher_assistant_router)  # No prefix - uses /api/teacher-as
 app.include_router(staff_router)
 app.include_router(timetable_router)
 app.include_router(accommodations_router)
+
+# Include PTCC Lite endpoints (YOUR ICT CLASSES ONLY)
+app.include_router(lite_router)
 
 
 @app.get("/", response_class=HTMLResponse)

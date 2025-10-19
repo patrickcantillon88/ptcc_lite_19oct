@@ -85,6 +85,7 @@ print_status "info" "Cleaning up existing processes..."
 pkill -9 -f "python.*backend" 2>/dev/null || true
 pkill -9 -f "npm run dev" 2>/dev/null || true
 pkill -9 -f "vite" 2>/dev/null || true
+pkill -9 -f "node.*vite" 2>/dev/null || true
 pkill -9 -f "streamlit" 2>/dev/null || true
 # Kill processes on specific ports
 lsof -ti:$BACKEND_PORT | xargs kill -9 2>/dev/null || true
@@ -155,6 +156,9 @@ if ! wait_for_service "http://localhost:$DOCUMENTATION_PORT" "Documentation App"
     exit 1
 fi
 
+# Small delay to prevent resource conflicts
+sleep 1
+
 # Documentation app is ready (will open later with dashboard)
 
 # ============================================================================
@@ -176,6 +180,9 @@ if ! wait_for_service "http://localhost:$PWA_PORT" "Mobile PWA" 15; then
     tail -20 "$LOG_DIR/pwa.log"
     exit 1
 fi
+
+# Small delay to prevent resource conflicts
+sleep 1
 
 # ============================================================================
 # STEP 4: Start Digital Citizenship App (Project Guardian)
@@ -222,7 +229,7 @@ fi
 # ============================================================================
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}STEP 6: Starting CCA Comments App
+echo -e "${CYAN}STEP 6: Starting CCA Comments App"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 cd "$SCRIPT_DIR/frontend/cca-comments"
@@ -242,7 +249,7 @@ fi
 # ============================================================================
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}STEP 7: Starting Behaviour Management App
+echo -e "${CYAN}STEP 7: Starting Behaviour Management App"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 cd "$SCRIPT_DIR/frontend/behaviour-management"
@@ -262,7 +269,7 @@ fi
 # ============================================================================
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}STEP 8: Starting Intervention Priority App
+echo -e "${CYAN}STEP 8: Starting Intervention Priority App"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 cd "$SCRIPT_DIR/frontend/intervention-priority"
@@ -282,7 +289,7 @@ fi
 # ============================================================================
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}STEP 9: Starting Progress Dashboard App
+echo -e "${CYAN}STEP 9: Starting Progress Dashboard App"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 cd "$SCRIPT_DIR/frontend/progress-dashboard"
@@ -302,7 +309,7 @@ fi
 # ============================================================================
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}STEP 10: Starting Seating Chart App
+echo -e "${CYAN}STEP 10: Starting Seating Chart App"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 cd "$SCRIPT_DIR/frontend/seating-chart"
@@ -322,7 +329,7 @@ fi
 # ============================================================================
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}STEP 11: Starting Group Formation App
+echo -e "${CYAN}STEP 11: Starting Group Formation App"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 cd "$SCRIPT_DIR/frontend/group-formation"
@@ -342,7 +349,7 @@ fi
 # ============================================================================
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}STEP 12: Starting Differentiation App
+echo -e "${CYAN}STEP 12: Starting Differentiation App"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 cd "$SCRIPT_DIR/frontend/differentiation"
@@ -362,7 +369,7 @@ fi
 # ============================================================================
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}STEP 13: Starting Quiz Upload App
+echo -e "${CYAN}STEP 13: Starting Quiz Upload App"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 cd "$SCRIPT_DIR/frontend/quiz-upload"
@@ -382,7 +389,7 @@ fi
 # ============================================================================
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}STEP 14: Starting Performance Trends App
+echo -e "${CYAN}STEP 14: Starting Performance Trends App"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 cd "$SCRIPT_DIR/frontend/performance-trends"
@@ -402,7 +409,7 @@ fi
 # ============================================================================
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}STEP 15: Starting Progress Levels App
+echo -e "${CYAN}STEP 15: Starting Progress Levels App"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 cd "$SCRIPT_DIR/frontend/progress-levels"
@@ -422,13 +429,14 @@ fi
 # ============================================================================
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}STEP 16: Starting At-Risk Students App
+echo -e "${CYAN}STEP 16: Starting At-Risk Students App"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 cd "$SCRIPT_DIR/frontend/at-risk-students"
 print_status "info" "Starting Vite dev server..."
 nohup npm run dev > "$LOG_DIR/at-risk.log" 2>&1 &
 AT_RISK_PID=$!
+disown
 print_status "info" "At-Risk Students PID: $AT_RISK_PID"
 
 if ! wait_for_service "http://localhost:$AT_RISK_PORT" "At-Risk Students App" 15; then
@@ -442,7 +450,7 @@ fi
 # ============================================================================
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}STEP 17: Starting Assessment Analytics Overview
+echo -e "${CYAN}STEP 17: Starting Assessment Analytics Overview"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
 cd "$SCRIPT_DIR/frontend/assessment-analytics-overview"
@@ -467,7 +475,7 @@ echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━�
 
 cd "$SCRIPT_DIR/frontend/desktop-web"
 print_status "info" "Starting Streamlit..."
-nohup streamlit run app.py --logger.level=warning --server.port=$DASHBOARD_PORT > "$LOG_DIR/dashboard.log" 2>&1 &
+nohup streamlit run app.py --logger.level=warning --server.port=$DASHBOARD_PORT --server.headless true > "$LOG_DIR/dashboard.log" 2>&1 &
 DASHBOARD_PID=$!
 print_status "info" "Streamlit PID: $DASHBOARD_PID"
 
