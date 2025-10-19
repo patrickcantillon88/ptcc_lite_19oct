@@ -26,14 +26,14 @@ EOF
 sleep 1
 
 echo ""
-echo "  📊 Starting up..."
+echo "  📊 Starting up... [1/6]"
 echo ""
 
 cd "$(dirname "$0")"
 
 # Clean up old venv if corrupted
 if [ -d "venv" ] && [ ! -f "venv/bin/python3" ]; then
-    echo "  🧹 Cleaning corrupted venv..."
+    echo "  🧹 [2/6] Cleaning corrupted venv..."
     rm -rf venv
     echo "     ✅ Cleaned"
     echo ""
@@ -41,7 +41,7 @@ fi
 
 # Setup virtual environment
 if [ ! -d "venv" ]; then
-    echo "  📦 Creating virtual environment..."
+    echo "  📦 [2/6] Creating virtual environment..."
     python3 -m venv venv
     echo "     ✅ Virtual environment created"
     echo ""
@@ -52,21 +52,24 @@ VENV_PYTHON="${PWD}/venv/bin/python3"
 VENV_PIP="${PWD}/venv/bin/pip"
 
 # Install dependencies
-echo "  📚 Installing dependencies..."
+echo "  📚 [3/6] Installing dependencies..."
+echo "     ⏳ FastAPI, Uvicorn, SQLAlchemy, Pandas..."
 "$VENV_PIP" install -q -r backend/requirements.txt
-echo "     ✅ Dependencies installed"
+echo "     ✅ All dependencies installed"
 echo ""
 
 # Check data
 if [ ! -f "data/school.db" ]; then
-    echo "  📥 Importing your student data..."
+    echo "  📥 [4/6] Importing your student data..."
+    echo "     ⏳ Processing CAT4 scores, class rosters, quizzes..."
     "$VENV_PYTHON" scripts/import_lite_data.py > /dev/null 2>&1
     echo "     ✅ 90 students loaded from your ICT classes"
     echo ""
 fi
 
 # Start backend
-echo "  🔧 Starting backend API..."
+echo "  🔧 [5/6] Starting backend API..."
+echo "     ⏳ Launching FastAPI server on port 8001..."
 "$VENV_PYTHON" -m backend.main > /tmp/ptcc_backend.log 2>&1 &
 BACKEND_PID=$!
 sleep 4
@@ -82,7 +85,8 @@ echo "     ✅ Backend running on http://localhost:8001"
 echo ""
 
 # Open UI
-echo "  📂 Opening web interface..."
+echo "  📂 [6/6] Opening web interface..."
+echo "     ⏳ Launching browser..."
 open "file://$(pwd)/frontend/ptcc-lite.html"
 sleep 1
 echo "     ✅ Web UI ready"
